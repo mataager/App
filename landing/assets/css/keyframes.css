@@ -1,0 +1,151 @@
+/* Custom Keyframes */
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideRight {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes zoomIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Base class for animated elements to prevent "flashing" */
+.reveal {
+    opacity: 0;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-duration: 0.7s;
+}
+
+/* Animation Variants */
+.animate-up {
+    animation-name: slideUp;
+}
+
+.animate-right {
+    animation-name: slideRight;
+}
+
+.animate-zoom {
+    animation-name: zoomIn;
+}
+
+/* Custom Delays */
+.delay-100 {
+    animation-delay: 100ms;
+}
+
+.delay-200 {
+    animation-delay: 200ms;
+}
+
+.delay-300 {
+    animation-delay: 300ms;
+}
+
+.delay-400 {
+    animation-delay: 400ms;
+}
+
+.delay-500 {
+    animation-delay: 500ms;
+}
+
+@layer components {
+    .glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow:
+            0 4px 24px -1px rgba(0, 0, 0, 0.2),
+            inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Make the active step actually glow */
+    .step-active {
+        background-color: white;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        border: none;
+    }
+}
+
+/* Smooth height transition for the card */
+.form-container {
+    transition: height 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+
+/* shining texts */
+
+@keyframes shine {
+    0% {
+        background-position: -100% center;
+    }
+
+    100% {
+        background-position: 100% center;
+    }
+}
+
+.shining-text {
+    /* Create a gradient: gray -> white -> gray */
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0.4) 20%,
+            rgba(255, 255, 255, 1) 50%,
+            rgba(255, 255, 255, 0.4) 80%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* Animation settings */
+    animation: shine 3s linear infinite;
+    display: inline-block;
+}
+
+/* "rise up" slightly when the user hovers over the card */
+/* Smoothly lift icon on Hover (via Tailwind group-hover) or when Selected */
+.option-card:hover .submerged-icon,
+.option-card.selected .submerged-icon {
+    transform: translateY(-8px);
+    /* Slightly more than the Tailwind -translate-y-2 */
+    opacity: 0.5;
+    /* Makes it pop a bit more when active */
+}
+
+/* Ensure the return journey is just as smooth */
+.submerged-icon {
+    transition: transform 0.6s ease, opacity 0.4s ease;
+}
