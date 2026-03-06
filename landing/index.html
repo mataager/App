@@ -156,34 +156,55 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass p-8 rounded-3xl card-reveal">
+                <div class="glass p-8 rounded-3xl card-reveal active flex flex-col h-full">
                     <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
                         <i class="bi bi-rocket-takeoff text-blue-400 text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3">Instant Setup</h3>
-                    <p class="text-white/40 leading-relaxed">No coding required. Use our intuitive builder to launch
-                        your
-                        brand identity instantly.</p>
-                </div>
-
-                <div class="glass p-8 rounded-3xl card-reveal">
-                    <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6">
-                        <i class="bi bi-shield-check text-purple-400 text-2xl"></i>
+                    <p class="text-white/40 leading-relaxed mb-6 flex-grow">
+                        No coding required. Use our intuitive drag-and-drop builder to launch your brand identity
+                        instantly.
+                        Customizing your store has never been this effortless or fast.
+                    </p>
+                    <div class="pt-2">
+                        <span class="text-xs font-bold text-blue-400/60 uppercase tracking-widest">Zero
+                            Configuration</span>
                     </div>
-                    <h3 class="text-xl font-bold mb-3">Secure Payments</h3>
-                    <p class="text-white/40 leading-relaxed">Integrated global payment gateways ensuring your customers
-                        shop
-                        with total confidence.</p>
                 </div>
 
-                <div class="glass p-8 rounded-3xl card-reveal">
+                <div class="glass p-8 rounded-3xl card-reveal active flex flex-col h-full border-purple-500/20">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i class="bi bi-lightning-charge-fill text-purple-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Quick Checkout</h3>
+                    <p class="text-white/40 leading-relaxed mb-4 flex-grow">
+                        Our ultra-simple UI minimizes friction, making every second count. Experience lightning-fast
+                        transactions
+                        designed for high conversion and happy customers.
+                    </p>
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 w-fit">
+                        <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+                        <span class="text-xs font-bold text-purple-300 tracking-wider uppercase">
+                            Matager.me — Coming Soon
+                        </span>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-3xl card-reveal active flex flex-col h-full">
                     <div class="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center mb-6">
                         <i class="bi bi-graph-up-arrow text-emerald-400 text-2xl"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3">Scale Faster</h3>
-                    <p class="text-white/40 leading-relaxed">Built-in SEO and marketing tools designed to turn visitors
-                        into
-                        loyal, repeat customers.</p>
+                    <p class="text-white/40 leading-relaxed mb-6 flex-grow">
+                        Built-in SEO and marketing tools designed to turn visitors into loyal, repeat customers. Track
+                        your growth
+                        with real-time analytics and data-driven insights.
+                    </p>
+                    <div class="pt-2">
+                        <span class="text-xs font-bold text-emerald-400/60 uppercase tracking-widest">Growth
+                            Analytics</span>
+                    </div>
                 </div>
             </div>
 
@@ -191,13 +212,15 @@
                 class="mt-16 glass p-10 rounded-[2rem] flex flex-col md:flex-row items-center justify-between gap-8 border-blue-500/20 card-reveal">
                 <div>
                     <h3 class="text-2xl font-bold mb-2">Ready to become a Matager merchant?</h3>
-                    <p class="text-white/60">Join 10,000+ businesses growing on our platform.</p>
+                    <p class="text-white/60">Join 10,000+ businesses. Be the next one.</p>
                 </div>
                 <a href="./signing.html"
                     class="bg-white text-black px-8 py-3 rounded-full font-bold hover:bg-gray-200 transition whitespace-nowrap">
                     Start Your Journey
                 </a>
             </div>
+
+
         </section>
 
         <section class="max-w-7xl mx-auto py-20 px-4 w-full">
@@ -273,6 +296,26 @@
                         <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
                             <i class="bi bi-play-circle-fill text-blue-400"></i>
                         </div>
+                        <span class="font-medium">Who we are ?</span>
+                    </div>
+                    <i class="bi bi-chevron-right text-white/20 group-hover:text-white transition"></i>
+                </button>
+                <button onclick="openVideo('How to set up my brand?', 'Rg6AmJSFtns')"
+                    class="glass p-6 rounded-3xl flex items-center justify-between group hover:border-blue-500/50 hover:transform-none transition-all text-left">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+                            <i class="bi bi-play-circle-fill text-blue-400"></i>
+                        </div>
+                        <span class="font-medium">How i get started ?</span>
+                    </div>
+                    <i class="bi bi-chevron-right text-white/20 group-hover:text-white transition"></i>
+                </button>
+                <button onclick="openVideo('How to set up my brand?', 'Rg6AmJSFtns')"
+                    class="glass p-6 rounded-3xl flex items-center justify-between group hover:border-blue-500/50 hover:transform-none transition-all text-left">
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+                            <i class="bi bi-play-circle-fill text-blue-400"></i>
+                        </div>
                         <span class="font-medium">How to set up my brand?</span>
                     </div>
                     <i class="bi bi-chevron-right text-white/20 group-hover:text-white transition"></i>
@@ -305,6 +348,8 @@
                 </div>
             </div>
         </section>
+
+
 
         <script>
 

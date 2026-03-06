@@ -1953,3 +1953,15 @@ input {
     font-size: 14px !important;
   }
 }
+
+#merchant-counter {
+  transition: color 0.3s ease;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* This class is added when there is content to scroll */
+.is-scrolling-below {
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
