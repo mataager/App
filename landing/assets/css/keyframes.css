@@ -149,3 +149,26 @@
 .submerged-icon {
     transition: transform 0.6s ease, opacity 0.4s ease;
 }
+
+
+@keyframes indicatorPop {
+    0% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-indicator {
+    animation: indicatorPop 0.4s ease-out forwards;
+}
+
+/* Ensure smooth transitions for the glow and size */
+.dot,
+.step-line {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}

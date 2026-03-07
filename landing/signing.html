@@ -105,21 +105,24 @@
 
     <img src="./assets/img/Logo.png" alt="logo" class="h-14 w-auto mb-5 opacity-90 animate-up">
 
-    <div id="step-indicators" class="flex items-center gap-2 mb-5 transition-all duration-500">
-        <div class="dot w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_12px_#fff] animate-up"
-            style="animation-delay: 100ms"></div>
-        <div class="w-8 h-[1px] bg-white/10 animate-up" style="animation-delay: 150ms"></div>
-        <div class="dot w-1.5 h-1.5 rounded-full bg-white/20 animate-up" style="animation-delay: 200ms"></div>
-        <div class="w-8 h-[1px] bg-white/10 animate-up" style="animation-delay: 250ms"></div>
-        <div class="dot w-1.5 h-1.5 rounded-full bg-white/20 animate-up" style="animation-delay: 300ms"></div>
-        <div class="w-8 h-[1px] bg-white/10 animate-up" style="animation-delay: 350ms"></div>
-        <div class="dot w-1.5 h-1.5 rounded-full bg-white/20 animate-up" style="animation-delay: 400ms"></div>
-        <div class="w-8 h-[1px] bg-white/10 animate-up" style="animation-delay: 450ms"></div>
-        <div class="dot w-1.5 h-1.5 rounded-full bg-white/20 animate-up" style="animation-delay: 500ms"></div>
-        <div class="w-8 h-[1px] bg-white/10 animate-up" style="animation-delay: 550ms"></div>
-        <div class="dot w-1.5 h-1.5 rounded-full bg-white/20 animate-up" style="animation-delay: 600ms"></div>
-    </div>
+    <div id="step-indicators" class="flex items-center gap-2 mb-5">
+        <div class="dot animate-indicator" style="animation-delay: 100ms"></div>
+        <div class="step-line w-8 h-[1px] animate-indicator" style="animation-delay: 150ms"></div>
 
+        <div class="dot animate-indicator" style="animation-delay: 200ms"></div>
+        <div class="step-line w-8 h-[1px] animate-indicator" style="animation-delay: 250ms"></div>
+
+        <div class="dot animate-indicator" style="animation-delay: 300ms"></div>
+        <div class="step-line w-8 h-[1px] animate-indicator" style="animation-delay: 350ms"></div>
+
+        <div class="dot animate-indicator" style="animation-delay: 400ms"></div>
+        <div class="step-line w-8 h-[1px] animate-indicator" style="animation-delay: 450ms"></div>
+
+        <div class="dot animate-indicator" style="animation-delay: 500ms"></div>
+        <div class="step-line w-8 h-[1px] animate-indicator" style="animation-delay: 550ms"></div>
+
+        <div class="dot animate-indicator" style="animation-delay: 600ms"></div>
+    </div>
     <div id="main-card" class="glass-card w-full max-w-[450px] p-10 rounded-[30px]  min-h-[380.5px]"
         style="animation-delay: 200ms">
         <div id="step-content" class="reveal animate-up [animation-delay:400ms] ">
@@ -147,436 +150,352 @@
     <script>
         let currentStep = 0;
         let isSignIn = false;
+        let isResetting = false; // Track if we are in the "Forgot Password" view
+        const formData = {};
 
         const steps = [
             {
                 title: "Create Account",
                 sub: "Enter your email to get started.",
-                html: `<div class="space-y-4 animate-up">
-                    <label class="text-[11px] uppercase tracking-widest text-white/30 ml-1">Email Address</label>
-                    <input type="email" id="email" placeholder="name@gmail.com" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all ">
-                </div>`
+                fields: ['email'],
+                html: (data) => `<div class="space-y-4 animate-up">
+                <label class="text-[11px] uppercase tracking-widest text-white/30 ml-1">Email Address</label>
+                <input type="email" id="email" value="${data.email || ''}" placeholder="name@gmail.com" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all ">
+            </div>`
             },
             {
                 title: "Complete Signup",
                 sub: "Set your password and name.",
-                html: `
-                                <div class="space-y-4 animate-up">
+                fields: ['firstName', 'lastName', 'password'],
+                html: (data) => `<div class="space-y-4 animate-up">
                 <div class="flex gap-2">
-                    <input type="text" placeholder="First Name" class="w-1/2 px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none ">
-                    <input type="text" placeholder="Last Name" class="w-1/2 px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none ">
+                    <input type="text" id="firstName" value="${data.firstName || ''}" placeholder="First Name" class="w-1/2 px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none ">
+                    <input type="text" id="lastName" value="${data.lastName || ''}" placeholder="Last Name" class="w-1/2 px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none ">
                 </div>
-
                 <div class="relative group">
-                    <input type="password" id="passwordInput" placeholder="Create a password" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40  transition-all">
-
-                    <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors focus:outline-none">
-                        <i id="toggleIcon" class="bi bi-eye"></i>
-                    </button>
+                    <input type="password" id="password" value="${data.password || ''}" placeholder="Create a password" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all">
+                    <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 focus:outline-none"><i id="toggleIcon" class="bi bi-eye"></i></button>
                 </div>
-            </div>
-                `
+            </div>`
             },
             {
                 title: "What’s your focus?",
                 sub: "Choose the categories you plan to sell.",
-                html: ` <div class="grid grid-cols-1 gap-3 categories-options animate-up">
-                        <div class="option-card p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300" onclick="setChoice(this)">
-                            <div class="flex flex-col">
-                                <span class="text-white font-medium">Apparel & Accessories</span>
-                                <small class="text-white/50">Clothing, shoes, watches, eyeglasses, bags, and jewelry.</small>
-                            </div>
-                            <div class="check-box w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
-                                <i class="bi bi-check-lg scale-0 transition-transform duration-200 text-black"></i>
-                            </div>
-                        </div>
-
-                        <div class="option-card p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300" onclick="setChoice(this)">
-                            <div class="flex flex-col">
-                                <span class="text-white font-medium">Home & Garden</span>
-                                <small class="text-white/50">Décor, kitchenware, and furniture.</small>
-                            </div>
-                            <div class="check-box w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
-                                <i class="bi bi-check-lg scale-0 transition-transform duration-200 text-black"></i>
-                            </div>
-                        </div>
-
-                        <div class="option-card p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300" onclick="setChoice(this)">
-                            <div class="flex flex-col">
-                                <span class="text-white font-medium">Beauty & Wellness</span>
-                                <small class="text-white/50">Organic skincare, vegan cosmetics, and personal care.</small>
-                            </div>
-                            <div class="check-box w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
-                                <i class="bi bi-check-lg scale-0 transition-transform duration-200 text-black"></i>
-                            </div>
-                        </div>
-
-                        <div class="option-card p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300" onclick="setChoice(this)">
-                            <div class="flex flex-col">
-                                <span class="text-white font-medium">Electronics & Gadgets</span>
-                                <small class="text-white/50">High-tech devices, phone accessories, and gamer merch.</small>
-                            </div>
-                            <div class="check-box w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
-                                <i class="bi bi-check-lg scale-0 transition-transform duration-200 text-black"></i>
-                            </div>
-                        </div>
-                    </div>`
+                key: "focus",
+                html: (data) => renderOptions([
+                    { t: "Apparel & Accessories", s: "Clothing, shoes, watches, and jewelry." },
+                    { t: "Home & Garden", s: "Décor, kitchenware, and furniture." },
+                    { t: "Beauty & Wellness", s: "Organic skincare and personal care." },
+                    { t: "Electronics & Gadgets", s: "High-tech devices and gear." }
+                ], data.focus)
             },
             {
-                title: "Choose your sales channels",
+                title: "Sales channels",
                 sub: "What is your current strategy?",
-                html: `
-                                    <div class="grid grid-cols-1 gap-3 categories-options animate-up">
-                                    <div class="option-card group relative overflow-hidden p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300" onclick="setChoice(this)" style="
-                    height: 100px;
-                ">
-                        <div class="flex flex-col z-10">
-                            <span class="text-white font-medium capitalize">Hybrid Unified Store</span>
-                            <small class="text-white/50">POS cashier system synced with your website.</small>
-                        </div>
-
-                        <div class="submerged-icon absolute -bottom-5 left-4 opacity-20 pointer-events-none transition-all duration-500 ease-in-out group-hover:-translate-y-2 flex gap-2">
-                            <i class="bi bi-globe text-4xl text-white"></i>
-                            <i class="bi bi-pc-display text-4xl text-white"></i>
-                        </div>
-
-                        <div class="check-box z-10 w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
-                            <i class="bi bi-check-lg scale-0 transition-transform duration-200 text-black"></i>
-                        </div>
-                    </div>
-                    <div class="option-card group relative overflow-hidden p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300" onclick="setChoice(this)" style="
-                    height: 100px;
-                ">
-                        <div class="flex flex-col z-10">
-                            <span class="text-white font-medium capitalize">Online Store</span>
-                            <small class="text-white/50">Sell through a powerful, custom-branded website.</small>
-                        </div>
-
-                        <div class="submerged-icon absolute -bottom-5 left-4 opacity-20 pointer-events-none transition-all duration-500 ease-in-out group-hover:-translate-y-2">
-                            <i class="bi bi-globe text-4xl text-white"></i>
-                        </div>
-
-                        <div class="check-box z-10 w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
-                            <i class="bi bi-check-lg scale-0 transition-transform duration-200 text-black"></i>
-                        </div>
-                    </div>
-
-                    <div class="option-card group relative overflow-hidden p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300" onclick="setChoice(this)" style="
-                    height: 100px;
-                ">
-                        <div class="flex flex-col z-10">
-                            <span class="text-white font-medium capitalize">POS Setup</span>
-                            <small class="text-white/50">POS cashier system only.</small>
-                        </div>
-
-                        <div class="submerged-icon absolute -bottom-5 left-4 opacity-20 pointer-events-none transition-all duration-500 ease-in-out group-hover:-translate-y-2 flex gap-1">
-                            <i class="bi bi-pc-display text-4xl text-white"></i>
-                        </div>
-
-                        <div class="check-box z-10 w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
-                            <i class="bi bi-check-lg scale-0 transition-transform duration-200 text-black"></i>
-                        </div>
-                    </div>
-                </div>
-                    `
+                key: "channels",
+                html: (data) => renderOptions([
+                    { t: "Hybrid Unified Store", s: "POS synced with your website.", i: "bi-globe text-4xl mr-2,bi-pc-display text-4xl" },
+                    { t: "Online Store", s: "Sell through a custom website.", i: "bi-globe text-4xl" },
+                    { t: "POS Setup", s: "POS cashier system only.", i: "bi-pc-display text-4xl" }
+                ], data.channels, true)
             },
             {
                 title: "Inventory Size",
                 sub: "Choose the plan that fits your needs.",
-                html: `<div class="grid grid-cols-1 gap-3 categories-options animate-up">
-        <div class="option-card p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300" onclick="setChoice(this)">
-            <div class="flex flex-col">
-                <div class="flex items-center gap-2">
-                    <span class="text-white font-medium">1 - 5 item</span>
-                    <span class="text-[10px] px-2 py-0.5 bg-white/10 rounded-full text-white/70 border border-white/10">50 EGP/mo</span>
-                </div>
-                <small class="text-white/50">Perfect for a boutique setup or single product launch.</small>
-            </div>
-            <div class="check-box w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
-                <i class="bi bi-check-lg scale-0 transition-transform duration-200 text-black"></i>
-            </div>
-        </div>
-
-        <div class="option-card p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300" onclick="setChoice(this)">
-            <div class="flex flex-col">
-                <div class="flex items-center gap-2">
-                    <span class="text-white font-medium">5 - 20 item</span>
-                    <span class="text-[10px] px-2 py-0.5 bg-white/10 rounded-full text-white/70 border border-white/10">150 EGP/mo</span>
-                </div>
-                <small class="text-white/50">Ideal for small collections and growing brands.</small>
-            </div>
-            <div class="check-box w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
-                <i class="bi bi-check-lg scale-0 transition-transform duration-200 text-black"></i>
-            </div>
-        </div>
-
-        <div class="option-card p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300" onclick="setChoice(this)">
-            <div class="flex flex-col">
-                <div class="flex items-center gap-2">
-                    <span class="text-white font-medium">20 - 100 item</span>
-                    <span class="text-[10px] px-2 py-0.5 bg-white/10 rounded-full text-white/70 border border-white/10">250 EGP/mo</span>
-                </div>
-                <small class="text-white/50">A comprehensive catalog for established shops.</small>
-            </div>
-            <div class="check-box w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
-                <i class="bi bi-check-lg scale-0 transition-transform duration-200 text-black"></i>
-            </div>
-        </div>
-
-        <div class="option-card p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300" onclick="setChoice(this)">
-            <div class="flex flex-col">
-                <div class="flex items-center gap-2">
-                    <span class="text-white font-medium">100 - 300 item</span>
-                    <span class="text-[10px] px-2 py-0.5 bg-white/10 rounded-full text-white/70 border border-white/10">650 EGP/mo</span>
-                </div>
-                <small class="text-white/50">High-volume inventory with multiple categories.</small>
-            </div>
-            <div class="check-box w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
-                <i class="bi bi-check-lg scale-0 transition-transform duration-200 text-black"></i>
-            </div>
-        </div>
-
-        <div class="option-card p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300" onclick="setChoice(this)">
-            <div class="flex flex-col">
-                <div class="flex items-center gap-2">
-                    <span class="text-white font-medium">300 - 750 item</span>
-                    <span class="text-[10px] px-2 py-0.5 bg-white/10 rounded-full text-white/70 border border-white/10">1200 EGP/mo</span>
-                </div>
-                <small class="text-white/50">Large scale enterprise-level product management.</small>
-            </div>
-            <div class="check-box w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
-                <i class="bi bi-check-lg scale-0 transition-transform duration-200 text-black"></i>
-            </div>
-        </div>
-    </div>`
+                key: "inventory",
+                html: (data) => renderOptions([
+                    {
+                        t: "1 - 5 item",
+                        s: "Perfect for a boutique setup or single product launch.",
+                        p: "50 EGP/mo"
+                    },
+                    {
+                        t: "5 - 20 item",
+                        s: "Ideal for small collections and growing brands.",
+                        p: "150 EGP/mo"
+                    },
+                    {
+                        t: "20 - 100 item",
+                        s: "A comprehensive catalog for established shops.",
+                        p: "250 EGP/mo"
+                    },
+                    {
+                        t: "100 - 300 item",
+                        s: "High-volume inventory with multiple categories.",
+                        p: "650 EGP/mo"
+                    },
+                    {
+                        t: "300 - 750 item",
+                        s: "Large scale enterprise-level product management.",
+                        p: "1200 EGP/mo"
+                    }
+                ], data.inventory)
             },
             {
                 title: "Store Name",
                 sub: "What should we call your store?",
-                html: `<div class="space-y-4 animate-up">
-                    <label class="text-[11px] uppercase tracking-widest text-white/30 ml-1">Store Name</label>
-                    <input type="text" placeholder="My Awesome Store" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40">
-                </div>
-                `
+                fields: ['storeName'],
+                html: (data) => `<div class="space-y-4 animate-up">
+                <label class="text-[11px] uppercase tracking-widest text-white/30 ml-1">Store Name</label>
+                <input type="text" id="storeName" value="${data.storeName || ''}" placeholder="My Awesome Store" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40">
+            </div>`
             }
-
         ];
+
+        // function renderOptions(opts, current, hasIcons = false) {
+        //     return `<div class="grid grid-cols-1 categories-options gap-3 animate-up">
+        //     ${opts.map(o => `
+        //         <div class="option-card p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all ${current === o.t ? 'selected' : ''}" onclick="setChoice(this, '${o.t}')">
+        //             <div class="flex flex-col z-10">
+        //                 <div class="flex items-center gap-2">
+        //                     <span class="text-white font-medium">${o.t}</span>
+        //                     ${o.p ? `<span class="text-[10px] px-2 py-0.5 bg-white/10 rounded-full border border-white/10">${o.p}</span>` : ''}
+        //                 </div>
+        //                 <small class="text-white/50">${o.s}</small>
+        //             </div>
+        //             ${hasIcons ? `<div class="submerged-icon absolute -bottom-5 left-4 opacity-10 pointer-events-none">${o.i.split(',').map(icon => `<i class="bi ${icon}"></i>`).join('')}</div>` : ''}
+        //             <div class="check-box w-5 h-5 border border-white/20 rounded flex items-center justify-center">
+        //                 <i class="bi bi-check-lg ${current === o.t ? '' : 'scale-0'} transition-transform text-black"></i>
+        //             </div>
+        //         </div>`).join('')}
+        // </div>`;
+        // }
+        function renderOptions(opts, current, hasIcons = false) {
+            return `<div class="grid grid-cols-1 categories-options gap-3 animate-up">
+    ${opts.map(o => {
+                const isSelected = current === o.t;
+                return `
+        <div class="option-card group relative overflow-hidden p-4 rounded-xl flex justify-between items-center cursor-pointer transition-all duration-300 ${isSelected ? 'selected' : ''}" 
+             onclick="setChoice(this, '${o.t}')" 
+             style="height: 100px;">
+            
+            <div class="flex flex-col z-10">
+                <div class="flex items-center gap-2">
+                    <span class="text-white font-medium capitalize">${o.t}</span>
+                    ${o.p ? `<span class="text-[10px] px-2 py-0.5 bg-white/10 rounded-full border border-white/10">${o.p}</span>` : ''}
+                </div>
+                <small class="text-white/50">${o.s}</small>
+            </div>
+
+            ${hasIcons && o.i ? `
+            <div class="submerged-icon absolute -bottom-5 left-4 opacity-20 pointer-events-none transition-all duration-500 ease-in-out group-hover:-translate-y-2 flex gap-2">
+                ${o.i.split(',').map(icon => `<i class="bi ${icon} text-4xl text-white"></i>`).join('')}
+            </div>` : ''}
+
+            <div class="check-box z-10 w-5 h-5 border border-white/20 rounded flex items-center justify-center transition-all duration-300">
+                <i class="bi bi-check-lg ${isSelected ? '' : 'scale-0'} transition-transform duration-200 text-black"></i>
+            </div>
+        </div>`;
+            }).join('')}
+</div>`;
+        }
+        function saveCurrentData() {
+            const step = steps[currentStep];
+            if (step.fields) {
+                step.fields.forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) formData[id] = el.value.trim();
+                });
+            }
+        }
+
+        function validateStep() {
+            const step = steps[currentStep];
+            if (step.fields) {
+                for (let id of step.fields) {
+                    const el = document.getElementById(id);
+                    if (!el || !el.value.trim()) {
+                        alert(`Please fill in all fields.`);
+                        return false;
+                    }
+                }
+            }
+            if (step.key && !formData[step.key]) {
+                alert(`Please select at least one option.`);
+                return false;
+            }
+            return true;
+        }
 
         function render() {
             const content = document.getElementById('step-content');
+            const nextBtn = document.getElementById('next-btn');
             const data = steps[currentStep];
 
-            // content.style.opacity = '0';
-            setTimeout(() => {
-                content.innerHTML = `
-                    <h1 class="text-xl font-semibold tracking-tight mb-1 animate-up">${data.title}</h1>
-                    <p class="text-sm text-white/40 mb-8 animate-up">${data.sub}</p>
-                    ${data.html}
-                `;
-                // content.style.opacity = '1';
-                updateIndicators();
-            }, 200);
+            content.innerHTML = `
+                <h1 class="text-xl font-semibold tracking-tight mb-1 animate-up">${data.title}</h1>
+                <p class="text-sm text-white/40 mb-8 animate-up">${data.sub}</p>
+                ${data.html(formData)}
+            `;
+
+            // Ensure button has the correct onclick for Sign Up flow
+            nextBtn.onclick = nextStep;
+            nextBtn.innerHTML = (currentStep === steps.length - 1) ? 'Finish Setup' : 'Continue <i class="bi bi-arrow-right-short ms-1"></i>';
+
+            updateIndicators();
         }
 
+        function setChoice(el, value) {
+            const key = steps[currentStep].key;
+            formData[key] = value;
+            el.parentElement.querySelectorAll('.option-card').forEach(c => {
+                c.classList.remove('selected');
+                c.querySelector('.bi-check-lg').classList.add('scale-0');
+            });
+            el.classList.add('selected');
+            el.querySelector('.bi-check-lg').classList.remove('scale-0');
+        }
+
+        // function updateIndicators() {
+        //     const dots = document.querySelectorAll('.dot');
+        //     const backBtn = document.getElementById('back-btn');
+        //     const toggle = document.getElementById('toggle-area');
+        //     const indicators = document.getElementById('step-indicators');
+
+        //     backBtn.style.display = (currentStep === 0 || isSignIn || isResetting) ? 'none' : 'block';
+        //     toggle.style.display = (currentStep === 0 || isSignIn || isResetting) ? 'block' : 'none';
+        //     indicators.style.display = (isSignIn || isResetting) ? 'none' : 'flex';
+
+        //     dots.forEach((dot, i) => {
+        //         const isActive = i === currentStep;
+        //         dot.className = `dot transition-all duration-300 rounded-full ${isActive ? 'w-2.5 h-2.5 shadow-[0_0_12px_#fff] bg-white' : 'w-1.5 h-1.5 bg-white/20'}`;
+        //     });
+        // }
         function updateIndicators() {
-            const dots = document.querySelectorAll('.dot');
+            const indicators = document.getElementById('step-indicators');
+            const dots = indicators.querySelectorAll('.dot');
+            const lines = indicators.querySelectorAll('.step-line');
             const backBtn = document.getElementById('back-btn');
             const toggle = document.getElementById('toggle-area');
-            const indicators = document.getElementById('step-indicators');
 
-            // Hide/Show Back button and Toggle area
-            backBtn.style.display = (currentStep === 0 || isSignIn) ? 'none' : 'block';
-            toggle.style.display = (currentStep === 0) ? 'block' : 'none';
+            // Handle visibility of the whole bar
+            indicators.style.display = (isSignIn || isResetting) ? 'none' : 'flex';
+            backBtn.style.display = (currentStep === 0 || isSignIn || isResetting) ? 'none' : 'block';
+            toggle.style.display = (currentStep === 0 || isSignIn || isResetting) ? 'block' : 'none';
 
-            // Hide indicators on Sign In
-            indicators.style.opacity = isSignIn ? '0' : '1';
-
-            // Glow logic
+            // Update Dots
             dots.forEach((dot, i) => {
                 if (i === currentStep) {
-                    dot.classList.add('w-2.5', 'h-2.5', 'shadow-[0_0_12px_#fff]', 'bg-white');
-                    dot.classList.remove('w-1.5', 'h-1.5', 'bg-white/20');
+                    // Active Step: Large and Glowing
+                    dot.className = "dot w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_12px_#fff] transition-all duration-300";
+                } else if (i < currentStep) {
+                    // Past Steps: Slightly visible
+                    dot.className = "dot w-1.5 h-1.5 rounded-full bg-white/60 transition-all duration-300";
                 } else {
-                    dot.classList.remove('w-2.5', 'h-2.5', 'shadow-[0_0_12px_#fff]', 'bg-white');
-                    dot.classList.add('w-1.5', 'h-1.5', 'bg-white/20');
+                    // Future Steps: Dimmed
+                    dot.className = "dot w-1.5 h-1.5 rounded-full bg-white/20 transition-all duration-300";
+                }
+            });
+
+            // Update Lines
+            lines.forEach((line, i) => {
+                // If the step after this line is reached, highlight the line
+                if (i < currentStep) {
+                    line.style.backgroundColor = "rgba(255, 255, 255, 0.4)";
+                } else {
+                    line.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
                 }
             });
         }
-
-        async function nextStep() {
-            // --- NEW: Capture data from the CURRENT step before it's deleted ---
-            saveCurrentStepData();
+        function nextStep() {
+            saveCurrentData();
+            if (!validateStep()) return;
 
             if (currentStep < steps.length - 1) {
                 currentStep++;
                 render();
             } else {
-                // WE ARE AT THE LAST STEP: "Store Name"
-                await handleSignupFlow();
-            }
-        }
-
-        function saveCurrentStepData() {
-            // 1. Capture text inputs (Email, Names, Password, Store Name)
-            const inputs = document.querySelectorAll('#step-content input');
-            inputs.forEach(input => {
-                if (input.value) {
-                    // We store by placeholder or ID to identify what the value is
-                    const key = input.id || input.placeholder;
-                    sessionStorage.setItem(key, input.value);
-                }
-            });
-
-            // 2. Capture Option Card selections (Focus, Channels, Inventory)
-            const selectedOption = document.querySelector('.option-card.selected');
-            if (selectedOption) {
-                const value = selectedOption.querySelector('.font-medium').innerText;
-                // Store using the current step title so we know which choice it was
-                sessionStorage.setItem(`choice_${steps[currentStep].title}`, value);
+                console.log("Final Data Captured:", formData);
+                // Final submission logic here
             }
         }
 
         function prevStep() {
+            saveCurrentData();
             if (currentStep > 0) {
                 currentStep--;
                 render();
             }
         }
 
-        // function setChoice(el) {
-        //     // 1. Get the parent container of the clicked element
-        //     const container = el.parentElement;
-
-        //     // 2. Remove 'selected' from all other siblings within this container
-        //     container.querySelectorAll('.option-card').forEach(card => {
-        //         if (card !== el) {
-        //             card.classList.remove('selected');
-        //         }
-        //     });
-
-        //     el.classList.toggle('selected');
-        // }
-
-        // function setChoice(el) {
-        //     const container = el.parentElement;
-
-        //     // Remove 'selected' from all cards in this specific container
-        //     container.querySelectorAll('.option-card').forEach(card => {
-        //         card.classList.remove('selected');
-        //         // Reset the checkmark icon if you're using the scale-0 logic
-        //         const icon = card.querySelector('.bi-check-lg');
-        //         if (icon) icon.classList.add('scale-0');
-        //     });
-
-        //     // Add 'selected' to the clicked one
-        //     el.classList.add('selected');
-
-        //     // Animate the checkmark icon
-        //     const activeIcon = el.querySelector('.bi-check-lg');
-        //     if (activeIcon) activeIcon.classList.remove('scale-0');
-        // }
-        function setChoice(el) {
-            const container = el.parentElement;
-
-            // 1. Visual Reset
-            container.querySelectorAll('.option-card').forEach(card => {
-                card.classList.remove('selected');
-                const icon = card.querySelector('.bi-check-lg');
-                // if (icon) icon.classList.add('scale-0');
-            });
-
-            // 2. Visual Select
-            el.classList.add('selected');
-            const activeIcon = el.querySelector('.bi-check-lg');
-            // if (activeIcon) activeIcon.classList.remove('scale-0');
-
-            // 3. DATA PERSISTENCE (The missing piece!)
-            // Get the name of the choice (e.g., "Apparel & Accessories")
-            const choiceValue = el.querySelector('.font-medium').innerText;
-
-            // Get the current step title to use as a unique key (e.g., "What’s your focus?")
-            const currentStepTitle = steps[currentStep].title;
-
-            // Save it so it survives the render() wipe
-            sessionStorage.setItem(currentStepTitle, choiceValue);
-
-            console.log(`Saved: ${currentStepTitle} -> ${choiceValue}`);
-        }
         function togglePassword() {
-            const input = document.getElementById('passwordInput');
+            const input = document.getElementById('password');
             const icon = document.getElementById('toggleIcon');
-
-            if (input.type === "password") {
-                input.type = "text";
-                icon.classList.replace('bi-eye', 'bi-eye-slash');
-            } else {
-                input.type = "password";
-                icon.classList.replace('bi-eye-slash', 'bi-eye');
-            }
+            if (!input) return;
+            const isPass = input.type === "password";
+            input.type = isPass ? "text" : "password";
+            icon.classList.replace(isPass ? 'bi-eye' : 'bi-eye-slash', isPass ? 'bi-eye-slash' : 'bi-eye');
         }
+
+        // --- Authentication Flow Fixes ---
 
         function toggleSignIn() {
             isSignIn = !isSignIn;
-            const content = document.getElementById('step-content');
-            const nextBtn = document.getElementById('next-btn');
-
-            if (isSignIn) {
-                content.innerHTML = `
-                   <h1 class="text-xl font-semibold tracking-tight mb-1 animate-up">Welcome Back</h1>
-    <p class="text-sm text-white/40 mb-8 animate-up">Enter your credentials to access your store.</p>
-
-    <div class="space-y-4 animate-up">
-        <input type="email" placeholder="Email Address" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/30 transition-colors ">
-
-        <div class="space-y-2">
-            <input type="password" placeholder="Password" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/30 transition-colors ">
-
-            <div class="flex justify-end px-1">
-                <button onclick="handleForgotPassword()" class="text-xs text-white/40 hover:text-white transition-colors">
-                    Forgot Password?
-                </button>
-            </div>
-        </div>
-    </div>
-                `;
-                nextBtn.innerHTML = 'Sign In <i class="bi bi-door-open ms-2"></i>';
-                document.getElementById('toggle-area').innerHTML = `Don't have an account? <button onclick="toggleSignIn()" class="text-white font-medium">Sign Up</button>`;
-                updateIndicators();
-            } else {
-                currentStep = 0;
-                nextBtn.innerHTML = 'Continue <i class="bi bi-arrow-right-short text-lg me-1"></i>';
-                document.getElementById('toggle-area').innerHTML = `Already have an account? <button onclick="toggleSignIn()" class="text-white font-medium">Sign In</button>`;
-                render();
-            }
-        }
-
-        function handleForgotPassword() {
+            isResetting = false; // Reset the reset state if they toggle back
             const content = document.getElementById('step-content');
             const nextBtn = document.getElementById('next-btn');
             const toggleArea = document.getElementById('toggle-area');
 
-            // 1. Change UI to Email Input
-            content.innerHTML = `
-        <div class="animate-up">
-            <h1 class="text-xl font-semibold tracking-tight mb-1">Reset Password</h1>
-            <p class="text-sm text-white/40 mb-8">Enter your email and we'll send you a retrieval link.</p>
-            
-            <div class="space-y-4">
-                <label class="text-[11px] uppercase tracking-widest text-white/30 ml-1">Email Address</label>
-                <input type="email" id="resetEmail" placeholder="name@gmail.com" 
-                    class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all">
-            </div>
-            
-            <div id="status-message" class="mt-4 text-sm hidden"></div>
-        </div>
-    `;
+            if (isSignIn) {
+                content.innerHTML = `
+                    <h1 class="text-xl font-semibold tracking-tight mb-1 animate-up">Welcome Back</h1>
+                    <p class="text-sm text-white/40 mb-8 animate-up">Enter your credentials to access your store.</p>
+                    <div class="space-y-4 animate-up">
+                        <input type="email" id="loginEmail" placeholder="Email Address" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/30 transition-colors ">
+                        <div class="space-y-2">
+                            <input type="password" id="loginPass" placeholder="Password" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/30 transition-colors ">
+                            <div class="flex justify-end px-1">
+                                <button onclick="handleForgotPassword()" class="text-xs text-white/40 hover:text-white transition-colors">Forgot Password?</button>
+                            </div>
+                        </div>
+                    </div>`;
 
-            // 2. Update the Main Button
-            nextBtn.innerText = "Send Retrieval Link";
+                // Re-bind button for Login only
+                nextBtn.innerHTML = 'Sign In <i class="bi bi-door-open text-lg ms-2"></i>';
+                nextBtn.onclick = handleSignIn;
+
+                toggleArea.innerHTML = `Don't have an account? <button onclick="toggleSignIn()" class="text-white hover:text-blue-400 font-medium">Sign Up</button>`;
+            } else {
+                currentStep = 0;
+                toggleArea.innerHTML = `Already have an account? <button onclick="toggleSignIn()" class="text-white hover:text-blue-400 font-medium">Sign In</button>`;
+                render();
+            }
+            updateIndicators();
+        }
+
+        function handleSignIn() {
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPass').value;
+            if (!email || !pass) {
+                alert("Please enter both email and password.");
+                return;
+            }
+            console.log("Logging in with:", email, pass);
+            // Your login fetch logic here
+        }
+
+        function handleForgotPassword() {
+            isResetting = true;
+            const content = document.getElementById('step-content');
+            const nextBtn = document.getElementById('next-btn');
+            const toggleArea = document.getElementById('toggle-area');
+
+            content.innerHTML = `
+                <div class="animate-up">
+                    <h1 class="text-xl font-semibold tracking-tight mb-1">Reset Password</h1>
+                    <p class="text-sm text-white/40 mb-8">Enter your email and we'll send you a retrieval link.</p>
+                    <div class="space-y-4">
+                        <label class="text-[11px] uppercase tracking-widest text-white/30 ml-1">Email Address</label>
+                        <input type="email" id="resetEmail" placeholder="name@gmail.com" class="w-full px-4 py-4 bg-white/[0.03] border border-white/10 rounded-xl text-white outline-none focus:border-white/40 transition-all">
+                    </div>
+                    <div id="status-message" class="mt-4 text-sm hidden"></div>
+                </div>`;
+
+            nextBtn.innerHTML = `Send Retrieval Link <i class="bi bi-mailbox text-lg ms-2"></i>`;
             nextBtn.onclick = () => sendResetLink();
 
-            // 3. Update Toggle Area to allow going back to Sign In
-            toggleArea.innerHTML = `Remembered your password? <button onclick="toggleSignIn()" class="text-white font-medium">Sign In</button>`;
+            toggleArea.innerHTML = `Remembered your password? <button onclick="toggleSignIn()" class="text-white hover:text-blue-400 font-medium">Sign In</button>`;
+            updateIndicators();
         }
 
         function sendResetLink() {
@@ -592,67 +511,26 @@
                 return;
             }
 
-            // Show loading state
             nextBtn.innerText = "Sending...";
             nextBtn.disabled = true;
-            nextBtn.style.opacity = "0.5";
 
             setTimeout(() => {
-                // Construct Gmail URL
                 const gmailUrl = "https://mail.google.com/mail/u/0/#search/from%3AMatager+reset";
-
                 statusMsg.innerHTML = `
-            <div class="flex items-start gap-3 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl animate-up">
-                <i class="bi bi-check-circle-fill text-emerald-400 mt-1"></i>
-                <div class="space-y-2">
-                    <p class="text-emerald-400 font-bold text-sm">Reset Link Sent!</p>
-                    <p class="text-white/60 text-xs leading-relaxed">
-                        We've sent a recovery link to <span class="text-white font-medium">${email}</span>.
-                    </p>
-                    <a href="${gmailUrl}" target="_blank" 
-                       class="inline-flex items-center gap-2 text-[11px] font-bold text-emerald-400 hover:text-emerald-300 transition-colors uppercase tracking-wider group">
-                        Open Gmail Inbox 
-                        <i class="bi bi-box-arrow-up-right text-[10px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
-                    </a>
-                </div>
-            </div>
-        `;
-
-                statusMsg.className = "mt-6";
+                    <div class="flex items-start gap-3 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl animate-up">
+                        <i class="bi bi-check-circle-fill text-emerald-400 mt-1"></i>
+                        <div class="space-y-2">
+                            <p class="text-emerald-400 font-bold text-sm">Reset Link Sent!</p>
+                            <p class="text-white/60 text-xs leading-relaxed">Recovery link sent to <span class="text-white font-medium">${email}</span>.</p>
+                            <a href="${gmailUrl}" target="_blank" class="inline-flex items-center gap-2 text-[11px] font-bold text-emerald-400 hover:text-emerald-300 uppercase tracking-wider">Open Gmail Inbox <i class="bi bi-box-arrow-up-right"></i></a>
+                        </div>
+                    </div>`;
                 statusMsg.classList.remove('hidden');
-
                 nextBtn.innerText = "Resend Link";
                 nextBtn.disabled = false;
-                nextBtn.style.opacity = "1";
             }, 1200);
         }
 
-        async function handleSignupFlow() {
-
-
-            const finalData = {
-                // Retrieve from sessionStorage using the keys we set in saveCurrentStepData
-                account: {
-                    email: sessionStorage.getItem('email'),
-                    firstName: sessionStorage.getItem('First Name'),
-                    lastName: sessionStorage.getItem('Last Name'),
-                    // We don't log the actual password for safety, just check if it exists
-                    hasPassword: sessionStorage.getItem('Create a password')
-                },
-                storeDetails: {
-                    name: sessionStorage.getItem('My Awesome Store'),
-                    focus: sessionStorage.getItem('choice_What’s your focus?'),
-                    channels: sessionStorage.getItem('choice_Choose your sales channels'),
-                    inventory: sessionStorage.getItem('choice_Inventory Size')
-                },
-                timestamp: new Date().toISOString()
-            };
-
-
-            console.table(finalData.storeDetails);
-            console.table(finalData.account);
-
-        }
         render();
     </script>
 </body>
