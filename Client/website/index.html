@@ -172,64 +172,77 @@
             pointer-events: none;
         }
 
-        /* ---- WELCOME MAT ---- */
+        #main-nav.revealed {
+            pointer-events: auto;
+            opacity: 1;
+            transform: translate(-50%, 0) scale(1);
+        }
+
+
+
+        #main-nav .nav-divider {
+            width: 1px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* welcome mat – initial state: hidden above viewport */
         #welcome-mat {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 45vh;
-            min-height: 380px;
-            background: linear-gradient(165deg, #0a0a0a 0%, #141414 50%, #1a1a1a 100%);
-            border-radius: 50px 50px 0px 0px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.9);
-            transform: translateY(100%);
-            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem 2rem 2rem;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -120%) scale(0.96);
+            z-index: 100;
+            width: 92%;
+            max-width: 32rem;
+            border-radius: 0 0 32px 32px;
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            padding: 1.25rem 1.5rem;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.3, 1), opacity 0.6s ease;
+            opacity: 0;
             pointer-events: none;
+            max-height: calc(100vh - 2rem);
             overflow-y: auto;
         }
 
         #welcome-mat.active {
-            transform: translateY(0);
+            transform: translate(-50%, 0) scale(1);
+            opacity: 1;
             pointer-events: auto;
         }
 
-        .mat-card {
-            max-width: 600px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.6rem;
+        /* mat scroll lock: body class */
+        body.no-scroll {
+            overflow: hidden;
         }
 
-        /* Header */
+        /* misc */
+        .glass {
+            /* fallback */
+        }
+
+        .mat-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
         .mat-header {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            justify-content: space-between;
             width: 100%;
-            max-width: 420px;
+            padding-bottom: 0.75rem;
         }
 
-        .mat-logo {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border-radius: 14px;
+        .mat-user-info {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            gap: 0.75rem;
         }
 
         .mat-store-info {
@@ -238,13 +251,10 @@
         }
 
         .mat-store-name {
-            font-size: 1.4rem;
+            font-size: 1.1rem;
             font-weight: 700;
+            color: #ffffff;
             letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #ffffff 0%, #b0b0b0 80%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
             line-height: 1.2;
         }
 
@@ -256,16 +266,15 @@
         }
 
         .badge {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             font-weight: 600;
             letter-spacing: 0.04em;
-            padding: 0.15rem 0.6rem;
+            padding: 0.1rem 0.6rem;
             border-radius: 12px;
-            text-transform: uppercase;
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.04);
-            color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(255, 255, 255, 0.35);
             border: 1px solid rgba(255, 255, 255, 0.04);
+            text-transform: uppercase;
         }
 
         .badge.verified {
@@ -274,22 +283,42 @@
             border-color: rgba(34, 197, 94, 0.1);
         }
 
-        .badge.year {
-            background: rgba(255, 255, 255, 0.03);
-            color: rgba(255, 255, 255, 0.4);
-            border-color: rgba(255, 255, 255, 0.04);
+        .mat-theme-control {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .stat-label {
+            font-size: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.25);
+            text-transform: uppercase;
         }
 
 
 
-        /* Stats */
-        .mat-stats {
+        .mat-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 215, 0, 0.04));
+            border: 1px solid rgba(255, 215, 0, 0.08);
             display: flex;
-            gap: 2rem;
+            align-items: center;
             justify-content: center;
-            width: 100%;
-            max-width: 380px;
-            padding: 0.3rem 0;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .mat-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            padding: 0.75rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .stat-item {
@@ -300,91 +329,66 @@
         }
 
         .stat-value {
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 700;
             color: #ffffff;
             letter-spacing: 0.02em;
             line-height: 1.2;
         }
 
-        .stat-label {
-            font-size: 0.55rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            color: rgba(255, 255, 255, 0.3);
-            text-transform: uppercase;
-        }
-
-        /* Bio */
         .mat-bio-wrapper {
             width: 100%;
-            max-width: 480px;
             position: relative;
         }
 
         .mat-bio {
             font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.55);
             line-height: 1.6;
             max-height: 2.6em;
             overflow: hidden;
             transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            text-align: center;
-            padding: 0 0.5rem;
+            text-align: left;
+            padding: 0;
         }
 
         .mat-bio.expanded {
-            max-height: 300px;
+            max-height: 300px !important;
         }
 
-        .mat-bio.truncated::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 30px;
-            background: linear-gradient(transparent, #141414);
-            pointer-events: none;
+        .mat-bio.truncated {
+            max-height: 2.6em;
         }
 
         .bio-toggle-btn {
             background: transparent;
-            color: rgba(96, 165, 250, 0.7);
+            color: rgba(96, 165, 250, 0.6);
             border: none;
-            padding: 0.15rem 0.5rem;
+            padding: 0.15rem 0.3rem;
             font-size: 0.65rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: none;
-            margin: 0.1rem auto 0;
+            display: inline-block;
+            margin-top: 0.2rem;
             letter-spacing: 0.02em;
         }
 
-        .bio-toggle-btn:hover {
-            color: #60a5fa;
-        }
-
-        /* Actions */
         .mat-actions {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.6rem;
             width: 100%;
-            max-width: 420px;
-            justify-content: center;
             flex-wrap: wrap;
-            margin-top: 0.1rem;
+            margin-top: 0.25rem;
         }
 
         .fit-badge {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 500;
             color: rgba(255, 255, 255, 0.5);
             background: rgba(255, 255, 255, 0.03);
-            padding: 0.3rem 0.9rem;
+            padding: 0.35rem 0.9rem;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.04);
             display: inline-flex;
@@ -396,10 +400,10 @@
         .mat-btn {
             background: #ffffff;
             color: #0a0a0a;
-            padding: 0.45rem 1.8rem;
+            padding: 0.45rem 1.6rem;
             border-radius: 24px;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             letter-spacing: 0.02em;
             transition: all 0.25s ease;
             border: none;
@@ -414,353 +418,402 @@
 
         .mat-btn:hover {
             background: #f0f0f0;
-            transform: scale(1.02);
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.05);
-        }
-
-        .mat-btn:active {
             transform: scale(0.97);
         }
 
-        /* Responsive */
-        @media (max-width: 640px) {
-            #welcome-mat {
-                height: 50vh;
-                min-height: 340px;
-                padding: 1.2rem 1.2rem 1.5rem;
-                border-radius: 24px 24px 0px 0px;
-            }
-
-            .mat-card {
-                gap: 0.5rem;
-            }
-
-            .mat-header {
-                gap: 0.6rem;
-            }
-
-            .mat-logo {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-                border-radius: 12px;
-            }
-
-            .mat-store-name {
-                font-size: 1.2rem;
-            }
-
-            .mat-store-meta {
-                gap: 0.3rem;
-            }
-
-            .badge {
-                font-size: 0.5rem;
-                padding: 0.1rem 0.5rem;
-            }
-
-
-
-            .mat-stats {
-                gap: 1.5rem;
-            }
-
-            .stat-value {
-                font-size: 1rem;
-            }
-
-            .stat-label {
-                font-size: 0.5rem;
-            }
-
-            .mat-bio {
-                font-size: 0.75rem;
-
-            }
-
-            .mat-actions {
-                gap: 0.5rem;
-            }
-
-            .fit-badge {
-                font-size: 0.6rem;
-                padding: 0.2rem 0.7rem;
-            }
-
-            .mat-btn {
-                font-size: 0.75rem;
-                padding: 0.4rem 1.4rem;
-            }
+        .mat-actions:last-child {
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 0.25rem;
+            justify-content: center;
         }
 
-        @media (max-width: 480px) {
-            #welcome-mat {
-                height: 55vh;
-                min-height: 300px;
-                padding: 1rem 0.8rem 1.2rem;
-                border-radius: 20px 20px 0px 0px;
-            }
-
-            .mat-card {
-                gap: 0.4rem;
-            }
-
-            .mat-header {
-                gap: 0.5rem;
-            }
-
-            .mat-logo {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-                border-radius: 10px;
-            }
-
-            .mat-store-name {
-                font-size: 1rem;
-            }
-
-            .badge {
-                font-size: 0.45rem;
-                padding: 0.1rem 0.4rem;
-            }
-
-            .mat-stats {
-                gap: 1rem;
-            }
-
-            .stat-value {
-                font-size: 0.9rem;
-            }
-
-            .stat-label {
-                font-size: 0.45rem;
-            }
-
-            .mat-bio {
-                font-size: 0.7rem;
-                max-height: 2.2em;
-                line-height: 1.5;
-            }
-
-            .bio-toggle-btn {
-                font-size: 0.6rem;
-            }
-
-            .mat-actions {
-                flex-direction: column;
-                gap: 0.4rem;
-                width: 100%;
-            }
-
-            .fit-badge {
-                font-size: 0.55rem;
-                padding: 0.2rem 0.6rem;
-            }
-
-            .mat-btn {
-                font-size: 0.7rem;
-                padding: 0.35rem 1.2rem;
-                width: auto;
-                min-width: 140px;
-                justify-content: center;
-            }
+        #rtntohome {
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.25);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 0.2rem 0.5rem;
         }
 
-        @media (max-width: 360px) {
-            #welcome-mat {
-                height: 60vh;
-                min-height: 280px;
-                padding: 0.8rem 0.6rem 1rem;
-            }
+        #rtntohome:hover {
+            color: rgba(255, 255, 255, 0.5);
+        }
 
-            .mat-store-name {
-                font-size: 0.9rem;
-            }
+        /* theme toggle light mode (demo) */
+        body.light-mode {
+            background: #f5f5f5;
+        }
 
-            .mat-logo {
-                width: 32px;
-                height: 32px;
-                font-size: 0.9rem;
-            }
+        body.light-mode #welcome-mat {
+            background: rgba(255, 255, 255, 0.92);
+            border-color: rgba(0, 0, 0, 0.04);
+        }
 
-            .stat-value {
-                font-size: 0.8rem;
-            }
+        body.light-mode .mat-store-name,
+        body.light-mode .stat-value {
+            color: #111;
+        }
 
-            .mat-bio {
-                font-size: 0.65rem;
-                max-height: 2em;
-            }
+        body.light-mode .mat-bio {
+            color: rgba(0, 0, 0, 0.55);
+        }
 
-            .mat-btn {
-                font-size: 0.65rem;
-                padding: 0.3rem 1rem;
-                min-width: 120px;
-            }
+        body.light-mode .stat-label {
+            color: rgba(0, 0, 0, 0.25);
+        }
+
+        body.light-mode .mat-btn {
+            background: #111;
+            color: #fff;
+        }
+
+        body.light-mode .fit-badge {
+            color: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.04);
+        }
+
+        body.light-mode .badge {
+            color: rgba(0, 0, 0, 0.35);
+            border-color: rgba(0, 0, 0, 0.04);
+        }
+
+        body.light-mode .badge.verified {
+            background: rgba(34, 197, 94, 0.08);
+            color: #2b8c4a;
+        }
+
+        body.light-mode #main-nav {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: rgba(0, 0, 0, 0.04);
+        }
+
+        body.light-mode #main-nav a {
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        body.light-mode #main-nav a:hover {
+            color: #000;
         }
     </style>
 </head>
 
-<!-- matager loader -->
-<div id="loader"
-    class="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-[#030303] transition-opacity duration-700">
-    <div class="relative">
-        <div class="w-20 h-20 border-2 border-white/5 border-t-blue-500 rounded-full animate-spin"></div>
-        <img src="./assets/favico.png" class="absolute inset-0 m-auto w-8 h-8 rounded-lg" alt="Loading...">
-    </div>
-</div>
-<!-- matager loader -->
 
-<!-- matager after loader end -->
-<div id="welcome-mat">
-    <div class="mat-card">
-        <!-- Store header with logo and name -->
-        <div class="mat-header">
-            <div class="mat-logo">⚡</div>
-            <div class="mat-store-info">
-                <div class="mat-store-name">LANVIN</div>
-                <div class="mat-store-meta">
-                    <span class="badge verified">✓ VERIFIED STORE</span>
-                    <span class="badge year">EST. 2024</span>
-                </div>
-            </div>
-        </div>
 
-        <!-- Stats -->
-        <div class="mat-stats">
-            <div class="stat-item">
-                <span class="stat-value">12+</span>
-                <span class="stat-label">COLLECTIONS</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-value">4.9</span>
-                <span class="stat-label">CLIENT RATING</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-value">405</span>
-                <span class="stat-label">FOLLOWERS</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-value">24</span>
-                <span class="stat-label">PRODUCTS</span>
-            </div>
-        </div>
 
-        <!-- Bio with expand -->
-        <div class="mat-bio-wrapper">
-            <div class="mat-bio" id="matBio">
-                where simplicity meets sophistication. Curated collections for the modern individual who values timeless
-                design, impeccable quality and understated elegance. Each piece is carefully selected to bring you the
-                finest in contemporary fashion.
-            </div>
-            <button class="bio-toggle-btn" id="bioToggleBtn">Read More</button>
-        </div>
-
-        <!-- Bottom row: fit badge + CTA -->
-        <div class="mat-actions">
-            <div class="fit-badge">🎯 8 items fit you</div>
-            <a href="#" class="mat-btn" id="welcomeCta">+ Let's take a look</a>
-        </div>
-    </div>
-</div>
-<script>
-    (function () {
-        const loader = document.getElementById('loader');
-        const body = document.body;
-        const welcomeMat = document.getElementById('welcome-mat');
-        const ctaBtn = document.getElementById('welcomeCta');
-        const bioElement = document.getElementById('matBio');
-        const toggleBtn = document.getElementById('bioToggleBtn');
-        let isExpanded = false;
-
-        welcomeMat.classList.remove('active');
-
-        function checkBioOverflow() {
-            // const originalMaxHeight = bioElement.style.maxHeight;
-            // bioElement.style.maxHeight = 'none';
-            const scrollHeight = bioElement.scrollHeight;
-            // bioElement.style.maxHeight = originalMaxHeight || '2.6em';
-
-            const maxHeight = parseFloat(getComputedStyle(bioElement).maxHeight) || 41.6;
-            if (scrollHeight > maxHeight + 3) {
-                toggleBtn.style.display = 'inline-block';
-                bioElement.classList.add('truncated');
-            } else {
-                toggleBtn.style.display = 'none';
-                bioElement.classList.remove('truncated');
-            }
-        }
-
-        function toggleBio() {
-            isExpanded = !isExpanded;
-
-            if (isExpanded) {
-                bioElement.classList.add('expanded');
-                bioElement.classList.remove('truncated');
-                toggleBtn.textContent = 'Show Less';
-            } else {
-                bioElement.classList.remove('expanded');
-                toggleBtn.textContent = 'Read More';
-                setTimeout(() => {
-                    const maxHeight = parseFloat(getComputedStyle(bioElement).maxHeight) || 41.6;
-                    const scrollHeight = bioElement.scrollHeight;
-                    if (scrollHeight > maxHeight + 3) {
-                        bioElement.classList.add('truncated');
-                    }
-                }, 100);
-            }
-        }
-
-        // Loader Flow
-        window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                loader.classList.add('fade-out');
-                body.classList.add('content-loaded');
-
-                setTimeout(() => {
-                    welcomeMat.classList.add('active');
-                    setTimeout(checkBioOverflow, 300);
-                }, 200);
-
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 800);
-
-            }, 3000);
-        });
-
-        toggleBtn.addEventListener('click', toggleBio);
-
-        let resizeTimer;
-        window.addEventListener('resize', function () {
-            clearTimeout(resizeTimer);
-            if (!isExpanded) {
-                resizeTimer = setTimeout(checkBioOverflow, 250);
-            }
-        });
-
-        ctaBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            welcomeMat.classList.remove('active');
-            console.log('Welcome mat closed – continue exploring.');
-        });
-    })();
-</script>
 <!-- matager after loader end -->
 
 
 <body class="antialiased">
 
+    <style>
+        /* ===== ANIMATED BACKGROUND CONTAINER ===== */
+        .bg-orb-container {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: -20;
+            pointer-events: none;
+        }
+
+        /* ===== INDIVIDUAL ORB STYLES ===== */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.35;
+            will-change: transform, opacity;
+            animation: floatOrb 18s ease-in-out infinite alternate;
+        }
+
+        /* Orb 1 - Top Left (White/Silver) */
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            top: -120px;
+            left: -120px;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15), rgba(200, 200, 200, 0.05));
+            animation-duration: 22s;
+            animation-delay: 0s;
+            opacity: 0.25;
+        }
+
+        /* Orb 2 - Center (White/Light Gray) */
+        .orb-2 {
+            width: 800px;
+            height: 800px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1), rgba(180, 180, 180, 0.03));
+            animation-duration: 25s;
+            animation-delay: -3s;
+            opacity: 0.15;
+            filter: blur(160px);
+        }
+
+        /* Orb 3 - Bottom Right (White/Silver) */
+        .orb-3 {
+            width: 550px;
+            height: 550px;
+            bottom: -120px;
+            right: -120px;
+            background: radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.12), rgba(160, 160, 160, 0.04));
+            animation-duration: 20s;
+            animation-delay: -6s;
+            opacity: 0.2;
+        }
+
+        /* Orb 4 - Extra (White/Dark Gray) */
+        .orb-4 {
+            width: 400px;
+            height: 400px;
+            top: 20%;
+            right: -80px;
+            background: radial-gradient(circle at 90% 40%, rgba(255, 255, 255, 0.08), rgba(100, 100, 100, 0.02));
+            animation-duration: 28s;
+            animation-delay: -10s;
+            opacity: 0.1;
+            filter: blur(150px);
+        }
+
+        /* Orb 5 - Extra (White/Gray) */
+        .orb-5 {
+            width: 450px;
+            height: 450px;
+            bottom: 25%;
+            left: -100px;
+            background: radial-gradient(circle at 80% 60%, rgba(255, 255, 255, 0.1), rgba(140, 140, 140, 0.03));
+            animation-duration: 24s;
+            animation-delay: -5s;
+            opacity: 0.12;
+            filter: blur(140px);
+        }
+
+        /* ===== FLOATING KEYFRAMES ===== */
+        @keyframes floatOrb {
+            0% {
+                transform: translate(0px, 0px) scale(1) rotate(0deg);
+                opacity: 0.2;
+            }
+
+            15% {
+                transform: translate(30px, -40px) scale(1.05) rotate(5deg);
+                opacity: 0.3;
+            }
+
+            30% {
+                transform: translate(-20px, 60px) scale(0.95) rotate(-8deg);
+                opacity: 0.15;
+            }
+
+            45% {
+                transform: translate(50px, 20px) scale(1.08) rotate(10deg);
+                opacity: 0.35;
+            }
+
+            60% {
+                transform: translate(-40px, -50px) scale(0.92) rotate(-12deg);
+                opacity: 0.12;
+            }
+
+            75% {
+                transform: translate(20px, 70px) scale(1.02) rotate(6deg);
+                opacity: 0.3;
+            }
+
+            100% {
+                transform: translate(-10px, -30px) scale(0.98) rotate(-3deg);
+                opacity: 0.2;
+            }
+        }
+
+        /* ===== PULSING OVERLAY ===== */
+        .bg-pulse-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -19;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.2) 100%);
+            animation: pulseOverlay 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseOverlay {
+            0% {
+                opacity: 0.2;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.02);
+            }
+
+            100% {
+                opacity: 0.2;
+                transform: scale(1);
+            }
+        }
+
+        /* ===== SUBTLE NOISE TEXTURE ===== */
+        .bg-noise {
+            position: fixed;
+            inset: 0;
+            z-index: -18;
+            pointer-events: none;
+            opacity: 0.02;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px 256px;
+            animation: noiseShift 2s steps(8) infinite;
+        }
+
+        @keyframes noiseShift {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 256px 256px;
+            }
+        }
+
+        /* ===== DARK MODE ADJUSTMENTS ===== */
+        @media (prefers-color-scheme: dark) {
+            .orb-1 {
+                opacity: 0.3;
+            }
+
+            .orb-2 {
+                opacity: 0.2;
+            }
+
+            .orb-3 {
+                opacity: 0.25;
+            }
+
+            .bg-pulse-overlay {
+                background: radial-gradient(ellipse at center, transparent 20%, rgba(0, 0, 0, 0.4) 100%);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .orb-1 {
+                width: 300px;
+                height: 300px;
+                top: -60px;
+                left: -60px;
+            }
+
+            .orb-2 {
+                width: 400px;
+                height: 400px;
+            }
+
+            .orb-3 {
+                width: 280px;
+                height: 280px;
+                bottom: -60px;
+                right: -60px;
+            }
+
+            .orb-4 {
+                width: 200px;
+                height: 200px;
+            }
+
+            .orb-5 {
+                width: 220px;
+                height: 220px;
+            }
+        }
+    </style>
+    <div class="bg-orb-container">
+        <!-- Orbs -->
+        <div class="orb orb-1" style="--mouse-x: -3.0588235294117485px; --mouse-y: -1.83930131004366px;"></div>
+        <div class="orb orb-2" style="--mouse-x: -6.117647058823497px; --mouse-y: -3.67860262008732px;"></div>
+        <div class="orb orb-3" style="--mouse-x: -9.176470588235246px; --mouse-y: -5.51790393013098px;"></div>
+        <div class="orb orb-4" style="--mouse-x: -12.235294117646994px; --mouse-y: -7.35720524017464px;"></div>
+        <div class="orb orb-5" style="--mouse-x: -15.294117647058743px; --mouse-y: -9.1965065502183px;"></div>
+    </div>
+
+    <!-- Pulse overlay for depth -->
+    <div class="bg-pulse-overlay"></div>
+
+    <!-- Subtle noise texture -->
+    <div class="bg-noise"></div>
+    <script>
+        (function () {
+            'use strict';
+
+            // Only runs on desktop-ish devices
+            if (window.matchMedia('(pointer: fine)').matches) {
+                const orbs = document.querySelectorAll('.orb');
+                let mouseX = 0, mouseY = 0;
+                let currentX = 0, currentY = 0;
+
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = (e.clientX / window.innerWidth - 0.5) * 40;
+                    mouseY = (e.clientY / window.innerHeight - 0.5) * 40;
+                });
+
+                function animateOrbs() {
+                    currentX += (mouseX - currentX) * 0.02;
+                    currentY += (mouseY - currentY) * 0.02;
+
+                    orbs.forEach((orb, index) => {
+                        const factor = (index + 1) * 0.3;
+                        const xOffset = currentX * factor * 0.6;
+                        const yOffset = currentY * factor * 0.6;
+                        // We don't override the animation, but add a subtle extra shift
+                        orb.style.setProperty('--mouse-x', xOffset + 'px');
+                        orb.style.setProperty('--mouse-y', yOffset + 'px');
+                    });
+
+                    requestAnimationFrame(animateOrbs);
+                }
+
+                // Inject a slight mouse-driven transform into each orb
+                const style = document.createElement('style');
+                style.textContent = `
+                            .orb {
+                                transform: translate(var(--mouse-x, 0px), var(--mouse-y, 0px));
+                                transition: transform 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+                            }
+                        `;
+                document.head.appendChild(style);
+
+                // Start the animation loop
+                animateOrbs();
+            }
+
+        })();
+    </script>
 
 
+    <!-- matager loader -->
+    <div id="loader"
+        class="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-[#030303] transition-opacity duration-700">
+        <div class="relative">
+            <div class="w-20 h-20 border-2 border-white/5 border-t-blue-500 rounded-full animate-spin"></div>
+            <img src="./assets/favico.png" class="absolute inset-0 m-auto w-8 h-8 rounded-lg" alt="Loading...">
+        </div>
+    </div>
+    <!-- matager loader -->
 
     <!-- navbar  -->
     <nav id="main-nav"
-        class="fixed top-[-3px] z-50 glass left-1/2 -translate-x-1/2 -translate-y-24 opacity-0 pointer-events-none w-[90%] max-w-[30rem] rounded-b-[30px] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] overflow-y-auto transform py-4 px-6 max-h-[calc(-4rem+100vh)]">
+        class="fixed top-[-3px] z-50 glass left-1/2 -translate-x-1/2 -translate-y-24 opacity-0 pointer-events-none w-[90%] max-w-[30rem] rounded-b-[30px] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] overflow-y-auto transform py-4 px-6 max-h-[calc(-4rem+100vh)]"
+        style="background: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
         <div class="max-w-7xl mx-auto flex justify-between items-center transition-all duration-500" id="nav-header">
             <div id="storename" class="flex items-center gap-2 font-bold text-[14px] tracking-tighter text-white">
-                Store Name ...
+                Matager
             </div>
 
             <div class="flex items-center gap-4">
@@ -811,17 +864,6 @@
                         onmouseleave="hideHint()">
                         <i class="bi bi-person-raised-hand"></i>
                     </a>
-
-                    <a href="#" class="nav-bubble" onclick="toggleTheme(event)" onmouseenter="showHint('theme')"
-                        onmouseleave="hideHint()">
-                        <i id="theme-icon" class="bi bi-moon-stars"></i>
-                    </a>
-
-                    <a href="#" class="nav-bubble" onclick="opentemplates(event)" onmouseenter="showHint('templates')"
-                        onmouseleave="hideHint()">
-                        <i class="bi bi-eye"></i>
-                    </a>
-
 
                 </div>
             </div>
@@ -3721,10 +3763,441 @@
     </nav>
     <!-- navbar -->
 
-    <!-- circle btn -->
+    <div id="welcome-mat"
+        class="fixed top-0 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-b-[32px] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] overflow-y-auto py-5 px-6 max-h-[calc(-2rem+100vh)] translate-y-0 opacity-100 pointer-events-auto active"
+        style="
+    background: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+">
+        <div class="mat-card" style="display: flex; flex-direction: column; gap: 1.25rem;">
 
+            <!-- ===== TOP ROW: User info + Theme toggle ===== -->
+            <div class="mat-header" style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        ">
+                <!-- Left: User -->
+                <div class="mat-user-info" style="display: flex; align-items: center; gap: 0.75rem;">
 
+                    <div class="mat-store-info">
+                        <div class="mat-store-name" style="
+                        font-size: 1.1rem;
+                        font-weight: 700;
+                        color: #ffffff;
+                        letter-spacing: -0.02em;
+                        line-height: 1.2;
+                    ">James Delaney</div>
+                        <div class="mat-store-meta" style="display: flex; gap: 0.4rem; margin-top: 0.1rem;">
+                            <span class="badge year" style="
+                            padding: 0;
+                            background: none;
+                            border: none;
+                            font-size: 0.5rem;
+                            font-weight: 500;
+                            letter-spacing: 0.04em;
+                            color: rgba(255,255,255,0.4);
+                            /* border: 1px solid rgba(255,255,255,0.04); */
+                        ">james.d@example.com</span>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- Right: Theme toggle -->
+                <div class="mat-theme-control" style="display: flex; align-items: center; gap: 0.6rem;">
+                    <span id="light-status" class="stat-label" style="
+                    font-size: 0.5rem;
+                    font-weight: 600;
+                    letter-spacing: 0.08em;
+                    color: rgba(255,255,255,0.25);
+                    text-transform: uppercase;
+                ">lights off</span>
+                    <a href="#" class="nav-bubble" onclick="toggleTheme(event)" onmouseenter="showHint('theme')"
+                        onmouseleave="hideHint()" style="
+                    width: 36px;
+                    height: 36px;
+                    border-radius: 50%;
+                    background: rgba(255,255,255,0.04);
+                    border: 1px solid rgba(255,255,255,0.06);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.3s ease;
+                    cursor: pointer;
+                    text-decoration: none;
+                    color: rgba(255,255,255,0.5);
+                ">
+                        <i id="theme-icon" class="bi bi-lightbulb" style="font-size: 1rem;"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ===== STORE HEADER ===== -->
+            <div class="mat-header" style="
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            padding: 0.25rem 0 0.1rem;
+        ">
+                <div class="mat-logo" style="
+                width: 48px;
+                height: 48px;
+                border-radius: 14px;
+                background: linear-gradient(135deg, rgba(255,215,0,0.12), rgba(255,215,0,0.04));
+                border: 1px solid rgba(255,215,0,0.08);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.4rem;
+                flex-shrink: 0;
+            ">⚡</div>
+                <div class="mat-store-info" style="flex: 1; min-width: 0;">
+                    <div class="mat-store-name" style="
+                    font-size: 1.3rem;
+                    font-weight: 700;
+                    color: #ffffff;
+                    letter-spacing: -0.02em;
+                    line-height: 1.2;
+                ">LANVIN</div>
+                    <div class="mat-store-meta"
+                        style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.15rem;">
+                        <span class="badge verified" style="
+                        font-size: 0.5rem;
+                        font-weight: 600;
+                        letter-spacing: 0.04em;
+                        padding: 0.1rem 0.6rem;
+                        border-radius: 12px;
+                        background: rgba(34,197,94,0.08);
+                        color: #4ade80;
+                        border: 1px solid rgba(34,197,94,0.1);
+                        text-transform: uppercase;
+                    ">✓ VERIFIED</span>
+                        <span class="badge year" style="
+                        font-size: 0.5rem;
+                        font-weight: 500;
+                        letter-spacing: 0.04em;
+                        padding: 0.1rem 0.6rem;
+                        border-radius: 12px;
+                        background: rgba(255,255,255,0.03);
+                        color: rgba(255,255,255,0.35);
+                        border: 1px solid rgba(255,255,255,0.04);
+                    ">EST. 2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== STATS ===== -->
+            <div class="mat-stats" style="
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            padding: 0.75rem 0;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        ">
+                <div class="stat-item"
+                    style="display: flex; flex-direction: column; align-items: center; gap: 0.05rem;">
+                    <span class="stat-value" style="
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    color: #ffffff;
+                    letter-spacing: 0.02em;
+                    line-height: 1.2;
+                ">12+</span>
+                    <span class="stat-label" style="
+                    font-size: 0.5rem;
+                    font-weight: 600;
+                    letter-spacing: 0.06em;
+                    color: rgba(255,255,255,0.25);
+                    text-transform: uppercase;
+                ">Collections</span>
+                </div>
+                <div class="stat-item"
+                    style="display: flex; flex-direction: column; align-items: center; gap: 0.05rem;">
+                    <span class="stat-value" style="
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    color: #ffffff;
+                    letter-spacing: 0.02em;
+                    line-height: 1.2;
+                ">4.9</span>
+                    <span class="stat-label" style="
+                    font-size: 0.5rem;
+                    font-weight: 600;
+                    letter-spacing: 0.06em;
+                    color: rgba(255,255,255,0.25);
+                    text-transform: uppercase;
+                ">Client Rating</span>
+                </div>
+                <div class="stat-item"
+                    style="display: flex; flex-direction: column; align-items: center; gap: 0.05rem;">
+                    <span class="stat-value" style="
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    color: #ffffff;
+                    letter-spacing: 0.02em;
+                    line-height: 1.2;
+                ">405</span>
+                    <span class="stat-label" style="
+                    font-size: 0.5rem;
+                    font-weight: 600;
+                    letter-spacing: 0.06em;
+                    color: rgba(255,255,255,0.25);
+                    text-transform: uppercase;
+                ">Followers</span>
+                </div>
+                <div class="stat-item"
+                    style="display: flex; flex-direction: column; align-items: center; gap: 0.05rem;">
+                    <span class="stat-value" style="
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    color: #ffffff;
+                    letter-spacing: 0.02em;
+                    line-height: 1.2;
+                ">24</span>
+                    <span class="stat-label" style="
+                    font-size: 0.5rem;
+                    font-weight: 600;
+                    letter-spacing: 0.06em;
+                    color: rgba(255,255,255,0.25);
+                    text-transform: uppercase;
+                ">Products</span>
+                </div>
+            </div>
+
+            <!-- ===== BIO ===== -->
+            <div class="mat-bio-wrapper" style="width: 100%; position: relative;">
+                <div class="mat-bio truncated" id="matBio" style="
+                font-size: 0.8rem;
+                color: rgba(255,255,255,0.55);
+                line-height: 1.6;
+                max-height: 2.6em;
+                overflow: hidden;
+                transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                position: relative;
+                text-align: left;
+                padding: 0;
+            ">
+                    where simplicity meets sophistication. Curated collections for the modern individual who values
+                    timeless
+                    design, impeccable quality and understated elegance. Each piece is carefully selected to bring you
+                    the
+                    finest in contemporary fashion.
+                </div>
+                <button class="bio-toggle-btn" id="bioToggleBtn" style="
+                background: transparent;
+                color: rgba(96,165,250,0.6);
+                border: none;
+                padding: 0.15rem 0.3rem;
+                font-size: 0.65rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: inline-block;
+                margin-top: 0.2rem;
+                letter-spacing: 0.02em;
+            ">Read More</button>
+            </div>
+
+            <!-- ===== ACTIONS ===== -->
+            <div class="mat-actions" style="
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            width: 100%;
+            flex-wrap: wrap;
+            margin-top: 0.25rem;
+        ">
+                <div class="fit-badge" style="
+                font-size: 0.65rem;
+                font-weight: 500;
+                color: rgba(255,255,255,0.5);
+                background: rgba(255,255,255,0.03);
+                padding: 0.35rem 0.9rem;
+                border-radius: 20px;
+                border: 1px solid rgba(255,255,255,0.04);
+                display: inline-flex;
+                align-items: center;
+                gap: 0.3rem;
+                white-space: nowrap;
+            ">🎯 8 items fit you</div>
+                <a href="#" class="mat-btn" id="welcomeCta" style="
+                background: #ffffff;
+                color: #0a0a0a;
+                padding: 0.45rem 1.6rem;
+                border-radius: 24px;
+                font-weight: 600;
+                font-size: 0.75rem;
+                letter-spacing: 0.02em;
+                transition: all 0.25s ease;
+                border: none;
+                cursor: pointer;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.3rem;
+                white-space: nowrap;
+            ">+ Let's take a look</a>
+            </div>
+
+            <div class="mat-actions" style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding-top: 0.25rem;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        ">
+                <a href="#" id="rtntohome" style="
+                font-size: 0.65rem;
+                font-weight: 500;
+                color: rgba(255,255,255,0.25);
+                text-decoration: none;
+                transition: color 0.3s ease;
+                padding: 0.2rem 0.5rem;
+            ">Return to Home</a>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        (function () {
+            // ----- references -----
+            const loader = document.getElementById('loader');
+            const body = document.body;
+            const welcomeMat = document.getElementById('welcome-mat');
+            const ctaBtn = document.getElementById('welcomeCta');
+            const mainNav = document.getElementById('main-nav');
+            const bioElement = document.getElementById('matBio');
+            const toggleBtn = document.getElementById('bioToggleBtn');
+            let isExpanded = false;
+
+            // ----- 1) BIO toggle -----
+            function checkBioOverflow() {
+                const scrollHeight = bioElement.scrollHeight;
+                const maxHeight = parseFloat(getComputedStyle(bioElement).maxHeight) || 41.6;
+                if (scrollHeight > maxHeight + 3) {
+                    toggleBtn.style.display = 'inline-block';
+                    bioElement.classList.add('truncated');
+                } else {
+                    toggleBtn.style.display = 'none';
+                    bioElement.classList.remove('truncated');
+                }
+            }
+
+            function toggleBio() {
+                isExpanded = !isExpanded;
+                if (isExpanded) {
+                    bioElement.classList.add('expanded');
+                    bioElement.classList.remove('truncated');
+                    toggleBtn.textContent = 'Show Less';
+                } else {
+                    bioElement.classList.remove('expanded');
+                    toggleBtn.textContent = 'Read More';
+                    setTimeout(() => {
+                        const maxHeight = parseFloat(getComputedStyle(bioElement).maxHeight) || 41.6;
+                        if (bioElement.scrollHeight > maxHeight + 3) {
+                            bioElement.classList.add('truncated');
+                        }
+                    }, 100);
+                }
+            }
+            toggleBtn.addEventListener('click', toggleBio);
+
+            // ----- 2) LOADER + WELCOME MAT SLIDE-IN + SCROLL LOCK -----
+            window.addEventListener('DOMContentLoaded', function () {
+                // simulate loader
+                setTimeout(() => {
+                    loader.classList.add('fade-out');
+                    body.classList.add('content-loaded');
+
+                    // after loader fades, slide in welcome mat & lock scroll
+                    setTimeout(() => {
+                        welcomeMat.classList.add('active');
+                        body.classList.add('no-scroll');   // lock scroll
+
+                        // check bio overflow after a moment
+                        setTimeout(checkBioOverflow, 400);
+                    }, 200);
+
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                    }, 800);
+
+                }, 3000); // 3s loader
+            });
+
+            // ----- 3) CLOSE WELCOME MAT: slide up, reveal nav, unlock scroll -----
+            function closeWelcomeMat() {
+                // remove active class → slides back up (transform translateY -120%)
+                welcomeMat.classList.remove('active');
+                // unlock scroll
+                body.classList.remove('no-scroll');
+
+                // reveal main nav (after a tiny delay for smoothness)
+                setTimeout(() => {
+                    mainNav.classList.add('revealed');
+                }, 200);
+
+                // optional: clean up / log
+                console.log('Welcome mat closed – nav revealed.');
+            }
+
+            // click on "Let's take a look"
+            ctaBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                closeWelcomeMat();
+            });
+
+            // also "Return to Home" closes mat (optional)
+            document.getElementById('rtntohome').addEventListener('click', function (e) {
+                e.preventDefault();
+                closeWelcomeMat();
+            });
+
+            // ----- 4) THEME TOGGLE (dummy) -----
+            window.toggleTheme = function (e) {
+                e.preventDefault();
+                document.body.classList.toggle('light-mode');
+                const icon = document.getElementById('theme-icon');
+                const status = document.getElementById('light-status');
+                if (document.body.classList.contains('light-mode')) {
+                    icon.className = 'bi bi-lightbulb-fill';
+                    status.textContent = 'lights on';
+                } else {
+                    icon.className = 'bi bi-lightbulb';
+                    status.textContent = 'lights off';
+                }
+            };
+
+            window.showHint = function (type) { /* dummy */ };
+            window.hideHint = function () { /* dummy */ };
+
+            // resize handler for bio
+            let resizeTimer;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                if (!isExpanded) {
+                    resizeTimer = setTimeout(checkBioOverflow, 250);
+                }
+            });
+
+            // ensure nav is hidden initially (it's hidden by CSS)
+            // but if something fails, force hide
+            mainNav.classList.remove('revealed');
+
+            // Extra: if user tries to scroll while locked, it's blocked by CSS
+            // but we also prevent wheel/touch events on body when locked (optional)
+            // already handled by overflow:hidden
+        })();
+    </script>
     <style>
         .nav-bubble {
             position: relative;
@@ -3886,20 +4359,21 @@
         <style>
             /* ----- HERO WRAPPER ----- */
             #hero-main-container {
+                border-radius: 30px;
+                margin: 80px 80px 0px 80px;
                 background: #050505;
+                height: 80vh;
                 position: relative;
-                width: 100%;
+                width: 90%;
                 overflow: hidden;
                 transition: height 0.7s ease-in-out;
                 will-change: height;
-                height: 100vh;
-                /* fixed height, no scroll */
             }
 
             #hero-display-target {
                 position: relative;
                 width: 100%;
-                height: 100vh;
+                height: 80vh;
                 overflow: hidden;
                 user-select: none;
             }
@@ -4521,10 +4995,9 @@
                 display: flex;
                 align-items: center;
                 border-top: 1px solid rgba(255, 255, 255, 0.10);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.10);
-                backdrop-filter: blur(6px);
+                backdrop-filter: blur(30px);
                 -webkit-backdrop-filter: blur(6px);
-                background: rgba(0, 0, 0, 0.10);
+                background: rgb(15 15 15 / 32%);
                 padding: clamp(0.5rem, 1.2vh, 0.75rem) clamp(0.5rem, 2vw, 1.5rem);
                 justify-content: center;
                 overflow-x: auto;
@@ -5065,16 +5538,16 @@
              *  HERO HEIGHT — fixed viewport (no scroll)
              * ============================================================
              */
-            function adjustHeroHeight() {
-                const heroTarget = document.getElementById('hero-display-target');
-                if (heroTarget) {
-                    heroTarget.style.height = window.innerHeight + 'px';
-                }
-            }
-            document.addEventListener("DOMContentLoaded", () => {
-                adjustHeroHeight();
-                window.addEventListener('resize', adjustHeroHeight);
-            });
+            // function adjustHeroHeight() {
+            //     const heroTarget = document.getElementById('hero-display-target');
+            //     if (heroTarget) {
+            //         heroTarget.style.height = window.innerHeight + 'px';
+            //     }
+            // }
+            // document.addEventListener("DOMContentLoaded", () => {
+            //     adjustHeroHeight();
+            //     window.addEventListener('resize', adjustHeroHeight);
+            // });
 
             /**
              * ============================================================
@@ -5574,13 +6047,16 @@
 
             const body = document.body;
             const icon = document.getElementById('theme-icon');
+            const status = document.getElementById('light-status');
 
             body.classList.toggle('light-theme');
 
             if (body.classList.contains('light-theme')) {
-                icon.classList.replace('bi-moon-stars', 'bi-sun');
+                icon.classList.replace('bi-lightbulb', 'bi-lightbulb-fill');
+                status.textContent = 'lights on';  // Update status to "on"
             } else {
-                icon.classList.replace('bi-sun', 'bi-moon-stars');
+                icon.classList.replace('bi-lightbulb-fill', 'bi-lightbulb');
+                status.textContent = 'lights off'; // Update status to "off"
             }
         }
         function hideTogglingBtn() {
@@ -5669,7 +6145,7 @@
                 nav.style.maxHeight = "calc(100vh - 4rem)";
                 nav.style.overflowY = "auto";
                 nav.style.webkitOverflowScrolling = "touch";
-                nav.style.maxWidth = isMobile ? "calc(100vw - 2rem)" : "65rem";
+                nav.style.maxWidth = isMobile ? "calc(100vw - 2rem)" : "30rem";
 
                 details.classList.add('is-open');
                 details.classList.remove('opacity-0', 'scale-95');
@@ -5744,10 +6220,10 @@
         // Helper functions for specific triggers
         // Add 'e' (the event) into your quick helpers
         function openSearch(e) { if (e) e.preventDefault(); openNavView('search-view', '30rem'); }
-        function openCart(e) { if (e) e.preventDefault(); openNavView('cart-view', '28rem'); }
-        function openProfile(e) { if (e) e.preventDefault(); openNavView('profile-view', '32rem'); }
-        function openHelp(e) { if (e) e.preventDefault(); openNavView('help-view', '28rem'); }
-        function openCatalog(e) { if (e) e.preventDefault(); openNavView('catalog-view', '40rem'); }
+        function openCart(e) { if (e) e.preventDefault(); openNavView('cart-view', '30rem'); }
+        function openProfile(e) { if (e) e.preventDefault(); openNavView('profile-view', '30rem'); }
+        function openHelp(e) { if (e) e.preventDefault(); openNavView('help-view', '30rem'); }
+        function openCatalog(e) { if (e) e.preventDefault(); openNavView('catalog-view', '30rem'); }
         function openExplore() { openNavView('explore-view', '45rem'); if (typeof animateExploreGrid === 'function') animateExploreGrid(); }
 
         function showHint(text) { }
