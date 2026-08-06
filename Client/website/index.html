@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="./favicon/favico.png" />
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <link rel="stylesheet" href="./assets/style.css" />
+    <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200;14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap"
@@ -18,500 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
 
-        :root {
-            --bg-color: #030303;
-            --text-main: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.4);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --blur-opacity: 0.15;
-        }
-
-        .light-theme {
-            --bg-color: #f8fafc;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --glass-bg: rgba(15, 23, 42, 0.03);
-            --glass-border: rgba(15, 23, 42, 0.08);
-            --blur-opacity: 0.1;
-            --bluredimage: 0.7;
-        }
-
-        .light-theme .hero-bg-layer {
-            filter: brightness(1) saturate(1);
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            transition: background-color 0.4s ease, color 0.4s ease;
-            margin: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            min-height: 100vh;
-        }
-
-        * {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            scrollbar-width: none;
-            box-sizing: border-box;
-        }
-
-        .glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
-        }
-
-        .shining-text {
-            background: linear-gradient(90deg, var(--text-muted), var(--text-main), var(--text-muted));
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shine 4s linear infinite;
-        }
-
-        @keyframes shine {
-            to {
-                background-position: 200% center;
-            }
-        }
-
-        .animate-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-            opacity: 0;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Bottom Nav shadow */
-        .bottom-nav {
-            box-shadow: 0 -10px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        .bluredimage {
-            opacity: var(--bluredimage, 0.3);
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        #search-view,
-        #cart-view,
-        #product-details,
-        #profile-view,
-        #help-view,
-        #catalog-view {
-            transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
-            max-height: 0;
-            overflow: hidden;
-            opacity: 0;
-            transform: scale(0.95);
-        }
-
-        #search-view.is-open,
-        #cart-view.is-open,
-        #product-details.is-open,
-        #profile-view.is-open,
-        #help-view.is-open,
-        #catalog-view.is-open {
-            max-height: 1000px;
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        #nav-progress {
-            filter: drop-shadow(0 0 3px rgba(59, 130, 246, 0.5));
-        }
-
-        @keyframes marquee {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        .animate-marquee {
-            display: flex;
-            width: max-content;
-            flex-wrap: nowrap;
-            will-change: transform;
-            animation: marquee 40s linear infinite;
-        }
-
-        .animate-marquee:hover {
-            animation-play-state: paused;
-        }
-
-        main,
-        nav {
-            opacity: 0;
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .content-loaded main,
-        .content-loaded nav {
-            opacity: 1;
-        }
-
-        #loader.fade-out {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        main {
-            scale: 0.9;
-        }
-
-        #main-nav.revealed {
-            pointer-events: auto;
-            opacity: 1;
-            transform: translate(-50%, 0) scale(1);
-        }
-
-
-
-        #main-nav .nav-divider {
-            width: 1px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        /* welcome mat – initial state: hidden above viewport */
-        #welcome-mat {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translate(-50%, -120%) scale(0.96);
-            z-index: 100;
-            width: 92%;
-            max-width: 32rem;
-            border-radius: 0 0 32px 32px;
-            background: rgba(10, 10, 10, 0.92);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            padding: 1.25rem 1.5rem;
-            transition: transform 0.8s cubic-bezier(0.25, 1, 0.3, 1), opacity 0.6s ease;
-            opacity: 0;
-            pointer-events: none;
-            max-height: calc(100vh - 2rem);
-            overflow-y: auto;
-        }
-
-        #welcome-mat.active {
-            transform: translate(-50%, 0) scale(1);
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* mat scroll lock: body class */
-        body.no-scroll {
-            overflow: hidden;
-        }
-
-        /* misc */
-        .glass {
-            /* fallback */
-        }
-
-        .mat-card {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        .mat-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            padding-bottom: 0.75rem;
-        }
-
-        .mat-user-info {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .mat-store-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .mat-store-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-
-        .mat-store-meta {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-            margin-top: 0.1rem;
-        }
-
-        .badge {
-            font-size: 0.5rem;
-            font-weight: 600;
-            letter-spacing: 0.04em;
-            color: rgb(228 224 224 / 35%);
-            /* text-transform: uppercase; */
-        }
-
-        .badge.verified {
-            background: rgba(34, 197, 94, 0.08);
-            color: #4ade80;
-            border-color: rgba(34, 197, 94, 0.1);
-        }
-
-        .mat-theme-control {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .stat-label {
-            font-size: 0.5rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            color: rgba(255, 255, 255, 0.25);
-            text-transform: uppercase;
-        }
-
-
-
-        .mat-logo {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.12), rgba(255, 215, 0, 0.04));
-            border: 1px solid rgba(255, 215, 0, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            flex-shrink: 0;
-        }
-
-        .mat-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.5rem;
-            padding: 0.75rem 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.05rem;
-        }
-
-        .stat-value {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 0.02em;
-            line-height: 1.2;
-        }
-
-        .mat-bio-wrapper {
-            width: 100%;
-            position: relative;
-        }
-
-        .mat-bio {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.55);
-            line-height: 1.6;
-            max-height: 2.6em;
-            overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: left;
-            padding: 0;
-        }
-
-        .mat-bio.expanded {
-            max-height: 300px !important;
-        }
-
-        .mat-bio.truncated {
-            max-height: 2.6em;
-        }
-
-        .bio-toggle-btn {
-            background: transparent;
-            color: rgba(96, 165, 250, 0.6);
-            border: none;
-            padding: 0.15rem 0.3rem;
-            font-size: 0.65rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-block;
-            margin-top: 0.2rem;
-            letter-spacing: 0.02em;
-        }
-
-        .mat-actions {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            width: 100%;
-            flex-wrap: wrap;
-            margin-top: 0.25rem;
-        }
-
-        .fit-badge {
-            font-size: 0.65rem;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.5);
-            background: rgba(255, 255, 255, 0.03);
-            padding: 0.35rem 0.9rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            white-space: nowrap;
-        }
-
-        .mat-btn {
-            background: #ffffff;
-            color: #0a0a0a;
-            padding: 0.45rem 1.6rem;
-            border-radius: 24px;
-            font-weight: 600;
-            font-size: 0.75rem;
-            letter-spacing: 0.02em;
-            transition: all 0.25s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            white-space: nowrap;
-        }
-
-        .mat-btn:hover {
-            background: #f0f0f0;
-            transform: scale(0.97);
-        }
-
-        .mat-actions:last-child {
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            padding-top: 0.25rem;
-            justify-content: center;
-        }
-
-        #rtntohome {
-            font-size: 0.65rem;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.25);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            padding: 0.2rem 0.5rem;
-        }
-
-        #rtntohome:hover {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* theme toggle light mode (demo) */
-
-        body.light-theme #welcome-mat {
-            background: rgb(231 231 231) !important;
-            border-color: rgb(231 231 231) !important;
-        }
-
-        body.light-theme .clb {
-            background: rgb(231 231 231);
-        }
-
-        body.light-theme .badge {
-            border: 1px solid #adadad;
-            background: #bfbfbf4a;
-            color: black;
-        }
-
-
-
-        body.light-theme .clb:hover {
-            background-color: rgb(0 0 0 / 11%);
-        }
-
-        body.light-theme .mat-store-name,
-        body.light-theme .stat-value,
-        body.light-theme .txt1 {
-            color: #111 !important;
-        }
-
-        body.light-theme .txt2 {
-            color: #2e2e2e !important;
-        }
-
-        body.light-theme .txt3 {
-            color: #111 !important;
-        }
-
-
-
-        body.light-theme .mat-bio {
-            color: rgba(0, 0, 0, 0.55) !important;
-        }
-
-        body.light-theme .stat-label {
-            color: rgba(0, 0, 0, 0.25) !important;
-        }
-
-        body.light-theme .mat-btn {
-            background: #111 !important;
-            color: #fff !important;
-        }
-
-        body.light-theme .fit-badge {
-            color: rgba(0, 0, 0, 0.5) !important;
-            background: rgba(0, 0, 0, 0.03) !important;
-            border-color: rgba(0, 0, 0, 0.04) !important;
-        }
-
-        body.light-theme .badge {
-            color: rgba(0, 0, 0, 0.35) !important;
-            border-color: rgba(0, 0, 0, 0.04) !important;
-        }
-
-        body.light-theme .badge.verified {
-            background: rgba(34, 197, 94, 0.08) !important;
-            color: #2b8c4a !important;
-        }
-
-        body.light-theme #main-nav {
-            background: rgb(231 231 231) !important;
-            border-color: rgb(231 231 231) !important;
-        }
     </style>
 </head>
 
@@ -541,7 +48,8 @@
         style="background: rgba(10, 10, 10, 0.92);
 backdrop-filter: blur(24px);
 -webkit-backdrop-filter: blur(24px);
-border: 1px solid rgba(255, 255, 255, 0.06);
+ border-inline: 8px solid var(--bg-color) !important;
+    border-bottom: 8px solid var(--bg-color) !important;
 box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
         <div class="max-w-7xl mx-auto flex justify-between items-center transition-all duration-500" id="nav-header">
             <div id="storename"
@@ -591,8 +99,8 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
 
                     <a href="#"
                         class="nav-bubble text-white dark:text-white/80 hover:text-blue-400 dark:hover:text-blue-400"
-                        onclick="openHelp(event)" onmouseenter="showHint('Help')" onmouseleave="hideHint()">
-                        <i class="bi bi-person-raised-hand"></i>
+                        onclick="openHome(event)" onmouseenter="showHint('Home')" onmouseleave="hideHint()">
+                        <i class="bi bi-house-door"></i>
                     </a>
                 </div>
             </div>
@@ -601,21 +109,22 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
         <div id="product-details" class="transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
             <hr class="my-3 border-white/10 dark:border-white/5">
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 items-stretch" style="display: flex;">
+            <div class="pb-4 space-y-4 max-h-[550px] overflow-y-auto" style="display: flex;flex-direction: column;">
 
                 <!-- LEFT COLUMN - Product Images -->
-                <div class="col-span-12 lg:col-span-5 flex flex-col gap-1.5">
+                <div class="col-span-12 lg:col-span-5 flex flex-col" style="
+        height: 400px;
+    ">
                     <div
                         class="relative group w-full aspect-square sm:aspect-[4/3] lg:aspect-square rounded-lg overflow-hidden bg-zinc-100 dark:bg-zinc-900 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.1)]">
 
                         <!-- Main Image Container -->
                         <div id="ql-image-container" onscroll="updateImageProgress(this)"
-                            class="flex overflow-x-auto snap-x snap-mandatory h-full w-full scrollbar-none">
-                            <img src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg"
-                                class="ql-slide snap-center">
-                            <img src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/1f0135cfef624e779735b6390f38c98b_9366/KC6611_HM5.jpg"
-                                class="ql-slide snap-center">
-                        </div>
+                            class="flex overflow-x-auto snap-x snap-mandatory h-full w-full scrollbar-none"><img
+                                src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg"
+                                class="ql-slide snap-center"><img
+                                src="https://assets.adidas.com/images/w_1880,f_auto,q_auto/1f0135cfef624e779735b6390f38c98b_9366/KC6611_HM5.jpg"
+                                class="ql-slide snap-center"></div>
 
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-transparent pointer-events-none">
@@ -623,61 +132,54 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
 
                         <!-- Image Counter -->
                         <div
-                            class="absolute bottom-1.5 right-1.5 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded-md text-white/80 text-[10px] font-medium tracking-wide">
+                            class="absolute bottom-1.5 right-1.5 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded-full text-white/80 text-[10px] font-medium tracking-wide">
                             1/2
                         </div>
                     </div>
 
                     <!-- Progress Bar -->
-                    <div class="w-full px-0.5">
+                    <div class="w-full pt-1.5 px-0.5">
                         <div class="h-[1px] w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden relative">
                             <div id="image-progress-bar"
                                 class="absolute top-0 left-0 h-full w-1/2 bg-black/40 dark:bg-white/40 transition-all duration-300 ease-out rounded-full"
-                                style="left: 50%; opacity: 0.8;"></div>
+                                style="left: 0%; opacity: 0.3;"></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- RIGHT COLUMN - Product Info -->
-                <div
-                    class="col-span-12 lg:col-span-7 gap-3 flex flex-col justify-start h-full min-h-[320px] lg:min-h-0 mt-0.5 lg:mt-0">
+                <div class=" gap-3 flex flex-col">
 
                     <!-- Product Title & Brand -->
                     <div class="space-y-0.5">
                         <h3 id="ql-title"
                             class="font-light text-xl lg:text-2xl text-black dark:text-white leading-tight tracking-tight">
-                            Adidas classic t-shirt
-                        </h3>
+                            Adidas classic t-shirt</h3>
                     </div>
 
                     <!-- Tabs Navigation -->
-                    <div
-                        class="flex gap-4 border-b border-black/10 dark:border-white/10 overflow-x-auto scrollbar-none">
+                    <div class="flex gap-4 overflow-x-auto scrollbar-none">
                         <button id="tab-overview" onclick="switchPDTab('overview')"
                             class="pb-1.5 border-b-2 whitespace-nowrap transition-all duration-300 text-[10px] font-bold uppercase tracking-[0.15em] hover:text-blue-500 dark:hover:text-blue-400 border-blue-500 text-blue-500 dark:text-blue-400">
                             <span class="flex items-center gap-1.5">
-                                <i class="bi bi-grid-3x3-gap-fill text-[10px]"></i>
                                 Overview
                             </span>
                         </button>
                         <button id="tab-details" onclick="switchPDTab('details')"
                             class="pb-1.5 border-b-2 hover:text-blue-500 dark:hover:text-blue-400 whitespace-nowrap transition-all duration-300 text-[10px] font-bold uppercase tracking-[0.15em] hover:border-blue-500/30 border-transparent text-zinc-500 dark:text-zinc-500">
                             <span class="flex items-center gap-1.5">
-                                <i class="bi bi-info-circle text-[10px]"></i>
                                 Specs
                             </span>
                         </button>
                         <button id="tab-shipping" onclick="switchPDTab('shipping')"
                             class="pb-1.5 border-b-2 hover:text-blue-500 dark:hover:text-blue-400 whitespace-nowrap transition-all duration-300 text-[10px] font-bold uppercase tracking-[0.15em] hover:border-blue-500/30 border-transparent text-zinc-500 dark:text-zinc-500">
                             <span class="flex items-center gap-1.5">
-                                <i class="bi bi-truck text-[10px]"></i>
                                 Delivery
                             </span>
                         </button>
                         <button id="tab-reviews" onclick="switchPDTab('reviews')"
                             class="pb-1.5 border-b-2 hover:text-blue-500 dark:hover:text-blue-400 whitespace-nowrap transition-all duration-300 text-[10px] font-bold uppercase tracking-[0.15em] hover:border-blue-500/30 border-transparent text-zinc-500 dark:text-zinc-500">
                             <span class="flex items-center gap-1.5">
-                                <i class="bi bi-star text-[10px]"></i>
                                 Reviews
                             </span>
                         </button>
@@ -688,7 +190,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                         class="flex-grow overflow-y-auto pr-0.5 space-y-2 max-h-[200px] lg:max-h-[220px] scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
 
                         <!-- Overview Panel -->
-                        <div id="pane-overview" class="space-y-2 pd-pane block">
+                        <div id="pane-overview" class="space-y-2 pd-pane flex-col gap-2 flex">
                             <!-- Price Section -->
                             <div class="flex items-end gap-2">
                                 <div>
@@ -696,15 +198,15 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                                         <span
                                             class="text-[6px] font-medium text-zinc-500 dark:text-zinc-500 align-top">EGP</span>
                                         <span id="ql-price"
-                                            class="text-xl text-black dark:text-white tracking-tight">EGP
-                                            1,290</span>
+                                            class="text-xl text-black dark:text-white tracking-tight">EGP 1,290</span>
                                     </div>
                                 </div>
                                 <div>
                                     <span
                                         class="text-[8px] font-medium text-zinc-500 dark:text-zinc-500 tracking-wider">Original</span>
                                     <p id="ql-old-price"
-                                        class="text-[10px] line-through opacity-30 text-black dark:text-white">EGP
+                                        class="text-[10px] line-through opacity-30 text-black dark:text-white">
+                                        EGP
                                         0.00</p>
                                 </div>
                                 <span id="ql-discount"
@@ -718,67 +220,62 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                                     12 viewing
                                 </span>
                                 <span class="w-px h-2.5 bg-zinc-200 dark:bg-zinc-700"></span>
-                                <span class="text-black dark:text-white/80">In Stock</span>
+                                <span class="text-black dark:text-white/80"><i
+                                        class="bi bi-check-circle-fill text-[#2d7a4a] mr-1"></i> In
+                                    Stock</span>
                                 <span class="w-px h-2.5 bg-zinc-200 dark:bg-zinc-700"></span>
                                 <span class="text-black dark:text-white/80">★ 4.8 (2.3k)</span>
                             </div>
 
                             <!-- Color Selection -->
-                            <div>
-                                <div class="flex gap-1.5 mt-2 ml-1">
-                                    <button
-                                        class="w-10 h-10 rounded-full ring-2 ring-offset-1 ring-black/10 dark:ring-white/50 dark:ring-offset-zinc-950 bg-white border border-black/10 hover:scale-110 transition-transform shadow-sm"
-                                        aria-label="White option"></button>
-                                    <button
-                                        class="w-8 h-8 rounded-full bg-zinc-300 border border-black/10 dark:border-white/10 hover:scale-110 transition-transform self-center"
-                                        aria-label="Light Grey option"></button>
-                                    <button
-                                        class="w-8 h-8 rounded-full bg-blue-500 border border-black/10 dark:border-white/10 hover:scale-110 transition-transform self-center"
-                                        aria-label="Blue option"></button>
+                            <div class="flex gap-2.5 items-center pt-0.5">
+                                <span class="text-xs font-medium text-black dark:text-white">Color:</span>
+                                <div class="flex gap-2">
+                                    <div class="color-ring active w-8 h-8 rounded-full bg-white" data-color="white"
+                                        onclick="selectColor(this)" style="
+                            border-block-end: 3px solid #2563eb !important;
+                        ">
+                                    </div>
+                                    <div class="color-ring w-8 h-8 rounded-full bg-[#d0d7e5]" data-color="grey"
+                                        onclick="selectColor(this)">
+                                    </div>
+                                    <div class="color-ring w-8 h-8 rounded-full bg-[#3b82f6]" data-color="blue"
+                                        onclick="selectColor(this)">
+                                    </div>
+                                    <div class="color-ring w-8 h-8 rounded-full bg-[#1a1e2b] " data-color="black"
+                                        onclick="selectColor(this)">
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- Size Selection -->
-                            <div style="display: flex; justify-content: space-between;">
-                                <div class="flex gap-1 mt-2 ml-1" id="size-options">
+                            <div class="flex flex-wrap items-center justify-between gap-3">
+                                <div class="flex gap-2">
+                                    <span
+                                        class="text-xs font-medium text-black dark:text-white flex items-center mr-1">Size:</span>
                                     <button
-                                        class="w-10 h-10 rounded-lg border-2 text-[10px] text-black dark:text-white flex items-center justify-center hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black hover:border-black dark:hover:border-white transition-all active:scale-95 border-black dark:border-white shadow-sm font-medium">S</button>
+                                        class="size-btn active w-8 h-8 rounded-full text-sm font-medium text-black dark:text-white flex items-center justify-center"
+                                        data-size="S" onclick="selectSize(this)" style="
+                            border-block-end: 3px solid #2563eb !important;
+                        ">S</button>
                                     <button
-                                        class="w-8 h-8 rounded-lg border border-black/10 dark:border-white/10 text-[10px] text-black dark:text-white flex items-center justify-center hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black hover:border-black dark:hover:border-white transition-all active:scale-95 self-center font-medium">L</button>
+                                        class="size-btn w-8 h-8 rounded-full text-sm font-medium text-black dark:text-white flex items-center justify-center"
+                                        data-size="L" onclick="selectSize(this)">L</button>
                                     <button
-                                        class="w-8 h-8 rounded-lg border border-black/10 dark:border-white/10 text-[10px] text-black dark:text-white flex items-center justify-center hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black hover:border-black dark:hover:border-white transition-all active:scale-95 self-center font-medium">XL</button>
+                                        class="size-btn w-8 h-8 rounded-full text-sm font-medium text-black dark:text-white flex items-center justify-center"
+                                        data-size="XL" onclick="selectSize(this)">XL</button>
                                 </div>
-                                <div class="flex items-center ml-1 mb-1">
-                                    <button
-                                        class="text-[8px] font-medium text-black/60 dark:text-white/60 hover:text-black dark:hover:text-white/80 transition-colors">Size
-                                        Guide →</button>
-                                </div>
+                                <a href="#"
+                                    class="text-xs font-medium text-black dark:text-white flex items-center gap-1 hover:underline underline-offset-2">
+                                    Size Guide <i class="bi bi-arrow-right text-xs"></i>
+                                </a>
                             </div>
 
-                            <!-- Promo Section -->
-                            <div class="relative overflow-hidden bg-black/5 dark:bg-white/5 p-2 rounded-lg border border-black/10 dark:border-white/10 shadow-sm"
-                                style="padding: 2px 6px; width: fit-content;">
-                                <div
-                                    class="absolute top-0 right-0 w-12 h-12 bg-black/5 dark:bg-white/5 rounded-full blur-xl">
-                                </div>
-                                <div class="relative flex gap-3 items-center justify-between">
-                                    <div class="space-y-0.5">
-                                        <p class="text-[7px] opacity-60 text-black dark:text-white leading-tight">Apply
-                                            code
-                                            for
-                                            10% off</p>
-                                    </div>
-                                    <span
-                                        class="bg-black/10 dark:bg-white/10 text-black/80 dark:text-white/80 text-[6px] px-1.5 py-0.5 rounded-full font-bold tracking-wider"
-                                        style="">
-                                        WELCOME10
-                                    </span>
-                                </div>
-                            </div>
+
                         </div>
 
                         <!-- Specs Panel -->
-                        <div id="pane-details" class="space-y-1.5 pd-pane hidden">
+                        <div id="pane-details" class="space-y-1.5 pd-pane flex-col hidden">
                             <h4
                                 class="text-[8px] font-bold uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-500">
                                 Materials</h4>
@@ -798,7 +295,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                         </div>
 
                         <!-- Delivery Panel -->
-                        <div id="pane-shipping" class="space-y-1.5 pd-pane hidden">
+                        <div id="pane-shipping" class="space-y-1.5 pd-pane flex-col hidden">
                             <h4
                                 class="text-[8px] font-bold uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-500">
                                 Delivery</h4>
@@ -835,14 +332,14 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                         </div>
 
                         <!-- Reviews Panel -->
-                        <div id="pane-reviews" class="space-y-2 pd-pane hidden">
+                        <div id="pane-reviews" class="space-y-2 pd-pane flex-col hidden">
                             <button onclick="toggleReviewForm()" id="btn-write-review"
-                                class="w-full py-1.5 border border-dashed border-black/20 dark:border-white/15 rounded-lg text-[7px] font-black uppercase tracking-[0.15em] opacity-60 hover:opacity-100 transition-all duration-300 text-black dark:text-white bg-white/5 dark:bg-white/[0.01] hover:bg-black/5 dark:hover:bg-white/[0.03] active:scale-[0.99]">
-                                ✍️ Write Review
-                            </button>
+                                class="w-full py-1.5 border border-dashed border-black/20 dark:border-white/15 rounded-lg text-[7px] font-black uppercase tracking-[0.15em] opacity-60 hover:opacity-100 transition-all duration-300 text-black dark:text-white bg-white/5 dark:bg-white/[0.01] hover:bg-black/5 dark:hover:bg-white/[0.03] active:scale-[0.99]">✍️
+                                Write Review</button>
 
                             <div id="review-form-panel"
-                                class="transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] scale-95 opacity-0 max-h-0 overflow-hidden space-y-1.5 bg-zinc-50 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-lg p-0">
+                                class="transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden space-y-1.5 bg-zinc-50 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-lg p-0 opacity-0 scale-95"
+                                style="max-height: 0px;">
                                 <div class="p-2 space-y-1.5">
                                     <p
                                         class="text-[6px] uppercase tracking-[0.15em] font-black text-black/60 dark:text-white/60">
@@ -1030,13 +527,13 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                     const panes = document.querySelectorAll('.pd-pane');
                     panes.forEach(pane => {
                         pane.classList.add('hidden');
-                        pane.classList.remove('block');
+                        pane.classList.remove('flex');
                     });
 
                     const targetPane = document.getElementById(`pane-${tabId}`);
                     if (targetPane) {
                         targetPane.classList.remove('hidden');
-                        targetPane.classList.add('block');
+                        targetPane.classList.add('flex');
                     }
 
                     const buttons = document.querySelectorAll('[id^="tab-"]');
@@ -1136,20 +633,20 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                     const container = document.getElementById('reviews-feed-container');
 
                     const newCardHTML = `
-                                <div onclick="toggleReviewExpand(this)" class="review-card cursor-pointer snap-start w-full bg-zinc-50 dark:bg-white/5 p-1.5 rounded-lg border border-black/10 dark:border-white/5 hover:border-black/20 dark:hover:border-white/10 transition-all duration-300 ease-out overflow-hidden max-h-[44px]">
-                                    <div class="flex justify-between items-start mb-0.5 pointer-events-none">
-                                        <span class="flex items-center gap-0.5">
-                                            <span class="text-[7px] font-bold text-black dark:text-white">${name}</span>
-                                            <span class="text-[5px] bg-black/10 dark:bg-white/10 text-black/60 dark:text-white/60 px-0.5 py-0.5 rounded-full font-bold tracking-wider">✓</span>
-                                        </span>
-                                        <span class="text-[7px] text-black/60 dark:text-white/60">${stars}</span>
+                                    <div onclick="toggleReviewExpand(this)" class="review-card cursor-pointer snap-start w-full bg-zinc-50 dark:bg-white/5 p-1.5 rounded-lg border border-black/10 dark:border-white/5 hover:border-black/20 dark:hover:border-white/10 transition-all duration-300 ease-out overflow-hidden max-h-[44px]">
+                                        <div class="flex justify-between items-start mb-0.5 pointer-events-none">
+                                            <span class="flex items-center gap-0.5">
+                                                <span class="text-[7px] font-bold text-black dark:text-white">${name}</span>
+                                                <span class="text-[5px] bg-black/10 dark:bg-white/10 text-black/60 dark:text-white/60 px-0.5 py-0.5 rounded-full font-bold tracking-wider">✓</span>
+                                            </span>
+                                            <span class="text-[7px] text-black/60 dark:text-white/60">${stars}</span>
+                                        </div>
+                                        <p class="review-text text-[7px] opacity-60 text-black dark:text-zinc-300 line-clamp-2 leading-relaxed transition-all pointer-events-none">
+                                            "${text}"
+                                        </p>
+                                        <div class="media-container mt-1.5 grid grid-cols-3 gap-1 opacity-0 pointer-events-none transition-opacity duration-300"></div>
                                     </div>
-                                    <p class="review-text text-[7px] opacity-60 text-black dark:text-zinc-300 line-clamp-2 leading-relaxed transition-all pointer-events-none">
-                                        "${text}"
-                                    </p>
-                                    <div class="media-container mt-1.5 grid grid-cols-3 gap-1 opacity-0 pointer-events-none transition-opacity duration-300"></div>
-                                </div>
-                            `;
+                                `;
 
                     container.insertAdjacentHTML('afterbegin', newCardHTML);
                     toggleReviewForm();
@@ -1170,11 +667,11 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
             <!-- ===== SEARCH MODE SELECTOR ===== -->
             <div class="flex justify-end items-center gap-2 px-1 mb-3">
                 <button id="mode-products" onclick="switchSearchMode('products')"
-                    class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-black dark:bg-white text-white dark:text-black text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none">
+                    class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none bg-blue-600 hover:bg-blue-700 text-white">
                     <i class="bi bi-search mr-1.5"></i> Products
                 </button>
                 <button id="mode-categories" onclick="switchSearchMode('categories')"
-                    class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-black dark:bg-white text-white dark:text-black text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none">
+                    class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none bg-blue-600 hover:bg-blue-700 text-white">
                     <i class="bi bi-grid-3x3-gap-fill mr-1.5 txt1"></i> Categories
                 </button>
             </div>
@@ -1185,7 +682,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                 <div class="relative group mb-2">
                     <input type="text" id="search-input" oninput="handleSearch(this.value)"
                         placeholder="Search products..."
-                        class="w-full bg-white dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-2xl py-3 px-4 text-gray-900 dark:text-white text-sm focus:outline-none focus:border-blue-500/50 transition-colors text-base placeholder:text-gray-400 dark:placeholder:text-white/40">
+                        class="w-full bg-white dark:bg-white/5 border border-gray-300 dark:border-white/10 rounded-2xl py-3 px-4 text-gray-900 dark:text-white text-[10px] focus:outline-none focus:border-blue-500/50 transition-colors text-base placeholder:text-gray-400 dark:placeholder:text-white/40">
                 </div>
 
                 <!-- Wrapped Suggestions -->
@@ -1204,7 +701,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                                         class="flex-shrink-0 px-4 py-2 rounded-full bg-white dark:bg-white/5 text-gray-900 dark:text-white/60 text-[11px] font-bold border border-gray-300 dark:border-white/10 cursor-pointer badge">Nike</span>
                                 </div>
                                 <button
-                                    class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-black dark:bg-white text-white dark:text-black text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none">
+                                    class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none bg-blue-600 hover:bg-blue-700 text-white">
                                     Explore <i
                                         class="bi bi-chevron-right transition-transform group-hover:translate-x-1"></i>
                                 </button>
@@ -1224,7 +721,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                                         class="flex-shrink-0 px-4 py-2 rounded-full bg-white dark:bg-white/5 text-gray-900 dark:text-white/60 text-[11px] font-bold border border-gray-300 dark:border-white/10 cursor-pointer badge">Streetwear</span>
                                 </div>
                                 <button
-                                    class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full bg-black dark:bg-white text-white dark:text-black text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none">
+                                    class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none bg-blue-600 hover:bg-blue-700 text-white">
                                     Explore <i
                                         class="bi bi-chevron-right transition-transform group-hover:translate-x-1"></i>
                                 </button>
@@ -1525,63 +1022,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
             </script>
 
             <style>
-                .scrollbar-hide::-webkit-scrollbar {
-                    display: none;
-                }
 
-                .scrollbar-hide {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-
-                .search-transition-wrapper {
-                    display: grid;
-                    grid-template-rows: 1fr;
-                    transition: grid-template-rows 450ms cubic-bezier(0.4, 0, 0.2, 1),
-                        opacity 300ms ease,
-                        transform 450ms ease;
-                    transform-origin: top;
-                }
-
-                .search-transition-wrapper.is-hidden {
-                    grid-template-rows: 0fr;
-                    opacity: 0;
-                    transform: translateY(20px);
-                    pointer-events: none;
-                }
-
-                .search-transition-content {
-                    overflow: hidden;
-                }
-
-                #search-results {
-                    transition: all 500ms cubic-bezier(0.22, 1, 0.36, 1);
-                }
-
-                .custom-scrollbar::-webkit-scrollbar {
-                    width: 4px;
-                }
-
-                .custom-scrollbar::-webkit-scrollbar-track {
-                    background: transparent;
-                }
-
-                .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: rgba(0, 0, 0, 0.1);
-                    border-radius: 10px;
-                }
-
-                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                    background: rgba(0, 0, 0, 0.2);
-                }
-
-                .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: rgba(255, 255, 255, 0.1);
-                }
-
-                .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                    background: rgba(255, 255, 255, 0.2);
-                }
             </style>
         </div>
 
@@ -1590,7 +1031,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
             <hr class="my-4 border-black/10 dark:border-white/5">
 
             <div class="px-2 pb-4">
-                <div id="cart-step-1" class="space-y-4">
+                <div id="cart-step-1" class="pb-4 space-y-4 max-h-[550px] overflow-y-auto">
                     <div class="flex items-center justify-between px-1 mb-3">
                         <div class="flex items-center gap-2">
                             <span
@@ -1728,7 +1169,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                     </div>
                 </div>
 
-                <div id="cart-step-2" class="hidden space-y-4">
+                <div id="cart-step-2" class="hidden pb-4 space-y-4 max-h-[550px] overflow-y-auto">
                     <div class="space-y-4">
                         <button onclick="showCheckoutStep(1)"
                             class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
@@ -2003,30 +1444,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                 toggleDelivery('home');
             </script>
             <style>
-                .custom-scrollbar::-webkit-scrollbar {
-                    width: 4px;
-                }
 
-                .custom-scrollbar::-webkit-scrollbar-track {
-                    background: transparent;
-                }
-
-                .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: rgba(0, 0, 0, 0.1);
-                    border-radius: 2px;
-                }
-
-                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                    background: rgba(0, 0, 0, 0.2);
-                }
-
-                .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-                    background: rgba(255, 255, 255, 0.1);
-                }
-
-                .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                    background: rgba(255, 255, 255, 0.2);
-                }
             </style>
         </div>
 
@@ -2585,7 +2003,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
 
 
         <!-- HELP VIEW -->
-        <div id="help-view" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out overflow-hidden">
+        <div id="home-view" class="hidden opacity-0 scale-95 transition-all duration-500 ease-out overflow-hidden">
             <hr class="my-4 border-black/10 dark:border-white/5">
             <div class="px-2 pb-4 space-y-3">
                 <p class="text-[10px] font-bold uppercase opacity-40 text-black dark:text-white tracking-widest">How can
@@ -2733,7 +2151,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                          class="group transition-all duration-300 ease-in-out cursor-pointer p-3 rounded-xl bg-black/5 dark:bg-white/[0.02] border border-gray-200 dark:border-white/5 hover:bg-black/10 dark:hover:bg-white/[0.05] hover:border-gray-300 dark:hover:border-white/10 mb-2">
                         <div class="flex items-start justify-between gap-3">
                             <div class="flex gap-3 items-center">
-                                <div class="w-8 h-8 rounded-lg flex items-center justify-center text-sm shrink-0 ${uiType.color}">
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm shrink-0 ${uiType.color}">
                                     <i class="bi ${uiType.icon}"></i>
                                 </div>
                                 <div>
@@ -2817,7 +2235,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                 const config = alertConfiguration[type] || alertConfiguration.auth;
                 const uniqueAlertId = `alert-node-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
                 const alertHTML = `
-                <div id="${uniqueAlertId}" class="glass w-full w-[90%] max-w-[30rem] rounded-b-[30px] pointer-events-auto border border-white/10 shadow-2xl overflow-hidden transition-all duration-500 ease-in-out opacity-0 -translate-y-4 scale-95 transform">
+                <div id="${uniqueAlertId}" class="glass w-full w-[90%] max-w-[30rem] rounded-b-[30px] pointer-events-auto border border-white/10 shadow-2xl overflow-hidden transition-all alertbg duration-500 ease-in-out opacity-0 -translate-y-4 scale-95 transform">
                     <div class="px-5 py-3.5 flex items-center gap-4 bg-black/20 backdrop-blur-xl">
                         <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${config.color}">
                             <i class="bi ${config.icon} text-sm"></i>
@@ -2874,834 +2292,10 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
 
         <!-- Dynamic Alert Target Zone -->
         <div id="dynamic-alert-target-zone"
-            class="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] z-50 pointer-events-none flex flex-col items-center gap-2">
+            class="fixed top-0 left-1/2 -translate-x-1/2 w-[100%] max-w-[30rem] z-50 pointer-events-none flex flex-col items-center gap-2">
         </div>
         <style>
-            /* ============================================
-           LIGHT THEME OVERRIDES
-           ============================================ */
 
-            body.light-theme #main-nav {
-                background: rgba(245, 245, 245, 0.92) !important;
-                backdrop-filter: blur(24px);
-                -webkit-backdrop-filter: blur(24px);
-                border: 1px solid rgba(0, 0, 0, 0.06) !important;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08) !important;
-            }
-
-            /* ===== HEADER / STORE NAME ===== */
-            body.light-theme #storename {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme #menu-toggle-btn {
-                background: rgba(0, 0, 0, 0.05) !important;
-                border-color: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            body.light-theme #menu-toggle-btn:hover {
-                background: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            body.light-theme #home-icon,
-            body.light-theme #close-icon {
-                color: #1a1a1a !important;
-            }
-
-            /* ===== RADIAL WRAPPER / NAV BUBBLES ===== */
-            body.light-theme #radial-wrapper {
-                border-right-color: #d1d1d1 !important;
-            }
-
-            body.light-theme .nav-bubble {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme .nav-bubble:hover {
-                color: #3b82f6 !important;
-            }
-
-            /* ===== HR LINES ===== */
-            body.light-theme hr {
-                border-color: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            /* ============================================
-           SEARCH VIEW
-           ============================================ */
-
-            /* Mode Buttons */
-            body.light-theme #mode-products,
-            body.light-theme #mode-categories {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme #mode-products {
-                background: #1a1a1a !important;
-                color: #ffffff !important;
-            }
-
-            body.light-theme #mode-categories {
-                background: rgba(0, 0, 0, 0.05) !important;
-                color: #1a1a1a !important;
-                border-color: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            body.light-theme #mode-categories.active {
-                background: #1a1a1a !important;
-                color: #ffffff !important;
-            }
-
-            body.light-theme #mode-products.inactive {
-                background: rgba(0, 0, 0, 0.05) !important;
-                color: #1a1a1a !important;
-                border-color: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            /* Search Input */
-            body.light-theme #search-input,
-            body.light-theme #directory-search {
-                background: #ffffff !important;
-                border-color: #d1d5db !important;
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme #search-input::placeholder,
-            body.light-theme #directory-search::placeholder {
-                color: #9ca3af !important;
-            }
-
-            body.light-theme #search-input:focus,
-            body.light-theme #directory-search:focus {
-                border-color: #3b82f6 !important;
-            }
-
-            /* Labels - txt1 */
-            body.light-theme .txt1 {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme .txt2 {
-                color: #1a1a1a !important;
-            }
-
-            /* Badges */
-            body.light-theme .badge {
-                background: #ffffff !important;
-                color: #1a1a1a !important;
-                border-color: #d1d5db !important;
-            }
-
-            body.light-theme .badge.active {
-                background: #3b82f6 !important;
-                color: #ffffff !important;
-                border-color: #3b82f6 !important;
-            }
-
-            /* Explore Button */
-            body.light-theme .group.flex-shrink-0 button {
-                background: #1a1a1a !important;
-                color: #ffffff !important;
-            }
-
-            body.light-theme .group.flex-shrink-0 button:hover {
-                background: #333333 !important;
-            }
-
-            /* Recent Searches hover */
-            body.light-theme .hover\:bg-gray-100 {
-                background: rgba(0, 0, 0, 0.05) !important;
-            }
-
-            body.light-theme .hover\:bg-gray-100:hover {
-                background: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            /* Search Results */
-            body.light-theme #search-results .bg-white {
-                background: #ffffff !important;
-                border-color: #e5e7eb !important;
-            }
-
-            body.light-theme #search-results .bg-gray-200 {
-                background: #e5e7eb !important;
-            }
-
-            body.light-theme #search-results .bg-gray-300 {
-                background: #d1d5db !important;
-            }
-
-            body.light-theme .text-gray-500 {
-                color: #6b7280 !important;
-            }
-
-            body.light-theme .text-blue-600 {
-                color: #2563eb !important;
-            }
-
-            body.light-theme .text-gray-900 {
-                color: #1a1a1a !important;
-            }
-
-            /* Category Grid */
-            body.light-theme .bg-black\/5 {
-                background: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme .border-gray-200 {
-                border-color: #e5e7eb !important;
-            }
-
-            body.light-theme .text-black\/70 {
-                color: rgba(0, 0, 0, 0.7) !important;
-            }
-
-            body.light-theme .text-black\/80 {
-                color: rgba(0, 0, 0, 0.8) !important;
-            }
-
-            body.light-theme .text-black\/50 {
-                color: rgba(0, 0, 0, 0.5) !important;
-            }
-
-            body.light-theme .text-black\/40 {
-                color: rgba(0, 0, 0, 0.4) !important;
-            }
-
-            body.light-theme .text-black\/30 {
-                color: rgba(0, 0, 0, 0.3) !important;
-            }
-
-            body.light-theme .text-black\/60 {
-                color: rgba(0, 0, 0, 0.6) !important;
-            }
-
-            /* Category Items hover */
-            body.light-theme .hover\:bg-black\/5:hover {
-                background: rgba(0, 0, 0, 0.05) !important;
-            }
-
-            body.light-theme .hover\:text-black:hover {
-                color: #1a1a1a !important;
-            }
-
-            /* Explore Button in Category */
-            body.light-theme #explore-btn {
-                background: #1a1a1a !important;
-                color: #ffffff !important;
-            }
-
-            body.light-theme #explore-btn:hover {
-                background: #2563eb !important;
-                color: #ffffff !important;
-            }
-
-            body.light-theme #explore-btn:disabled {
-                background: rgba(0, 0, 0, 0.08) !important;
-                color: rgba(0, 0, 0, 0.3) !important;
-            }
-
-            /* Items Counter */
-            body.light-theme #items-counter {
-                background: rgba(0, 0, 0, 0.04) !important;
-                border-color: #e5e7eb !important;
-                color: rgba(0, 0, 0, 0.5) !important;
-            }
-
-            body.light-theme #items-counter.active {
-                color: #16a34a !important;
-                border-color: rgba(22, 163, 74, 0.2) !important;
-                background: rgba(22, 163, 74, 0.05) !important;
-            }
-
-            /* ============================================
-           PRODUCT DETAILS
-           ============================================ */
-
-            body.light-theme #product-details .text-black {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme #product-details .text-black\/60 {
-                color: rgba(0, 0, 0, 0.6) !important;
-            }
-
-            body.light-theme #product-details .text-black\/80 {
-                color: rgba(0, 0, 0, 0.8) !important;
-            }
-
-            body.light-theme #product-details .text-black\/40 {
-                color: rgba(0, 0, 0, 0.4) !important;
-            }
-
-            body.light-theme #product-details .text-black\/30 {
-                color: rgba(0, 0, 0, 0.3) !important;
-            }
-
-            body.light-theme #product-details .text-zinc-500 {
-                color: #6b7280 !important;
-            }
-
-            body.light-theme #product-details .text-zinc-600 {
-                color: #4b5563 !important;
-            }
-
-            body.light-theme #product-details .bg-zinc-100 {
-                background: #f3f4f6 !important;
-            }
-
-            body.light-theme #product-details .bg-zinc-50 {
-                background: #f9fafb !important;
-            }
-
-            body.light-theme #product-details .border-black\/10 {
-                border-color: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            body.light-theme #product-details .border-black\/20 {
-                border-color: rgba(0, 0, 0, 0.15) !important;
-            }
-
-            body.light-theme #product-details .bg-black\/5 {
-                background: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme #product-details .bg-black\/10 {
-                background: rgba(0, 0, 0, 0.06) !important;
-            }
-
-            /* Tabs */
-            body.light-theme #product-details .border-b {
-                border-color: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            body.light-theme #product-details .text-zinc-500 {
-                color: #6b7280 !important;
-            }
-
-            body.light-theme #product-details .text-blue-500 {
-                color: #2563eb !important;
-            }
-
-            body.light-theme #product-details .border-blue-500 {
-                border-color: #2563eb !important;
-            }
-
-            body.light-theme #product-details .hover\:text-blue-500:hover {
-                color: #2563eb !important;
-            }
-
-            /* Size Buttons */
-            body.light-theme #product-details .border-2.border-black {
-                border-color: #1a1a1a !important;
-            }
-
-            body.light-theme #product-details .hover\:bg-black:hover {
-                background: #1a1a1a !important;
-            }
-
-            body.light-theme #product-details .hover\:text-white:hover {
-                color: #ffffff !important;
-            }
-
-            body.light-theme #product-details .hover\:border-black:hover {
-                border-color: #1a1a1a !important;
-            }
-
-            /* Action Buttons */
-            body.light-theme #product-details .bg-black {
-                background: #1a1a1a !important;
-                color: #ffffff !important;
-            }
-
-            body.light-theme #product-details .bg-black:hover {
-                background: #333333 !important;
-            }
-
-            body.light-theme #product-details .border-black\/10 {
-                border-color: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            body.light-theme #product-details .text-black {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme #product-details .hover\:bg-black\/5:hover {
-                background: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            /* ============================================
-           CART VIEW
-           ============================================ */
-
-            body.light-theme #cart-view .text-black {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme #cart-view .text-black\/50 {
-                color: rgba(0, 0, 0, 0.5) !important;
-            }
-
-            body.light-theme #cart-view .text-black\/60 {
-                color: rgba(0, 0, 0, 0.6) !important;
-            }
-
-            body.light-theme #cart-view .text-black\/40 {
-                color: rgba(0, 0, 0, 0.4) !important;
-            }
-
-            body.light-theme #cart-view .text-black\/30 {
-                color: rgba(0, 0, 0, 0.3) !important;
-            }
-
-            body.light-theme #cart-view .bg-black\/5 {
-                background: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme #cart-view .border-black\/10 {
-                border-color: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            body.light-theme #cart-view .border-black\/5 {
-                border-color: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme #cart-view .bg-neutral-100 {
-                background: #f3f4f6 !important;
-            }
-
-            body.light-theme #cart-view .hover\:bg-black\/10:hover {
-                background: rgba(0, 0, 0, 0.06) !important;
-            }
-
-            body.light-theme #cart-view .text-blue-600 {
-                color: #2563eb !important;
-            }
-
-            /* Delivery Method */
-            body.light-theme #cart-view .border-blue-500 {
-                border-color: #2563eb !important;
-            }
-
-            body.light-theme #cart-view .bg-blue-500\/5 {
-                background: rgba(37, 99, 235, 0.05) !important;
-            }
-
-            body.light-theme #cart-view .text-neutral-400 {
-                color: #9ca3af !important;
-            }
-
-            body.light-theme #cart-view .hover\:text-blue-600:hover {
-                color: #2563eb !important;
-            }
-
-            /* Payment Options */
-            body.light-theme #cart-view .border-black\/5 {
-                border-color: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme #cart-view .bg-white {
-                background: #ffffff !important;
-            }
-
-            body.light-theme #cart-view .hover\:bg-black\/10:hover {
-                background: rgba(0, 0, 0, 0.06) !important;
-            }
-
-            /* ============================================
-           PROFILE VIEW
-           ============================================ */
-
-            body.light-theme #profile-view .text-black {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme #profile-view .text-black\/60 {
-                color: rgba(0, 0, 0, 0.6) !important;
-            }
-
-            body.light-theme #profile-view .text-black\/50 {
-                color: rgba(0, 0, 0, 0.5) !important;
-            }
-
-            body.light-theme #profile-view .text-black\/40 {
-                color: rgba(0, 0, 0, 0.4) !important;
-            }
-
-            body.light-theme #profile-view .text-black\/30 {
-                color: rgba(0, 0, 0, 0.3) !important;
-            }
-
-            body.light-theme #profile-view .border-black\/10 {
-                border-color: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            body.light-theme #profile-view .border-black\/5 {
-                border-color: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme #profile-view .bg-black\/5 {
-                background: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme #profile-view .bg-white\/5 {
-                background: rgba(255, 255, 255, 0.5) !important;
-            }
-
-            body.light-theme #profile-view .hover\:bg-black\/10:hover {
-                background: rgba(0, 0, 0, 0.06) !important;
-            }
-
-            body.light-theme #profile-view .text-blue-600 {
-                color: #2563eb !important;
-            }
-
-            body.light-theme #profile-view .border-blue-500 {
-                border-color: #2563eb !important;
-            }
-
-            /* Profile Tabs */
-            body.light-theme #profile-view .text-black {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme #profile-view .opacity-40 {
-                opacity: 0.5 !important;
-            }
-
-            /* Fit Engine */
-            body.light-theme #profile-view .text-black\/80 {
-                color: rgba(0, 0, 0, 0.8) !important;
-            }
-
-            body.light-theme #profile-view .bg-black\/5 {
-                background: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme #profile-view .border-black\/10 {
-                border-color: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            /* Notifications */
-            body.light-theme #profile-view .text-black\/30 {
-                color: rgba(0, 0, 0, 0.3) !important;
-            }
-
-            body.light-theme #profile-view .text-black\/40 {
-                color: rgba(0, 0, 0, 0.4) !important;
-            }
-
-            body.light-theme #profile-view .bg-black\/5 {
-                background: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme #profile-view .border-black\/10 {
-                border-color: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            body.light-theme #profile-view .text-blue-600 {
-                color: #2563eb !important;
-            }
-
-            /* Orders */
-            body.light-theme #profile-view .text-amber-500 {
-                color: #d97706 !important;
-            }
-
-            body.light-theme #profile-view .bg-amber-500\/10 {
-                background: rgba(217, 119, 6, 0.08) !important;
-            }
-
-            body.light-theme #profile-view .text-green-600 {
-                color: #16a34a !important;
-            }
-
-            body.light-theme #profile-view .bg-green-500\/5 {
-                background: rgba(22, 163, 74, 0.05) !important;
-            }
-
-            /* ============================================
-           HELP VIEW
-           ============================================ */
-
-            body.light-theme #help-view .text-black {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme #help-view .text-black\/60 {
-                color: rgba(0, 0, 0, 0.6) !important;
-            }
-
-            body.light-theme #help-view .border-black\/10 {
-                border-color: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            body.light-theme #help-view .hover\:bg-black\/5:hover {
-                background: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme #help-view .text-blue-600 {
-                color: #2563eb !important;
-            }
-
-            /* ============================================
-           EXPLORE VIEW
-           ============================================ */
-
-            body.light-theme #explore-view .text-black {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme #explore-view .text-black\/40 {
-                color: rgba(0, 0, 0, 0.4) !important;
-            }
-
-            body.light-theme #explore-view .bg-black\/5 {
-                background: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme #explore-view .border-black\/10 {
-                border-color: rgba(0, 0, 0, 0.08) !important;
-            }
-
-            body.light-theme #explore-view .text-blue-600 {
-                color: #2563eb !important;
-            }
-
-            body.light-theme #explore-view .hover\:bg-white:hover {
-                background: #ffffff !important;
-            }
-
-            /* ============================================
-           SCROLLBARS
-           ============================================ */
-
-            body.light-theme .custom-scrollbar::-webkit-scrollbar-thumb {
-                background: rgba(0, 0, 0, 0.15) !important;
-            }
-
-            body.light-theme .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                background: rgba(0, 0, 0, 0.25) !important;
-            }
-
-            body.light-theme .custom-scrollbar::-webkit-scrollbar-track {
-                background: transparent !important;
-            }
-
-            /* ============================================
-           ALERT / TOAST
-           ============================================ */
-
-            body.light-theme .glass {
-                background: rgba(255, 255, 255, 0.92) !important;
-                backdrop-filter: blur(24px);
-                -webkit-backdrop-filter: blur(24px);
-                border: 1px solid rgba(0, 0, 0, 0.06) !important;
-            }
-
-            body.light-theme .glass .text-white {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme .glass .text-white\/70 {
-                color: rgba(0, 0, 0, 0.7) !important;
-            }
-
-            body.light-theme .glass .bg-black\/20 {
-                background: rgba(255, 255, 255, 0.8) !important;
-            }
-
-            body.light-theme #dynamic-alert-target-zone .text-white {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme #dynamic-alert-target-zone .text-white\/70 {
-                color: rgba(0, 0, 0, 0.7) !important;
-            }
-
-            /* ============================================
-           CUSTOM CLASSES
-           ============================================ */
-
-            /* clb - for category search input */
-            body.light-theme .clb {
-                background: #ffffff !important;
-                color: #1a1a1a !important;
-                border-color: #d1d5db !important;
-            }
-
-            body.light-theme .clb::placeholder {
-                color: #9ca3af !important;
-            }
-
-            /* txt1 - for labels and text */
-            body.light-theme .txt1 {
-                color: #1a1a1a !important;
-            }
-
-            /* txt2 - for secondary text */
-            body.light-theme .txt2 {
-                color: #1a1a1a !important;
-            }
-
-            /* badge - for pills */
-            body.light-theme .badge {
-                background: #ffffff !important;
-                color: #1a1a1a !important;
-                border-color: #d1d5db !important;
-            }
-
-            body.light-theme .badge.active {
-                background: #3b82f6 !important;
-                color: #ffffff !important;
-                border-color: #3b82f6 !important;
-            }
-
-            /* ============================================
-           WELCOME MAT / CARD
-           ============================================ */
-
-            body.light-theme #welcome-mat {
-                background: rgb(231, 231, 231) !important;
-                border-color: rgb(231, 231, 231) !important;
-            }
-
-            body.light-theme .mat-card .text-white {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme .mat-card .text-white\/60 {
-                color: rgba(0, 0, 0, 0.6) !important;
-            }
-
-            body.light-theme .mat-card .text-white\/40 {
-                color: rgba(0, 0, 0, 0.4) !important;
-            }
-
-            body.light-theme .mat-card .text-white\/30 {
-                color: rgba(0, 0, 0, 0.3) !important;
-            }
-
-            body.light-theme .mat-card .text-white\/25 {
-                color: rgba(0, 0, 0, 0.25) !important;
-            }
-
-            body.light-theme .mat-card .text-white\/20 {
-                color: rgba(0, 0, 0, 0.2) !important;
-            }
-
-            body.light-theme .mat-card .border-white\/10 {
-                border-color: rgba(0, 0, 0, 0.06) !important;
-            }
-
-            body.light-theme .mat-card .border-white\/5 {
-                border-color: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme .mat-card .border-white\/4 {
-                border-color: rgba(0, 0, 0, 0.03) !important;
-            }
-
-            body.light-theme .mat-card .bg-white\/5 {
-                background: rgba(255, 255, 255, 0.3) !important;
-            }
-
-            body.light-theme .mat-card .bg-white\/10 {
-                background: rgba(255, 255, 255, 0.5) !important;
-            }
-
-            body.light-theme .mat-card .bg-white\/\[0\.02\] {
-                background: rgba(255, 255, 255, 0.3) !important;
-            }
-
-            body.light-theme .mat-card .bg-white\/\[0\.03\] {
-                background: rgba(255, 255, 255, 0.4) !important;
-            }
-
-            body.light-theme .mat-card .bg-black\/20 {
-                background: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme .mat-card .bg-black\/5 {
-                background: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme .mat-card .hover\:bg-white\/5:hover {
-                background: rgba(255, 255, 255, 0.5) !important;
-            }
-
-            body.light-theme .mat-card .bg-gradient-to-br {
-                background: rgba(245, 245, 245, 0.8) !important;
-            }
-
-            body.light-theme .mat-card .shadow-2xl {
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06) !important;
-            }
-
-            body.light-theme .mat-card .shadow-lg {
-                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06) !important;
-            }
-
-            /* Mat card specific text */
-            body.light-theme .mat-store-name {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme .mat-store-meta .badge {
-                background: rgba(0, 0, 0, 0.04) !important;
-                color: rgba(0, 0, 0, 0.6) !important;
-                border-color: rgba(0, 0, 0, 0.06) !important;
-            }
-
-            body.light-theme .mat-store-meta .badge.verified {
-                background: rgba(22, 163, 74, 0.08) !important;
-                color: #16a34a !important;
-                border-color: rgba(22, 163, 74, 0.1) !important;
-            }
-
-            body.light-theme .mat-stats .stat-value {
-                color: #1a1a1a !important;
-            }
-
-            body.light-theme .mat-stats .stat-label {
-                color: rgba(0, 0, 0, 0.4) !important;
-            }
-
-            body.light-theme .mat-bio {
-                color: rgba(0, 0, 0, 0.55) !important;
-            }
-
-            body.light-theme .mat-bio-toggle {
-                color: rgba(37, 99, 235, 0.6) !important;
-            }
-
-            body.light-theme .mat-bio-toggle:hover {
-                color: #2563eb !important;
-            }
-
-            body.light-theme .fit-badge {
-                color: rgba(0, 0, 0, 0.5) !important;
-                background: rgba(0, 0, 0, 0.03) !important;
-                border-color: rgba(0, 0, 0, 0.04) !important;
-            }
-
-            body.light-theme .mat-btn {
-                background: #1a1a1a !important;
-                color: #ffffff !important;
-                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
-            }
-
-            body.light-theme .mat-btn:hover {
-                background: #333333 !important;
-            }
-
-            body.light-theme #rtntohome {
-                color: rgba(0, 0, 0, 0.25) !important;
-            }
-
-            body.light-theme #rtntohome:hover {
-                color: rgba(0, 0, 0, 0.5) !important;
-            }
         </style>
     </nav>
     <!-- navbar -->
@@ -3715,19 +2309,14 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
     border: 1px solid rgba(255, 255, 255, 0.06);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
 ">
-        <div class="mat-card" style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <div class="mat-card">
 
             <!-- ===== TOP ROW: User info + Theme toggle ===== -->
             <div class="mat-header" style="
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            padding-bottom: 0.75rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         ">
                 <!-- Left: User -->
-                <div class="mat-user-info" style="display: flex; align-items: center; gap: 0.75rem;">
+                <div class="mat-user-info">
 
                     <div class="mat-store-info">
                         <div class="mat-store-name">James Delaney</div>
@@ -3749,229 +2338,128 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
 
             <!-- ===== STORE HEADER ===== -->
             <div class="mat-header" style="
-            display: flex;
-            align-items: center;
-            gap: 0.9rem;
-            padding: 0.25rem 0 0.1rem;
-        ">
-                <div class="mat-logo" style="
-                width: 48px;
-                height: 48px;
-                border-radius: 14px;
-                background: linear-gradient(135deg, rgba(255,215,0,0.12), rgba(255,215,0,0.04));
-                border: 1px solid rgba(255,215,0,0.08);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 1.4rem;
-                flex-shrink: 0;
-            ">⚡</div>
+                    display: flex;
+                    align-items: center;
+                    gap: 0.9rem;
+                    padding: 0.25rem 0 0.1rem;
+                ">
+                <div class="mat-logo">⚡</div>
                 <div class="mat-store-info" style="flex: 1; min-width: 0;">
-                    <div class="mat-store-name" style="
-                    font-size: 1.3rem;
-                    font-weight: 700;
-                    color: #ffffff;
-                    letter-spacing: -0.02em;
-                    line-height: 1.2;
-                ">LANVIN</div>
+                    <div class="mat-store-name">LANVIN</div>
                     <div class="mat-store-meta"
                         style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.15rem;">
                         <span class="badge verified" style="
-                        font-size: 0.5rem;
-                        font-weight: 600;
-                        letter-spacing: 0.04em;
-                        padding: 0.1rem 0.6rem;
-                        border-radius: 12px;
-                        background: rgba(34,197,94,0.08);
-                        color: #4ade80;
-                        border: 1px solid rgba(34,197,94,0.1);
-                        text-transform: uppercase;
-                    ">✓ VERIFIED</span>
-                        <span class="badge year" style="
-                        font-size: 0.5rem;
-                        font-weight: 500;
-                        letter-spacing: 0.04em;
-                        padding: 0.1rem 0.6rem;
-                        border-radius: 12px;
-                        background: rgba(255,255,255,0.03);
-                        color: rgba(255,255,255,0.35);
-                        border: 1px solid rgba(255,255,255,0.04);
-                    ">EST. 2024</span>
+                                font-size: 0.5rem;
+                                font-weight: 600;
+                                letter-spacing: 0.04em;
+                                padding: 0.1rem 0.6rem;
+                                border-radius: 12px;
+                                background: rgba(34,197,94,0.08);
+                                color: #4ade80;
+                                border: 1px solid rgba(34,197,94,0.1);
+                                text-transform: uppercase;
+                            ">✓ VERIFIED</span>
+                        <span class="badge year">EST. 2024</span>
                     </div>
                 </div>
             </div>
 
             <!-- ===== STATS ===== -->
-            <div class="mat-stats" style="
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.5rem;
-            padding: 0.75rem 0;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-        ">
+            <div class="mat-stats">
                 <div class="stat-item"
                     style="display: flex; flex-direction: column; align-items: center; gap: 0.05rem;">
                     <span class="stat-value" style="
-                    font-size: 1.1rem;
-                    font-weight: 700;
-                    color: #ffffff;
-                    letter-spacing: 0.02em;
-                    line-height: 1.2;
-                ">12+</span>
+                            font-size: 1.1rem;
+                            font-weight: 700;
+                            color: #ffffff;
+                            letter-spacing: 0.02em;
+                            line-height: 1.2;
+                        ">12+</span>
                     <span class="stat-label" style="
-                    font-size: 0.5rem;
-                    font-weight: 600;
-                    letter-spacing: 0.06em;
-                    color: rgba(255,255,255,0.25);
-                    text-transform: uppercase;
-                ">Collections</span>
+                            font-size: 0.5rem;
+                            font-weight: 600;
+                            letter-spacing: 0.06em;
+                            color: rgba(255,255,255,0.25);
+                            text-transform: uppercase;
+                        ">Collections</span>
                 </div>
                 <div class="stat-item"
                     style="display: flex; flex-direction: column; align-items: center; gap: 0.05rem;">
                     <span class="stat-value" style="
-                    font-size: 1.1rem;
-                    font-weight: 700;
-                    color: #ffffff;
-                    letter-spacing: 0.02em;
-                    line-height: 1.2;
-                ">4.9</span>
+                            font-size: 1.1rem;
+                            font-weight: 700;
+                            color: #ffffff;
+                            letter-spacing: 0.02em;
+                            line-height: 1.2;
+                        ">4.9</span>
                     <span class="stat-label" style="
-                    font-size: 0.5rem;
-                    font-weight: 600;
-                    letter-spacing: 0.06em;
-                    color: rgba(255,255,255,0.25);
-                    text-transform: uppercase;
-                ">Client Rating</span>
+                            font-size: 0.5rem;
+                            font-weight: 600;
+                            letter-spacing: 0.06em;
+                            color: rgba(255,255,255,0.25);
+                            text-transform: uppercase;
+                        ">Client Rating</span>
                 </div>
                 <div class="stat-item"
                     style="display: flex; flex-direction: column; align-items: center; gap: 0.05rem;">
                     <span class="stat-value" style="
-                    font-size: 1.1rem;
-                    font-weight: 700;
-                    color: #ffffff;
-                    letter-spacing: 0.02em;
-                    line-height: 1.2;
-                ">405</span>
+                            font-size: 1.1rem;
+                            font-weight: 700;
+                            color: #ffffff;
+                            letter-spacing: 0.02em;
+                            line-height: 1.2;
+                        ">405</span>
                     <span class="stat-label" style="
-                    font-size: 0.5rem;
-                    font-weight: 600;
-                    letter-spacing: 0.06em;
-                    color: rgba(255,255,255,0.25);
-                    text-transform: uppercase;
-                ">Followers</span>
+                            font-size: 0.5rem;
+                            font-weight: 600;
+                            letter-spacing: 0.06em;
+                            color: rgba(255,255,255,0.25);
+                            text-transform: uppercase;
+                        ">Followers</span>
                 </div>
                 <div class="stat-item"
                     style="display: flex; flex-direction: column; align-items: center; gap: 0.05rem;">
                     <span class="stat-value" style="
-                    font-size: 1.1rem;
-                    font-weight: 700;
-                    color: #ffffff;
-                    letter-spacing: 0.02em;
-                    line-height: 1.2;
-                ">24</span>
+                            font-size: 1.1rem;
+                            font-weight: 700;
+                            color: #ffffff;
+                            letter-spacing: 0.02em;
+                            line-height: 1.2;
+                        ">24</span>
                     <span class="stat-label" style="
-                    font-size: 0.5rem;
-                    font-weight: 600;
-                    letter-spacing: 0.06em;
-                    color: rgba(255,255,255,0.25);
-                    text-transform: uppercase;
-                ">Products</span>
+                            font-size: 0.5rem;
+                            font-weight: 600;
+                            letter-spacing: 0.06em;
+                            color: rgba(255,255,255,0.25);
+                            text-transform: uppercase;
+                        ">Products</span>
                 </div>
             </div>
 
             <!-- ===== BIO ===== -->
             <div class="mat-bio-wrapper" style="width: 100%; position: relative;">
-                <div class="mat-bio truncated" id="matBio" style="
-                font-size: 0.8rem;
-                color: rgba(255,255,255,0.55);
-                line-height: 1.6;
-                max-height: 2.6em;
-                overflow: hidden;
-                transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-                position: relative;
-                text-align: left;
-                padding: 0;
-            ">
+                <div class="mat-bio truncated" id="matBio">
                     where simplicity meets sophistication. Curated collections for the modern individual who values
                     timeless
                     design, impeccable quality and understated elegance. Each piece is carefully selected to bring you
                     the
                     finest in contemporary fashion.
                 </div>
-                <button class="bio-toggle-btn" id="bioToggleBtn" style="
-                background: transparent;
-                color: rgba(96,165,250,0.6);
-                border: none;
-                padding: 0.15rem 0.3rem;
-                font-size: 0.65rem;
-                font-weight: 500;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                display: inline-block;
-                margin-top: 0.2rem;
-                letter-spacing: 0.02em;
-            ">Read More</button>
+                <button class="bio-toggle-btn" id="bioToggleBtn" style="display: inline-block;">Read More</button>
             </div>
 
             <!-- ===== ACTIONS ===== -->
-            <div class="mat-actions" style="
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            width: 100%;
-            flex-wrap: wrap;
-            margin-top: 0.25rem;
-        ">
-                <div class="fit-badge" style="
-                font-size: 0.65rem;
-                font-weight: 500;
-                color: rgba(255,255,255,0.5);
-                background: rgba(255,255,255,0.03);
-                padding: 0.35rem 0.9rem;
-                border-radius: 20px;
-                border: 1px solid rgba(255,255,255,0.04);
-                display: inline-flex;
-                align-items: center;
-                gap: 0.3rem;
-                white-space: nowrap;
-            ">🎯 8 items fit you</div>
-                <a href="#" class="mat-btn" id="welcomeCta" style="
-                background: #ffffff;
-                color: #0a0a0a;
-                padding: 0.45rem 1.6rem;
-                border-radius: 24px;
-                font-weight: 600;
-                font-size: 0.75rem;
-                letter-spacing: 0.02em;
-                transition: all 0.25s ease;
-                border: none;
-                cursor: pointer;
-                box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-                text-decoration: none;
-                display: inline-flex;
-                align-items: center;
-                gap: 0.3rem;
-                white-space: nowrap;
-            ">+ Let's take a look</a>
+            <div class="mat-actions">
+                <div
+                    class="fit-badge text-white text-[11px] font-bold px-4 py-2 rounded-xl transition-colors min-w-[70px] h-full">
+                    🎯 8 items fit you</div>
+                <a href="#"
+                    class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold px-4 py-2 rounded-xl transition-colors min-w-[70px] h-full"
+                    id="welcomeCta">+ Let's take a look</a>
             </div>
 
-            <div class="mat-actions" style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding-top: 0.25rem;
-            border-top: 1px solid rgba(255,255,255,0.04);
-        ">
-                <a href="#" id="rtntohome" style="
-                font-size: 0.65rem;
-                font-weight: 500;
-                color: rgba(255,255,255,0.25);
-                text-decoration: none;
-                transition: color 0.3s ease;
-                padding: 0.2rem 0.5rem;
-            ">Return to Home</a>
+            <div class="mat-actions">
+                <a href="#" id="rtntohome">Return to Home</a>
             </div>
 
         </div>
@@ -4108,51 +2596,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
         })();
     </script>
     <style>
-        .nav-bubble {
-            position: relative;
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            /* color: white; */
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
 
-        /* FIXED: Simplified active sequence mechanics without complex radial math formulas */
-        #radial-wrapper.active {
-            opacity: 1 !important;
-            transform: translate(-32%, 0) scale(1) !important;
-            pointer-events: auto !important;
-        }
-
-        /* Hover State */
-        .nav-bubble:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(59, 130, 246, 0.5);
-            color: #3b82f6;
-            transform: translateY(-2px);
-        }
-
-        /* Make icons transition smoothly when swapped */
-        #icon-container,
-        #bubble-hint {
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-            pointer-events: none;
-        }
-
-        #bubble-hint {
-            white-space: nowrap;
-            text-align: center;
-            width: 100%;
-        }
     </style>
     <script>
         function toggleMenu() {
@@ -4266,762 +2710,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
 
 
         <style>
-            /* ----- HERO WRAPPER ----- */
-            #hero-main-container {
-                border-radius: 30px;
-                margin: 60px;
-                background: #050505;
-                height: 80vh;
-                position: relative;
-                width: 90%;
-                overflow: hidden;
-                transition: height 0.7s ease-in-out;
-                will-change: height;
-            }
 
-            #hero-display-target {
-                position: relative;
-                width: 100%;
-                height: 80vh;
-                overflow: hidden;
-                user-select: none;
-            }
-
-            /* ----- BACKGROUND LAYERS ----- */
-            .hero-bg-layer {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                background-size: cover;
-                background-position: center;
-                opacity: 0;
-                transform: scale(1.05);
-                filter: brightness(0.25) saturate(1.1);
-                transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1),
-                    transform 1.6s cubic-bezier(0.25, 1, 0.5, 1),
-                    filter 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-                z-index: 0;
-            }
-
-            .hero-bg-layer.active {
-                opacity: 1;
-                transform: scale(1.2);
-                z-index: 1;
-            }
-
-            .step-bg-overlay {
-                position: absolute;
-                inset: 0;
-                background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.70) 100%);
-                z-index: 2;
-            }
-
-            /* ----- CONTENT VAULT ----- */
-            #hero-content-vault {
-                position: relative;
-                z-index: 10;
-                width: 100%;
-                max-width: 1400px;
-                margin: 0 auto;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-                overflow: hidden;
-                /* no scroll */
-            }
-
-            /* ----- BLUEPRINT (each step) ----- */
-            .hero-content-blueprint {
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 50%;
-                transform: translateY(-50%);
-                margin: 0 auto;
-                opacity: 0;
-                filter: blur(15px);
-                pointer-events: none;
-                transition: opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
-                    filter 0.7s cubic-bezier(0.25, 1, 0.5, 1),
-                    transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
-                padding: 0 1.5rem;
-                width: 100%;
-                max-width: 1100px;
-                overflow: hidden;
-                /* no scroll inside steps */
-            }
-
-            .hero-content-blueprint.dynamic-visible {
-                /* position: relative; */
-                top: auto;
-                transform: translateY(0);
-                opacity: 1;
-                filter: blur(0px);
-                pointer-events: auto;
-            }
-
-            /* ----- STEP 0 — PROFESSIONAL INTRO / ABOUT (FULLY RESPONSIVE) ----- */
-            #data-step-0 .intro-container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: clamp(0.75rem, 1.8vh, 1.5rem);
-                padding: clamp(0.5rem, 1.5vh, 2rem) clamp(0.5rem, 2vw, 1rem);
-                max-width: min(820px, 92vw);
-                margin: 0 auto;
-                width: 100%;
-            }
-
-            /* ---- verification badge ---- */
-            .verified-badge {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                background: rgba(16, 185, 129, 0.12);
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
-                border: 1px solid rgba(16, 185, 129, 0.25);
-                padding: 0.4rem 1rem 0.4rem 0.7rem;
-                border-radius: 9999px;
-                font-size: clamp(0.55rem, 0.7vw, 0.7rem);
-                font-weight: 600;
-                letter-spacing: 0.04em;
-                color: #6ee7b7;
-                text-transform: uppercase;
-                transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-                box-shadow: 0 0 24px -6px rgba(16, 185, 129, 0.15);
-                cursor: default;
-                user-select: none;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .verified-badge .badge-icon {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 18px;
-                height: 18px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #10b981, #059669);
-                color: #fff;
-                font-size: 0.55rem;
-                flex-shrink: 0;
-            }
-
-            .verified-badge .badge-text {
-                white-space: nowrap;
-            }
-
-            .verified-badge .badge-check {
-                font-size: 0.65rem;
-            }
-
-            .verified-badge.unverified {
-                background: rgba(239, 68, 68, 0.10);
-                border-color: rgba(239, 68, 68, 0.20);
-                color: #fca5a5;
-                box-shadow: 0 0 24px -6px rgba(239, 68, 68, 0.10);
-            }
-
-            .verified-badge.unverified .badge-icon {
-                background: linear-gradient(135deg, #ef4444, #dc2626);
-            }
-
-            /* ---- brand headline (fully responsive) ---- */
-            .intro-headline {
-                font-size: clamp(2rem, 5.5vw, 4.2rem);
-                font-weight: 800;
-                line-height: 1.05;
-                letter-spacing: -0.03em;
-                text-align: center;
-                background: linear-gradient(135deg, #ffffff 30%, rgba(255, 255, 255, 0.5) 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                text-shadow: none;
-                margin-top: 0.25rem;
-                word-break: break-word;
-            }
-
-            .intro-headline .accent {
-                background: linear-gradient(135deg, #60a5fa, #a78bfa);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-
-            /* ---- tagline (fully responsive) ---- */
-            .intro-tagline {
-                font-size: clamp(0.75rem, 1.2vw, 1.1rem);
-                font-weight: 300;
-                color: rgba(255, 255, 255, 0.55);
-                text-align: center;
-                max-width: min(600px, 90vw);
-                line-height: 1.7;
-                letter-spacing: 0.02em;
-                padding: 0 0.5rem;
-            }
-
-            .intro-tagline strong {
-                color: rgba(255, 255, 255, 0.85);
-                font-weight: 500;
-            }
-
-            /* ---- divider ---- */
-            .intro-divider {
-                width: clamp(40px, 6vw, 60px);
-                height: 2px;
-                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-                border-radius: 4px;
-                margin: 0.25rem 0;
-            }
-
-            /* ---- stats row (fully responsive) ---- */
-            .intro-stats {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: clamp(1rem, 2.5vw, 3rem) clamp(1.5rem, 3.5vw, 3rem);
-                margin-top: 0.5rem;
-                padding: 0.5rem 0;
-            }
-
-            .stat-item {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 0.15rem;
-            }
-
-            .stat-item .stat-number {
-                font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-                font-weight: 700;
-                color: #fff;
-                letter-spacing: -0.02em;
-                background: linear-gradient(135deg, #f1f5f9, #94a3b8);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-
-            .stat-item .stat-label {
-                font-size: clamp(0.5rem, 0.6vw, 0.6rem);
-                font-weight: 500;
-                text-transform: uppercase;
-                letter-spacing: 0.12em;
-                color: rgba(255, 255, 255, 0.30);
-                white-space: nowrap;
-            }
-
-            /* ---- cta row (fully responsive) ---- */
-            .intro-cta-row {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
-                gap: clamp(0.5rem, 0.8vw, 0.8rem) clamp(0.8rem, 1.2vw, 1.2rem);
-                margin-top: 0.25rem;
-                padding: 0 0.5rem;
-            }
-
-            .intro-cta-row .btn-primary {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                padding: clamp(0.4rem, 0.6vw, 0.6rem) clamp(1.2rem, 1.8vw, 1.8rem);
-                border-radius: 9999px;
-                background: linear-gradient(135deg, #3b82f6, #6366f1);
-                border: none;
-                color: #fff;
-                font-size: clamp(0.55rem, 0.65vw, 0.7rem);
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 0.06em;
-                cursor: pointer;
-                transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-                box-shadow: 0 4px 24px -6px rgba(59, 130, 246, 0.30);
-                text-decoration: none;
-                white-space: nowrap;
-            }
-
-            .intro-cta-row .btn-primary:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 32px -6px rgba(59, 130, 246, 0.45);
-                background: linear-gradient(135deg, #2563eb, #4f46e5);
-            }
-
-            .intro-cta-row .btn-primary:active {
-                transform: scale(0.96);
-            }
-
-            .intro-cta-row .btn-secondary {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-                padding: clamp(0.4rem, 0.6vw, 0.6rem) clamp(1rem, 1.4vw, 1.6rem);
-                border-radius: 9999px;
-                background: rgba(255, 255, 255, 0.04);
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                color: rgba(255, 255, 255, 0.70);
-                font-size: clamp(0.55rem, 0.65vw, 0.7rem);
-                font-weight: 500;
-                text-transform: uppercase;
-                letter-spacing: 0.06em;
-                cursor: pointer;
-                transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-                text-decoration: none;
-                backdrop-filter: blur(4px);
-                -webkit-backdrop-filter: blur(4px);
-                white-space: nowrap;
-            }
-
-            .intro-cta-row .btn-secondary:hover {
-                background: rgba(255, 255, 255, 0.08);
-                border-color: rgba(255, 255, 255, 0.20);
-                color: #fff;
-                transform: translateY(-2px);
-            }
-
-            /* ----- STEP 1 & 2 — COLLECTIONS with top-picked toggle (shared) ----- */
-            .collection-step {
-                position: relative;
-                width: 100%;
-                max-width: 900px;
-                padding: 12px 16px 20px;
-                border-radius: 1.5rem;
-                border: 1px solid transparent;
-                transition: background 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-                    backdrop-filter 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-                    box-shadow 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-                    border-color 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-                will-change: background, backdrop-filter, box-shadow, border-color;
-                display: flex;
-                flex-direction: column;
-                margin: 0 auto;
-            }
-
-            .collection-step.has-background {
-                background: rgba(255, 255, 255, 0.04);
-                backdrop-filter: blur(10px) saturate(1.1);
-                -webkit-backdrop-filter: blur(10px) saturate(1.1);
-                box-shadow: 0 16px 56px -12px rgba(0, 0, 0, 0.7),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.07);
-                border-color: rgba(255, 255, 255, 0.08);
-            }
-
-            .collection-step.has-background::before {
-                content: '';
-                position: absolute;
-                inset: -1px;
-                border-radius: inherit;
-                background: radial-gradient(circle at 30% 10%, rgba(255, 255, 255, 0.06) 0%, transparent 65%);
-                pointer-events: none;
-                opacity: 0;
-                transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1);
-                z-index: 0;
-            }
-
-            .collection-step.has-background::before {
-                opacity: 1;
-            }
-
-            .collection-step>* {
-                position: relative;
-                z-index: 1;
-            }
-
-
-
-            /* ----- PRODUCT CARD ----- */
-            .product-card {
-                flex-shrink: 0;
-                scroll-snap-align: center;
-                border-radius: 1rem;
-                background: #000;
-                border: none;
-                /* box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.6); */
-                transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-                    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-                    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-                will-change: transform;
-                overflow: hidden;
-                position: relative;
-            }
-
-            .product-card:hover {
-                transform: translateY(-4px) scale(1.02);
-                box-shadow: 0 16px 48px -8px rgba(0, 0, 0, 0.7);
-                border-color: rgba(255, 255, 255, 0.2);
-            }
-
-            .product-card .bg-cover {
-                transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-                    filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-                will-change: transform, filter;
-            }
-
-            .product-card:hover .bg-cover {
-                transform: scale(1.08);
-                filter: blur(2px);
-            }
-
-            /* ----- FILTER BUTTONS (shared) ----- */
-            .filter-btn {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                border-radius: 9999px;
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                padding: 0.5rem 1rem;
-                font-size: clamp(0.55rem, 0.65vw, 0.7rem);
-                font-weight: 500;
-                letter-spacing: 0.05em;
-                text-transform: uppercase;
-                background-color: var(--bg-color);
-                color: var(--text-main);
-                backdrop-filter: blur(4px);
-                -webkit-backdrop-filter: blur(4px);
-                transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                    background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                    border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                    background-color 0.4s ease, color 0.4s ease;
-                cursor: pointer;
-                will-change: transform;
-                white-space: nowrap;
-            }
-
-            .filter-btn:hover {
-                transform: translateY(-2px);
-                background: rgba(255, 255, 255, 0.12);
-                border-color: rgba(255, 255, 255, 0.3);
-                box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
-            }
-
-            .filter-btn .dot {
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background: var(--text-main);
-                transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-                will-change: background, box-shadow;
-            }
-
-            .filter-btn:hover .dot {
-                background: #ffffff;
-                box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
-            }
-
-            /* ----- TOGGLE BUTTON (shared) ----- */
-            .top-picked-toggle {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                border-radius: 9999px;
-                border: 1px solid rgba(96, 165, 250, 0.25);
-                background: rgba(37, 99, 235, 0.15);
-                padding: 0.5rem 1.1rem;
-                font-size: clamp(0.55rem, 0.65vw, 0.7rem);
-                font-weight: 500;
-                letter-spacing: 0.05em;
-                text-transform: uppercase;
-                color: #bfdbfe;
-                backdrop-filter: blur(4px);
-                -webkit-backdrop-filter: blur(4px);
-                transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                    background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                    border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                    color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-                cursor: pointer;
-                will-change: transform;
-                user-select: none;
-                white-space: nowrap;
-            }
-
-            .top-picked-toggle:hover {
-                transform: translateY(-2px);
-                background: rgba(37, 99, 235, 0.25);
-                border-color: rgba(96, 165, 250, 0.5);
-                box-shadow: 0 8px 28px -6px rgba(37, 99, 235, 0.2);
-                color: #eff6ff;
-            }
-
-            .top-picked-toggle:active {
-                transform: scale(0.96) translateY(0);
-                transition-duration: 0.1s;
-            }
-
-            .top-picked-toggle i {
-                font-size: 0.7rem;
-                color: #93c5fd;
-                transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-                will-change: transform;
-            }
-
-            .top-picked-toggle:hover i {
-                transform: rotate(20deg) scale(1.1);
-            }
-
-            .top-picked-toggle.active {
-                border-color: rgba(96, 165, 250, 0.5);
-                background: rgba(37, 99, 235, 0.25);
-                color: #eff6ff;
-            }
-
-            /* ----- NAV NODES ----- */
-            .hero-nav-node {
-                padding: 3px;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                cursor: pointer;
-                opacity: 0.4;
-                transform: scale(0.95);
-                transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            }
-
-            .hero-nav-node:hover,
-            .hero-nav-node.active {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            .node-dot {
-                width: 5px;
-                height: 5px;
-                border-radius: 50%;
-                background-color: #fff;
-                transition: transform 0.3s ease;
-            }
-
-            .hero-nav-node:hover .node-dot,
-            .hero-nav-node.active .node-dot {
-                transform: scale(1.5);
-            }
-
-            .node-label {
-                text-shadow: 0 1px 1px rgba(0, 0, 0, 1);
-                font-size: clamp(10px, 0.7vw, 10px);
-                letter-spacing: 0.15em;
-                color: #fff;
-                white-space: nowrap;
-            }
-
-            /* ----- SPLIT TEXT ANIMATION (shared) ----- */
-            .hero-split-text {
-                text-shadow: 0 5px 1px rgba(0, 0, 0, 1);
-                letter-spacing: -0.02em;
-                text-align: center;
-            }
-
-            .hero-split-text span {
-                display: inline-block;
-                animation: textRevealEffect 0.5s cubic-bezier(0.25, 1, 0.5, 1) both;
-            }
-
-            @keyframes textRevealEffect {
-                0% {
-                    opacity: 0;
-                    transform: translateY(25px) rotateX(-45deg);
-                    filter: blur(4px);
-                }
-
-                100% {
-                    opacity: 1;
-                    transform: translateY(0) rotateX(0deg);
-                    filter: blur(0);
-                }
-            }
-
-            /* ----- STEPS WRAPPER (no scroll) ----- */
-            #steps-wrapper {
-                width: 100%;
-                text-align: center;
-                padding: 0 1rem;
-                z-index: 40;
-                overflow: hidden;
-                /* no scroll */
-                flex: 1 1 auto;
-                display: flex;
-                align-items: flex-end;
-                justify-content: center;
-                max-height: 85vh;
-            }
-
-            /* ----- NAV WRAPPER (sticky at bottom) ----- */
-            #nav-wrapper {
-                width: 100%;
-                flex-shrink: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 0;
-            }
-
-            #nav-wrapper .nav-inner {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                border-top: 1px solid rgba(255, 255, 255, 0.10);
-                backdrop-filter: blur(30px);
-                -webkit-backdrop-filter: blur(6px);
-                background: rgb(15 15 15 / 32%);
-                padding: clamp(0.5rem, 1.2vh, 0.75rem) clamp(0.5rem, 2vw, 1.5rem);
-                justify-content: center;
-                overflow-x: auto;
-                overflow-y: hidden;
-            }
-
-            #nav-wrapper .nav-inner .nav-scroll {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: clamp(0.75rem, 2.5vw, 2rem);
-                overflow-x: auto;
-                overflow-y: hidden;
-                padding: 0.25rem 0;
-                flex-wrap: nowrap;
-            }
-
-            /* ----- RESPONSIVE TWEAKS ----- */
-            @media (max-width: 640px) {
-                .intro-headline {
-                    font-size: clamp(1.6rem, 7vw, 2.4rem);
-                }
-
-                .intro-tagline {
-                    font-size: clamp(0.65rem, 2.5vw, 0.85rem);
-                }
-
-                .intro-stats {
-                    gap: 0.75rem 1.25rem;
-                }
-
-                .stat-item .stat-number {
-                    font-size: clamp(0.9rem, 3vw, 1.1rem);
-                }
-
-                .stat-item .stat-label {
-                    font-size: clamp(0.4rem, 1.4vw, 0.5rem);
-                }
-
-                .intro-cta-row .btn-primary,
-                .intro-cta-row .btn-secondary {
-                    font-size: clamp(0.45rem, 1.6vw, 0.55rem);
-                    padding: 0.3rem 0.8rem;
-                }
-
-                .filter-btn {
-                    font-size: clamp(0.45rem, 1.6vw, 0.55rem);
-                    padding: 0.3rem 0.6rem;
-                }
-
-                .top-picked-toggle {
-                    font-size: clamp(0.45rem, 1.6vw, 0.55rem);
-                    padding: 0.3rem 0.7rem;
-                }
-
-                .hero-split-text {
-                    font-size: clamp(1.4rem, 6vw, 2.2rem) !important;
-                }
-
-
-                #steps-wrapper {
-                    max-height: 80vh;
-                    padding: 0 0.5rem;
-                }
-
-                .collection-step {
-                    padding: 8px 10px 14px;
-                }
-
-                .verified-badge {
-                    font-size: clamp(0.45rem, 1.6vw, 0.55rem);
-                    padding: 0.25rem 0.6rem 0.25rem 0.5rem;
-                }
-
-                .verified-badge .badge-icon {
-                    width: 14px;
-                    height: 14px;
-                    font-size: 0.4rem;
-                }
-            }
-
-            @media (max-width: 400px) {
-                .intro-headline {
-                    font-size: clamp(1.3rem, 6.5vw, 1.8rem);
-                }
-
-                .intro-tagline {
-                    font-size: clamp(0.55rem, 2.2vw, 0.7rem);
-                }
-
-                /* .product-card {
-                    width: 100px !important;
-                    height: 130px !important;
-                } */
-
-                .intro-cta-row {
-                    gap: 0.3rem 0.5rem;
-                }
-
-                .intro-cta-row .btn-primary,
-                .intro-cta-row .btn-secondary {
-                    font-size: clamp(0.4rem, 1.4vw, 0.45rem);
-                    padding: 0.2rem 0.6rem;
-                }
-
-                .filter-btn {
-                    font-size: clamp(0.4rem, 1.4vw, 0.45rem);
-                    padding: 0.2rem 0.5rem;
-                }
-
-                .top-picked-toggle {
-                    font-size: clamp(0.4rem, 1.4vw, 0.45rem);
-                    padding: 0.2rem 0.5rem;
-                }
-
-
-                #nav-wrapper .nav-inner .nav-scroll {
-                    gap: 0.4rem;
-                }
-
-                .hero-split-text {
-                    font-size: clamp(1rem, 5vw, 1.6rem) !important;
-                }
-
-                .stat-item .stat-number {
-                    font-size: clamp(0.7rem, 2.5vw, 0.9rem);
-                }
-
-                .stat-item .stat-label {
-                    font-size: clamp(0.35rem, 1.2vw, 0.4rem);
-                }
-            }
-
-            /* ----- REDUCED MOTION ----- */
-            @media (prefers-reduced-motion: reduce) {
-
-                *,
-                *::before,
-                *::after {
-                    animation-duration: 0.01ms !important;
-                    animation-iteration-count: 1 !important;
-                    transition-duration: 0.01ms !important;
-                }
-
-                .collection-step {
-                    transition: none !important;
-                }
-
-                .hero-content-blueprint {
-                    transition: none !important;
-                }
-            }
         </style>
 
         <div id="hero-main-container" class="bg-[#050505] relative w-full overflow-hidden">
@@ -5550,71 +3239,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
         </section>
 
         <style>
-            /* Glass Effect Utility */
-            .glass {
-                background: rgba(255, 255, 255, 0.05);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-            }
 
-            /* Keep your existing Animation Styles */
-            .text-content-wrapper {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-                will-change: transform, opacity;
-            }
-
-            .hidden-text {
-                opacity: 0;
-                transform: translateY(20px);
-                pointer-events: none;
-                filter: blur(4px);
-            }
-
-            .active-text {
-                opacity: 1;
-                transform: translateY(0);
-                pointer-events: auto;
-                filter: blur(0px);
-            }
-
-            .exit-text {
-                opacity: 0 !important;
-                transform: translateY(-20px) !important;
-                filter: blur(8px);
-            }
-
-            .product-grid {
-                width: 100%;
-                transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-                will-change: transform, opacity;
-            }
-
-            .hidden-grid {
-                position: absolute;
-                top: 0;
-                left: 0;
-                opacity: 0;
-                transform: translateY(60px) scale(0.92);
-                pointer-events: none;
-                visibility: hidden;
-            }
-
-            .visible-grid {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-                pointer-events: auto;
-                visibility: visible;
-            }
-
-            .category-btn.active {
-                background-color: white !important;
-                color: black !important;
-                box-shadow: 0 15px 30px -10px rgba(255, 255, 255, 0.3);
-            }
         </style>
 
         <script>
@@ -5659,39 +3284,70 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
         </script>
 
         <style>
-            /* Hides scrollbar for Chrome, Safari and Opera */
-            .scrollbar-hide::-webkit-scrollbar {
-                display: none;
-            }
 
-            /* Hides scrollbar for IE, Edge and Firefox */
-            .scrollbar-hide {
-                -ms-overflow-style: none;
-                /* IE and Edge */
-                scrollbar-width: none;
-                /* Firefox */
-
-                /* Forces smooth momentum scrolling on iOS devices */
-                -webkit-overflow-scrolling: touch;
-            }
         </style>
 
     </main>
 
-    <footer class="w-full py-20 px-6 border-t glass border-white/5">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="flex flex-col items-center md:items-start gap-4">
-                <div class="font-bold text-[14px] ">MATAGER</div>
-                <p class="text-xs opacity-70">Empowering the next generation of commerce.</p>
+    <!-- Matager Footer – high‑end, glassmorphic, with support actions -->
+    <footer class="matager-footer">
+        <div class="footer-inner">
+
+            <!-- top row: brand + main nav + support actions -->
+            <div class="footer-row-top">
+                <!-- brand -->
+                <div class="brand-block">
+                    <div class="brand-title">MATAGER</div>
+                    <p class="brand-tagline">Empowering the next generation of commerce.</p>
+                </div>
+
+                <!-- main nav + support grouped -->
+                <div class="nav-group">
+                    <!-- main links (Shop, Privacy, Terms) -->
+                    <div class="nav-links">
+                        <a href="#">Shop</a>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                    </div>
+
+                    <!-- 🔥 support + bug + build store (high‑end) -->
+                    <div class="support-actions">
+                        <a href="#"><i class="fas fa-life-ring"></i> Help</a>
+                        <a href="#"><i class="fas fa-bug"></i> Report a bug</a>
+                        <a href="#" class="highlight-link"><i class="fas fa-store"></i> Build your store</a>
+                        <a href="#"><i class="fas fa-question-circle"></i> FAQ</a>
+                    </div>
+                </div>
             </div>
-            <div class="flex flex-wrap justify-center gap-10 text-sm font-medium opacity-70">
-                <a href="#" class="hover:text-blue-400 transition">Shop</a>
-                <a href="#" class="hover:text-blue-400 transition">Privacy</a>
-                <a href="#" class="hover:text-blue-400 transition">Terms</a>
+
+            <!-- subtle divider -->
+            <div class="footer-divider"></div>
+
+            <!-- bottom row: secondary links + copyright (exactly as requested, but we keep the extra "Shop Privacy Terms" + copyright) -->
+            <div class="footer-row-bottom">
+                <div class="bottom-nav">
+                    <a href="#">Shop</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <!-- additional subtle links (high‑end) -->
+                    <a href="#"><i class="far fa-envelope" style="margin-right: 4px;"></i> Contact</a>
+                    <a href="#"><i class="far fa-clock"></i> Status</a>
+                </div>
+                <div class="copyright">
+                    © 2026 Matager Inc.
+                </div>
             </div>
-            <p class="text-xs opacity-50">© 2026 Matager Inc.</p>
+
+            <!-- extra note: we keep the "Shop · Privacy · Terms" from the original, 
+               but they are now integrated in both rows, plus we added support actions -->
         </div>
     </footer>
+
+    <!-- (optional) small note: everything is self-contained, high-end UI -->
+    <div
+        style="position: fixed; bottom: 8px; left: 0; right: 0; text-align: center; font-size: 10px; color: rgba(255,255,255,0.08); pointer-events: none; font-family: monospace;">
+        matager · glassmorphism · high‑end
+    </div>
 
     <div id="nav-overlay" onclick="toggleMenu()"
         class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-all duration-500">
@@ -5743,7 +3399,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
 
             hideTogglingBtn();
 
-            ['product-details', 'search-view', 'cart-view', 'profile-view', 'help-view', 'catalog-view', 'explore-view'].forEach(id => {
+            ['product-details', 'search-view', 'cart-view', 'profile-view', 'home-view', 'catalog-view', 'explore-view'].forEach(id => {
                 const view = document.getElementById(id);
                 if (id !== viewId && view) {
                     view.classList.add('hidden', 'opacity-0', 'scale-95');
@@ -5827,7 +3483,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
         // // Helper functions for specific triggers
         function closeAllViews() {
             const nav = document.getElementById('main-nav');
-            const views = ['product-details', 'search-view', 'cart-view', 'profile-view', 'help-view', 'catalog-view', 'explore-view'];
+            const views = ['product-details', 'search-view', 'cart-view', 'profile-view', 'home-view', 'catalog-view', 'explore-view'];
             const overlay = document.getElementById('nav-overlay');
             const radial = document.getElementById('radial-wrapper');
             const closeBtn = document.getElementById('close-quicklook');
@@ -5880,7 +3536,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
         function openSearch(e) { if (e) e.preventDefault(); openNavView('search-view', '30rem'); }
         function openCart(e) { if (e) e.preventDefault(); openNavView('cart-view', '30rem'); }
         function openProfile(e) { if (e) e.preventDefault(); openNavView('profile-view', '30rem'); }
-        function openHelp(e) { if (e) e.preventDefault(); openNavView('help-view', '30rem'); }
+        function openHome(e) { if (e) e.preventDefault(); openNavView('home-view', '30rem'); }
         function openCatalog(e) { if (e) e.preventDefault(); openNavView('catalog-view', '30rem'); }
         function openExplore() { openNavView('explore-view', '45rem'); if (typeof animateExploreGrid === 'function') animateExploreGrid(); }
 

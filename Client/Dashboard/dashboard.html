@@ -176,16 +176,301 @@
 </head>
 
 <body class="pb-24 lg:pb-0">
-    <div class="fixed inset-0 -z-10">
-        <div class="absolute rounded-full -top-20 -left-20 w-[500px] h-[500px] bg-[#0ea5e9] blur-[120px] opacity-10">
-        </div>
-        <div
-            class="absolute rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#2563eb] blur-[160px] opacity-10">
-        </div>
-        <div
-            class="absolute rounded-full -bottom-20 -right-20 w-[500px] h-[500px] bg-[#4f46e5] blur-[120px] opacity-10">
-        </div>
+    <!-- <div class="fixed inset-0 overflow-hidden -z-20 pointer-events-none">
+            <div class="absolute rounded-full -top-20 -left-20 w-[600px] h-[600px] bg-[#0ea5e9] blur-[140px] opacity-20">
+            </div>
+            <div
+                class="absolute rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#2563eb] blur-[160px] opacity-10">
+            </div>
+            <div
+                class="absolute rounded-full -bottom-20 -right-20 w-[500px] h-[500px] bg-[#4f46e5] blur-[140px] opacity-20">
+            </div>
+        </div> -->
+    <!-- ===== ANIMATED BACKGROUND ===== -->
+    <style>
+        /* ===== ANIMATED BACKGROUND CONTAINER ===== */
+        .bg-orb-container {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: -20;
+            pointer-events: none;
+        }
+
+        /* ===== INDIVIDUAL ORB STYLES ===== */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.35;
+            will-change: transform, opacity;
+            animation: floatOrb 18s ease-in-out infinite alternate;
+        }
+
+        /* Orb 1 - Top Left (Blue/Cyan) */
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            top: -120px;
+            left: -120px;
+            background: radial-gradient(circle at 30% 30%, #0ea5e9, #0284c7);
+            animation-duration: 22s;
+            animation-delay: 0s;
+            opacity: 0.3;
+        }
+
+        /* Orb 2 - Center (Royal Blue) */
+        .orb-2 {
+            width: 800px;
+            height: 800px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle at 50% 50%, #2563eb, #1d4ed8);
+            animation-duration: 25s;
+            animation-delay: -3s;
+            opacity: 0.2;
+            filter: blur(160px);
+        }
+
+        /* Orb 3 - Bottom Right (Purple/Indigo) */
+        .orb-3 {
+            width: 550px;
+            height: 550px;
+            bottom: -120px;
+            right: -120px;
+            background: radial-gradient(circle at 70% 70%, #4f46e5, #7c3aed);
+            animation-duration: 20s;
+            animation-delay: -6s;
+            opacity: 0.3;
+        }
+
+        /* Orb 4 - Extra (Pink/Magenta) - adds more depth */
+        .orb-4 {
+            width: 400px;
+            height: 400px;
+            top: 20%;
+            right: -80px;
+            background: radial-gradient(circle at 60% 40%, #ec4899, #be185d);
+            animation-duration: 28s;
+            animation-delay: -10s;
+            opacity: 0.15;
+            filter: blur(150px);
+        }
+
+        /* Orb 5 - Extra (Teal) - adds more depth */
+        .orb-5 {
+            width: 450px;
+            height: 450px;
+            bottom: 25%;
+            left: -100px;
+            background: radial-gradient(circle at 40% 60%, #14b8a6, #0d9488);
+            animation-duration: 24s;
+            animation-delay: -5s;
+            opacity: 0.15;
+            filter: blur(140px);
+        }
+
+        /* ===== FLOATING KEYFRAMES ===== */
+        @keyframes floatOrb {
+            0% {
+                transform: translate(0px, 0px) scale(1) rotate(0deg);
+                opacity: 0.25;
+            }
+
+            15% {
+                transform: translate(30px, -40px) scale(1.05) rotate(5deg);
+                opacity: 0.35;
+            }
+
+            30% {
+                transform: translate(-20px, 60px) scale(0.95) rotate(-8deg);
+                opacity: 0.2;
+            }
+
+            45% {
+                transform: translate(50px, 20px) scale(1.08) rotate(10deg);
+                opacity: 0.4;
+            }
+
+            60% {
+                transform: translate(-40px, -50px) scale(0.92) rotate(-12deg);
+                opacity: 0.18;
+            }
+
+            75% {
+                transform: translate(20px, 70px) scale(1.02) rotate(6deg);
+                opacity: 0.35;
+            }
+
+            100% {
+                transform: translate(-10px, -30px) scale(0.98) rotate(-3deg);
+                opacity: 0.25;
+            }
+        }
+
+        /* ===== PULSING OVERLAY ===== */
+        .bg-pulse-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -19;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.08) 100%);
+            animation: pulseOverlay 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseOverlay {
+            0% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(1.02);
+            }
+
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+        }
+
+        /* ===== SUBTLE NOISE TEXTURE (optional) ===== */
+        .bg-noise {
+            position: fixed;
+            inset: 0;
+            z-index: -18;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px 256px;
+            animation: noiseShift 2s steps(8) infinite;
+        }
+
+        @keyframes noiseShift {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 256px 256px;
+            }
+        }
+
+        /* ===== DARK MODE ADJUSTMENTS ===== */
+        @media (prefers-color-scheme: dark) {
+            .orb-1 {
+                opacity: 0.4;
+            }
+
+            .orb-2 {
+                opacity: 0.3;
+            }
+
+            .orb-3 {
+                opacity: 0.4;
+            }
+
+            .bg-pulse-overlay {
+                background: radial-gradient(ellipse at center, transparent 20%, rgba(0, 0, 0, 0.3) 100%);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .orb-1 {
+                width: 300px;
+                height: 300px;
+                top: -60px;
+                left: -60px;
+            }
+
+            .orb-2 {
+                width: 400px;
+                height: 400px;
+            }
+
+            .orb-3 {
+                width: 280px;
+                height: 280px;
+                bottom: -60px;
+                right: -60px;
+            }
+
+            .orb-4 {
+                width: 200px;
+                height: 200px;
+            }
+
+            .orb-5 {
+                width: 220px;
+                height: 220px;
+            }
+        }
+    </style>
+    <div class="bg-orb-container">
+        <!-- Orbs -->
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb orb-5"></div>
     </div>
+
+    <!-- Pulse overlay for depth -->
+    <div class="bg-pulse-overlay"></div>
+
+    <!-- Subtle noise texture -->
+    <div class="bg-noise"></div>
+    <script>
+        (function () {
+            'use strict';
+
+            // Only runs on desktop-ish devices
+            if (window.matchMedia('(pointer: fine)').matches) {
+                const orbs = document.querySelectorAll('.orb');
+                let mouseX = 0, mouseY = 0;
+                let currentX = 0, currentY = 0;
+
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = (e.clientX / window.innerWidth - 0.5) * 40;
+                    mouseY = (e.clientY / window.innerHeight - 0.5) * 40;
+                });
+
+                function animateOrbs() {
+                    currentX += (mouseX - currentX) * 0.02;
+                    currentY += (mouseY - currentY) * 0.02;
+
+                    orbs.forEach((orb, index) => {
+                        const factor = (index + 1) * 0.3;
+                        const xOffset = currentX * factor * 0.6;
+                        const yOffset = currentY * factor * 0.6;
+                        // We don't override the animation, but add a subtle extra shift
+                        orb.style.setProperty('--mouse-x', xOffset + 'px');
+                        orb.style.setProperty('--mouse-y', yOffset + 'px');
+                    });
+
+                    requestAnimationFrame(animateOrbs);
+                }
+
+                // Inject a slight mouse-driven transform into each orb
+                const style = document.createElement('style');
+                style.textContent = `
+                        .orb {
+                            transform: translate(var(--mouse-x, 0px), var(--mouse-y, 0px));
+                            transition: transform 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+                        }
+                    `;
+                document.head.appendChild(style);
+
+                // Start the animation loop
+                animateOrbs();
+            }
+
+        })();
+    </script>
     <nav class="sticky top-0 z-50 w-full px-6 py-4 lg:px-12 glass-card border-none">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
