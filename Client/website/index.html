@@ -48,8 +48,6 @@
         style="background: rgba(10, 10, 10, 0.92);
 backdrop-filter: blur(24px);
 -webkit-backdrop-filter: blur(24px);
- border-inline: 8px solid var(--bg-color) !important;
-    border-bottom: 8px solid var(--bg-color) !important;
 box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
         <div class="max-w-7xl mx-auto flex justify-between items-center transition-all duration-500" id="nav-header">
             <div id="storename"
@@ -109,7 +107,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
         <div id="product-details" class="transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
             <hr class="my-3 border-white/10 dark:border-white/5">
 
-            <div class="pb-4 space-y-4 max-h-[550px] overflow-y-auto" style="display: flex;flex-direction: column;">
+            <div class="pb-4 space-y-4 max-h-[480px] overflow-y-auto" style="display: flex;flex-direction: column;">
 
                 <!-- LEFT COLUMN - Product Images -->
                 <div class="col-span-12 lg:col-span-5 flex flex-col" style="
@@ -162,7 +160,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                         <button id="tab-overview" onclick="switchPDTab('overview')"
                             class="pb-1.5 border-b-2 whitespace-nowrap transition-all duration-300 text-[10px] font-bold uppercase tracking-[0.15em] hover:text-blue-500 dark:hover:text-blue-400 border-blue-500 text-blue-500 dark:text-blue-400">
                             <span class="flex items-center gap-1.5">
-                                Overview
+                                Buy & Overview
                             </span>
                         </button>
                         <button id="tab-details" onclick="switchPDTab('details')"
@@ -187,7 +185,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
 
                     <!-- Content Panels -->
                     <div
-                        class="flex-grow overflow-y-auto pr-0.5 space-y-2 max-h-[200px] lg:max-h-[220px] scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+                        class="flex-grow pr-0.5 space-y-2  scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
 
                         <!-- Overview Panel -->
                         <div id="pane-overview" class="space-y-2 pd-pane flex-col gap-2 flex">
@@ -271,7 +269,45 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                                 </a>
                             </div>
 
-
+                            <!-- Action Buttons -->
+                            <div class="flex flex-col items-ceter justify-between gap-3">
+                                <div class="flex gap-1.5">
+                                    <button
+                                        class="flex-1 py-2 bg-black dark:bg-white text-white dark:text-black rounded-lg font-bold text-[10px] active:scale-95 transition-all relative overflow-hidden group">
+                                        <span class="relative z-10 flex items-center justify-center gap-1">
+                                            <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                            </svg>
+                                            Quick Buy
+                                        </span>
+                                        <span
+                                            class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 dark:via-black/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+                                    </button>
+                                    <button
+                                        class="px-3 py-2 border border-black/10 dark:border-white/10 text-black dark:text-white rounded-lg active:scale-95 transition-all hover:bg-rose-50 dark:hover:bg-rose-500/10 group"
+                                        onclick="event.stopPropagation(); showAlert('favorite', 'Item added to favorites.')">
+                                        <i
+                                            class="bi bi-heart text-xs transition-colors text-black dark:text-white group-hover:text-rose-500"></i>
+                                    </button>
+                                </div>
+                                <button
+                                    class="w-full py-2 border border-black/10 dark:border-white/10 text-black dark:text-white rounded-lg font-bold text-[10px] active:scale-95 transition-all hover:bg-black/5 dark:hover:bg-white/5 relative overflow-hidden group"
+                                    onclick="event.stopPropagation(); handleAddToCart('Adidas Originals Italia')"
+                                    style="height: 40px;">
+                                    <span class="relative z-10 flex items-center justify-center gap-1">
+                                        <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                                            </path>
+                                        </svg>
+                                        Add to Bag
+                                    </span>
+                                    <span
+                                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 dark:via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Specs Panel -->
@@ -476,48 +512,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                         </div>
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="space-y-1 pt-1.5 border-t border-black/10 dark:border-white/10">
-                        <div class="flex gap-1.5">
-                            <button
-                                class="flex-1 py-2 bg-black dark:bg-white text-white dark:text-black rounded-lg font-bold text-[10px] active:scale-95 transition-all relative overflow-hidden group">
-                                <span class="relative z-10 flex items-center justify-center gap-1">
-                                    <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                    </svg>
-                                    Quick Buy
-                                </span>
-                                <span
-                                    class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 dark:via-black/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
-                            </button>
-                            <button
-                                class="px-3 py-2 border border-black/10 dark:border-white/10 text-black dark:text-white rounded-lg active:scale-95 transition-all hover:bg-rose-50 dark:hover:bg-rose-500/10 group"
-                                onclick="event.stopPropagation(); showAlert('favorite', 'Item added to favorites.')">
-                                <i
-                                    class="bi bi-heart text-xs transition-colors text-black dark:text-white group-hover:text-rose-500"></i>
-                            </button>
-                        </div>
-                        <button
-                            class="w-full py-2 border border-black/10 dark:border-white/10 text-black dark:text-white rounded-lg font-bold text-[10px] active:scale-95 transition-all hover:bg-black/5 dark:hover:bg-white/5 relative overflow-hidden group"
-                            onclick="event.stopPropagation(); handleAddToCart('Adidas Originals Italia')"
-                            style="height: 40px;">
-                            <span class="relative z-10 flex items-center justify-center gap-1">
-                                <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                                    </path>
-                                </svg>
-                                Add to Bag
-                            </span>
-                            <span
-                                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 dark:via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
-                        </button>
-                        <div class="flex items-center justify-center text-[12px] text-zinc-500 dark:text-zinc-500"
-                            style="margin-top: 10px;margin-bottom: 10px;">
-                            Free shipping over EGP 500
-                        </div>
-                    </div>
+
                 </div>
             </div>
 
@@ -2300,24 +2295,13 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
     </nav>
     <!-- navbar -->
 
-    <div id="welcome-mat"
-        class="fixed top-0 z-50 glass left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-b-[32px] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] overflow-y-auto py-5 px-6 max-h-[calc(-2rem+100vh)] translate-y-0 opacity-100 pointer-events-auto active"
-        style="
-    background: rgba(10, 10, 10, 0.92);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-">
-        <div class="mat-card">
+    <!-- WELCOME MAT (main card) -->
+    <div id="welcome-mat" class="glass">
+        <div class="mat-card" id="matCard">
 
-            <!-- ===== TOP ROW: User info + Theme toggle ===== -->
-            <div class="mat-header" style="
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-        ">
-                <!-- Left: User -->
+            <!-- ===== TOP ROW: User + Theme ===== -->
+            <div class="mat-header">
                 <div class="mat-user-info">
-
                     <div class="mat-store-info">
                         <div class="mat-store-name">James Delaney</div>
                         <div class="mat-store-meta">
@@ -2325,274 +2309,491 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                         </div>
                     </div>
                 </div>
-
-                <!-- Right: Theme toggle -->
                 <div class="mat-theme-control">
-                    <span id="light-status" class="stat-label">lights off</span>
-                    <a href="#" class="nav-bubble" onclick="toggleTheme(event)" onmouseenter="showHint('theme')"
-                        onmouseleave="hideHint()">
-                        <i id="theme-icon" class="bi bi-lightbulb" style="font-size: 1rem;"></i>
+                    <span id="light-status" class="stat-label">lights on</span>
+                    <a href="#" class="nav-bubble" id="themeToggle" onclick="toggleTheme(event)">
+                        <i id="theme-icon" class="bi bi-lightbulb-fill" style="font-size: 1rem;"></i>
                     </a>
                 </div>
             </div>
 
             <!-- ===== STORE HEADER ===== -->
-            <div class="mat-header" style="
-                    display: flex;
-                    align-items: center;
-                    gap: 0.9rem;
-                    padding: 0.25rem 0 0.1rem;
-                ">
-                <div class="mat-logo">⚡</div>
-                <div class="mat-store-info" style="flex: 1; min-width: 0;">
-                    <div class="mat-store-name">LANVIN</div>
-                    <div class="mat-store-meta"
-                        style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.15rem;">
-                        <span class="badge verified" style="
-                                font-size: 0.5rem;
-                                font-weight: 600;
-                                letter-spacing: 0.04em;
-                                padding: 0.1rem 0.6rem;
-                                border-radius: 12px;
-                                background: rgba(34,197,94,0.08);
-                                color: #4ade80;
-                                border: 1px solid rgba(34,197,94,0.1);
-                                text-transform: uppercase;
-                            ">✓ VERIFIED</span>
-                        <span class="badge year">EST. 2024</span>
+            <div style="
+    border-radius: 20px;
+    border: 1px solid #8080804a;
+    display: flex;
+    flex-direction: column;
+    gap: 1.24rem;
+">
+
+                <div class="mat-header"
+                    style="display: flex;align-items: center;justify-content: space-between;width: 100%;padding-bottom: 0.75rem;flex-direction: column;gap: 1.25rem;border-bottom: none;padding-bottom: 0;">
+                    <div class="store-icon"
+                        style="background-image: url('https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=300&amp;h=300&amp;fit=crop&amp;crop=center&amp;q=80'); background-size: cover; background-position: center;">
+                        <div class="store-img-logo">
+                            <div class="logo-placeholder"
+                                style="background-image: url('https://static.vecteezy.com/system/resources/previews/024/044/738/large_2x/shopping-cart-logo-design-cart-icon-ecommerce-logo-vector.jpg'); background-size: cover; background-position: center; background-color: transparent; border: none; color: transparent; text-shadow: none; width: 52px; height: 52px; border-radius: 50%; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.4);">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mat-store-info" style="flex:1; min-width:0;">
+                        <div class="mat-store-name">LANVIN</div>
+                        <div class="mat-store-meta">
+                            <span class="badge verified">✓ VERIFIED</span>
+                            <span class="badge year">EST. 2024</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mat-bio-wrapper" style="padding-inline: 10px;">
+                    <div class="mat-bio truncated" id="matBio">
+                        where simplicity meets sophistication. Curated collections for the modern individual who values
+                        timeless design, impeccable quality and understated elegance. Each piece is carefully selected
+                        to bring you the finest in contemporary fashion.
+                    </div>
+                    <button class="bio-toggle-btn" id="bioToggleBtn" style="display: inline-block;">Read More</button>
+                </div>
+                <div class="mat-actions" style="
+    padding-inline: 10px;
+">
+                    <div class="fit-badge">🎯 8 items fit you</div>
+                    <a href="#" class="cta-primary" id="welcomeCta">Let's take a look</a>
+                </div>
+                <div class="mat-stats" style="
+    padding-bottom: 20px;
+    padding-inline: 10px;
+">
+                    <div class="stat-item"><span class="stat-value">12+</span><span
+                            class="stat-label">Collections</span>
+                    </div>
+                    <div class="stat-item"><span class="stat-value">4.9</span><span class="stat-label">Client
+                            Rating</span>
+                    </div>
+                    <div class="stat-item"><span class="stat-value">405</span><span class="stat-label">Followers</span>
+                    </div>
+                    <div class="stat-item"><span class="stat-value">24</span><span class="stat-label">Products</span>
                     </div>
                 </div>
             </div>
 
-            <!-- ===== STATS ===== -->
-            <div class="mat-stats">
-                <div class="stat-item"
-                    style="display: flex; flex-direction: column; align-items: center; gap: 0.05rem;">
-                    <span class="stat-value" style="
-                            font-size: 1.1rem;
-                            font-weight: 700;
-                            color: #ffffff;
-                            letter-spacing: 0.02em;
-                            line-height: 1.2;
-                        ">12+</span>
-                    <span class="stat-label" style="
-                            font-size: 0.5rem;
-                            font-weight: 600;
-                            letter-spacing: 0.06em;
-                            color: rgba(255,255,255,0.25);
-                            text-transform: uppercase;
-                        ">Collections</span>
-                </div>
-                <div class="stat-item"
-                    style="display: flex; flex-direction: column; align-items: center; gap: 0.05rem;">
-                    <span class="stat-value" style="
-                            font-size: 1.1rem;
-                            font-weight: 700;
-                            color: #ffffff;
-                            letter-spacing: 0.02em;
-                            line-height: 1.2;
-                        ">4.9</span>
-                    <span class="stat-label" style="
-                            font-size: 0.5rem;
-                            font-weight: 600;
-                            letter-spacing: 0.06em;
-                            color: rgba(255,255,255,0.25);
-                            text-transform: uppercase;
-                        ">Client Rating</span>
-                </div>
-                <div class="stat-item"
-                    style="display: flex; flex-direction: column; align-items: center; gap: 0.05rem;">
-                    <span class="stat-value" style="
-                            font-size: 1.1rem;
-                            font-weight: 700;
-                            color: #ffffff;
-                            letter-spacing: 0.02em;
-                            line-height: 1.2;
-                        ">405</span>
-                    <span class="stat-label" style="
-                            font-size: 0.5rem;
-                            font-weight: 600;
-                            letter-spacing: 0.06em;
-                            color: rgba(255,255,255,0.25);
-                            text-transform: uppercase;
-                        ">Followers</span>
-                </div>
-                <div class="stat-item"
-                    style="display: flex; flex-direction: column; align-items: center; gap: 0.05rem;">
-                    <span class="stat-value" style="
-                            font-size: 1.1rem;
-                            font-weight: 700;
-                            color: #ffffff;
-                            letter-spacing: 0.02em;
-                            line-height: 1.2;
-                        ">24</span>
-                    <span class="stat-label" style="
-                            font-size: 0.5rem;
-                            font-weight: 600;
-                            letter-spacing: 0.06em;
-                            color: rgba(255,255,255,0.25);
-                            text-transform: uppercase;
-                        ">Products</span>
-                </div>
-            </div>
+
+            <div class="mat-actions" style="justify-content: flex-start; margin-top: 0.2rem;">
+                <a href="#" id="rtntohome" class="return-link">← Return to Home</a>
+            </div><!-- ===== STATS ===== -->
+
 
             <!-- ===== BIO ===== -->
-            <div class="mat-bio-wrapper" style="width: 100%; position: relative;">
-                <div class="mat-bio truncated" id="matBio">
-                    where simplicity meets sophistication. Curated collections for the modern individual who values
-                    timeless
-                    design, impeccable quality and understated elegance. Each piece is carefully selected to bring you
-                    the
-                    finest in contemporary fashion.
-                </div>
-                <button class="bio-toggle-btn" id="bioToggleBtn" style="display: inline-block;">Read More</button>
-            </div>
+
 
             <!-- ===== ACTIONS ===== -->
-            <div class="mat-actions">
-                <div
-                    class="fit-badge text-white text-[11px] font-bold px-4 py-2 rounded-xl transition-colors min-w-[70px] h-full">
-                    🎯 8 items fit you</div>
-                <a href="#"
-                    class="bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold px-4 py-2 rounded-xl transition-colors min-w-[70px] h-full"
-                    id="welcomeCta">+ Let's take a look</a>
+
+
+            <!-- ===== RETURN TO HOME (triggers store hub) ===== -->
+
+
+            <!-- ===== SEARCH BAR ===== -->
+            <div class="search-container">
+                <div class="search-bar">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="storeSearch" placeholder="Search stores by name, category, or ID...">
+                    <span class="search-shortcut">⌘K</span>
+                </div>
+                <div class="no-results" id="noResults">No stores found matching your search</div>
             </div>
 
-            <div class="mat-actions">
-                <a href="#" id="rtntohome">Return to Home</a>
+            <!-- ===== ROW 1: STORES YOU FOLLOW ===== -->
+            <div class="section-header">
+                <h2>📌 Stores You Follow</h2>
+                <a href="#" class="see-all">See All →</a>
+            </div>
+            <div class="store-flex" id="row1">
+
+                <div class="store-card" data-name="comme des garçons" data-category="fashion" data-id="cdg001">
+                    <div class="store-icon"
+                        style="background-image: url('https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=300&amp;h=300&amp;fit=crop&amp;crop=center&amp;q=80'); background-size: cover; background-position: center;">
+                        <div class="store-img-logo">
+                            <div class="logo-placeholder"
+                                style="background-image: url('https://static.vecteezy.com/system/resources/previews/024/044/738/large_2x/shopping-cart-logo-design-cart-icon-ecommerce-logo-vector.jpg'); background-size: cover; background-position: center; background-color: transparent; border: none; color: transparent; text-shadow: none; width: 52px; height: 52px; border-radius: 50%; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.4);">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-thumbs-items">
+                        <div class="item-thumb"
+                            style="background-image: url('https://assets.adidas.com/images/w_940,f_auto,q_auto/c51cfbec42d44cc3b1be447cd67376fb_9366/KB7354_21_model.jpg');">
+                        </div>
+                        <div class="item-thumb"
+                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/234395449dc045699377aeb34d02c05d_9366/IH4381_01_00_standard.jpg');">
+                        </div>
+                    </div>
+                    <div class="store-detail overlay">
+                        <div class="s-name">COMME des GARÇONS</div>
+                        <div class="s-meta">
+                            <span>EST. 1969</span>
+                            <span>6 col.</span>
+                            <span class="category-badge">Fashion</span>
+                        </div>
+                        <button class="quick-look-btn">Quick Look</button>
+                    </div>
+                </div>
+
             </div>
 
-        </div>
+            <!-- ===== ROW 2: STORES YOU MAY LIKE ===== -->
+            <div class="section-header">
+                <h2>💡 Stores You May Like</h2>
+                <a href="#" class="see-all">See All →</a>
+            </div>
+            <div class="store-flex" id="row2">
+
+                <div class="store-card" data-name="dyson" data-category="home appliances" data-id="dy005">
+                    <div class="store-icon"
+                        style="background-image: url('https://images.unsplash.com/photo-1585776245991-dc5b0d3e6c6b?w=300&amp;h=300&amp;fit=crop&amp;crop=center&amp;q=80'); background-size: cover; background-position: center;">
+                        <div class="store-img-logo">
+                            <div class="logo-placeholder"
+                                style="background-image: url('https://static.vecteezy.com/system/resources/previews/024/044/738/large_2x/shopping-cart-logo-design-cart-icon-ecommerce-logo-vector.jpg'); background-size: cover; background-position: center; background-color: transparent; border: none; color: transparent; text-shadow: none; width: 52px; height: 52px; border-radius: 50%; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.4);">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-thumbs-items">
+                        <div class="item-thumb"
+                            style="background-image: url('https://assets.adidas.com/images/w_940,f_auto,q_auto/c51cfbec42d44cc3b1be447cd67376fb_9366/KB7354_21_model.jpg');">
+                        </div>
+                        <div class="item-thumb"
+                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/234395449dc045699377aeb34d02c05d_9366/IH4381_01_00_standard.jpg');">
+                        </div>
+                    </div>
+                    <div class="store-detail overlay">
+                        <div class="s-name">DYSON</div>
+                        <div class="s-meta">
+                            <span>EST. 1991</span>
+                            <span>8 col.</span>
+                            <span class="category-badge">Home</span>
+                        </div>
+                        <button class="quick-look-btn">Quick Look</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ===== ROW 3: RECOMMENDED FOR YOU ===== -->
+            <div class="section-header">
+                <h2>🎯 Recommended For You</h2>
+                <a href="#" class="see-all">See All →</a>
+            </div>
+            <div class="store-flex" id="row3">
+
+                <div class="store-card" data-name="nike" data-category="sportswear" data-id="nk009">
+                    <div class="store-icon"
+                        style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&amp;h=300&amp;fit=crop&amp;crop=center&amp;q=80'); background-size: cover; background-position: center;">
+                        <div class="store-img-logo">
+                            <div class="logo-placeholder"
+                                style="background-image: url('https://static.vecteezy.com/system/resources/previews/024/044/738/large_2x/shopping-cart-logo-design-cart-icon-ecommerce-logo-vector.jpg'); background-size: cover; background-position: center; background-color: transparent; border: none; color: transparent; text-shadow: none; width: 52px; height: 52px; border-radius: 50%; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.4);">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-thumbs-items">
+                        <div class="item-thumb"
+                            style="background-image: url('https://assets.adidas.com/images/w_940,f_auto,q_auto/c51cfbec42d44cc3b1be447cd67376fb_9366/KB7354_21_model.jpg');">
+                        </div>
+                        <div class="item-thumb"
+                            style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/234395449dc045699377aeb34d02c05d_9366/IH4381_01_00_standard.jpg');">
+                        </div>
+                    </div>
+                    <div class="store-detail overlay">
+                        <div class="s-name">NIKE</div>
+                        <div class="s-meta">
+                            <span>EST. 1964</span>
+                            <span>20 col.</span>
+                            <span class="category-badge">Sportswear</span>
+                        </div>
+                        <button class="quick-look-btn">Quick Look</button>
+                    </div>
+                </div>
+
+            </div>
+            <script>
+                const searchInput = document.getElementById('storeSearch');
+                const noResults = document.getElementById('noResults');
+                const allCards = document.querySelectorAll('.store-card');
+
+                function filterStores(query) {
+                    const searchTerm = query.toLowerCase().trim();
+                    let visibleCount = 0;
+
+                    allCards.forEach(card => {
+                        const name = card.dataset.name || '';
+                        const category = card.dataset.category || '';
+                        const id = card.dataset.id || '';
+
+                        const matches = name.includes(searchTerm) ||
+                            category.includes(searchTerm) ||
+                            id.includes(searchTerm);
+
+                        if (searchTerm === '') {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else if (matches) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    // Show/hide no results message
+                    if (searchTerm !== '' && visibleCount === 0) {
+                        noResults.classList.add('show');
+                    } else {
+                        noResults.classList.remove('show');
+                    }
+                }
+
+                searchInput.addEventListener('input', (e) => {
+                    filterStores(e.target.value);
+                });
+
+                // Keyboard shortcut: Cmd+K or Ctrl+K to focus search
+                document.addEventListener('keydown', (e) => {
+                    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                        e.preventDefault();
+                        searchInput.focus();
+                    }
+                    // Escape to clear search
+                    if (e.key === 'Escape') {
+                        searchInput.value = '';
+                        filterStores('');
+                        searchInput.blur();
+                    }
+                });
+            </script>
+            <!-- end store-hub -->
+
+        </div> <!-- mat-card -->
     </div>
     <script>
-        (function () {
-            // ----- references -----
-            const loader = document.getElementById('loader');
-            const body = document.body;
-            const welcomeMat = document.getElementById('welcome-mat');
-            const ctaBtn = document.getElementById('welcomeCta');
-            const mainNav = document.getElementById('main-nav');
-            const bioElement = document.getElementById('matBio');
-            const toggleBtn = document.getElementById('bioToggleBtn');
-            let isExpanded = false;
 
-            // ----- 1) BIO toggle -----
+        (function () {
+            "use strict";
+
+            // ----- DOM REFERENCES -----
+            const matBio = document.getElementById('matBio');
+            const bioToggle = document.getElementById('bioToggleBtn');
+            const themeIcon = document.getElementById('theme-icon');
+            const lightStatus = document.getElementById('light-status');
+            const returnHome = document.getElementById('rtntohome');
+            const storeHub = document.getElementById('storeHub');
+            const welcomeCta = document.getElementById('welcomeCta');
+            const welcomeMat = document.getElementById('welcome-mat');
+            const body = document.body;
+            const mainNav = document.getElementById('main-nav');
+
+            // ----- STATE -----
+            let bioExpanded = false;
+            let lightsOn = false;
+            let isMatActive = true; // track if mat is visible
+
+            // =============================================
+            // 1. BIO READ MORE / SHOW LESS
+            // =============================================
             function checkBioOverflow() {
-                const scrollHeight = bioElement.scrollHeight;
-                const maxHeight = parseFloat(getComputedStyle(bioElement).maxHeight) || 41.6;
+                if (!matBio) return;
+                const scrollHeight = matBio.scrollHeight;
+                const maxHeight = parseFloat(getComputedStyle(matBio).maxHeight) || 41.6;
                 if (scrollHeight > maxHeight + 3) {
-                    toggleBtn.style.display = 'inline-block';
-                    bioElement.classList.add('truncated');
+                    bioToggle.style.display = 'inline-block';
+                    matBio.classList.add('truncated');
                 } else {
-                    toggleBtn.style.display = 'none';
-                    bioElement.classList.remove('truncated');
+                    bioToggle.style.display = 'none';
+                    matBio.classList.remove('truncated');
                 }
             }
 
-            function toggleBio() {
-                isExpanded = !isExpanded;
-                if (isExpanded) {
-                    bioElement.classList.add('expanded');
-                    bioElement.classList.remove('truncated');
-                    toggleBtn.textContent = 'Show Less';
+            function toggleBio(e) {
+                if (e) e.preventDefault();
+                bioExpanded = !bioExpanded;
+                if (bioExpanded) {
+                    matBio.classList.add('expanded');
+                    matBio.classList.remove('truncated');
+                    bioToggle.textContent = 'Show Less';
                 } else {
-                    bioElement.classList.remove('expanded');
-                    toggleBtn.textContent = 'Read More';
+                    matBio.classList.remove('expanded');
+                    bioToggle.textContent = 'Read More';
                     setTimeout(() => {
-                        const maxHeight = parseFloat(getComputedStyle(bioElement).maxHeight) || 41.6;
-                        if (bioElement.scrollHeight > maxHeight + 3) {
-                            bioElement.classList.add('truncated');
+                        const maxHeight = parseFloat(getComputedStyle(matBio).maxHeight) || 41.6;
+                        if (matBio.scrollHeight > maxHeight + 3) {
+                            matBio.classList.add('truncated');
                         }
                     }, 100);
                 }
             }
-            toggleBtn.addEventListener('click', toggleBio);
 
-            // ----- 2) LOADER + WELCOME MAT SLIDE-IN + SCROLL LOCK -----
-            window.addEventListener('DOMContentLoaded', function () {
-                // simulate loader
-                setTimeout(() => {
-                    loader.classList.add('fade-out');
-                    body.classList.add('content-loaded');
+            if (bioToggle) {
+                bioToggle.addEventListener('click', toggleBio);
+            }
 
-                    // after loader fades, slide in welcome mat & lock scroll
-                    setTimeout(() => {
-                        welcomeMat.classList.add('active');
-                        body.classList.add('no-scroll');   // lock scroll
+            // =============================================
+            // 2. THEME TOGGLE (lights on/off)
+            // =============================================
+            window.toggleTheme = function (e) {
+                if (e) e.preventDefault();
+                lightsOn = !lightsOn;
+                if (lightsOn) {
+                    themeIcon.className = 'bi bi-lightbulb-fill';
+                    lightStatus.textContent = 'lights on';
+                    lightStatus.classList.add('light-on');
+                    welcomeMat.style.boxShadow = '0 20px 60px rgba(251, 191, 36, 0.15), 0 0 40px rgba(251, 191, 36, 0.02)';
+                } else {
+                    themeIcon.className = 'bi bi-lightbulb';
+                    lightStatus.textContent = 'lights off';
+                    lightStatus.classList.remove('light-on');
+                    welcomeMat.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.8)';
+                }
+                return false;
+            };
 
-                        // check bio overflow after a moment
-                        setTimeout(checkBioOverflow, 400);
-                    }, 200);
+            // =============================================
+            // 3. RETURN TO HOME → toggle store hub (view 2)
+            // =============================================
+            if (returnHome) {
+                returnHome.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    storeHub.classList.toggle('active');
+                    if (storeHub.classList.contains('active')) {
+                        returnHome.textContent = '← Back to Store';
+                        storeHub.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    } else {
+                        returnHome.textContent = '← Return to Home';
+                    }
+                    return false;
+                });
+            }
 
-                    setTimeout(() => {
-                        loader.style.display = 'none';
-                    }, 800);
-
-                }, 3000); // 3s loader
-            });
-
-            // ----- 3) CLOSE WELCOME MAT: slide up, reveal nav, unlock scroll -----
+            // =============================================
+            // 4. CLOSE WELCOME MAT → slide up, reveal nav, unlock scroll
+            // =============================================
             function closeWelcomeMat() {
-                // remove active class → slides back up (transform translateY -120%)
+                if (!isMatActive) return; // already closed
+                isMatActive = false;
                 welcomeMat.classList.remove('active');
-                // unlock scroll
                 body.classList.remove('no-scroll');
-
-                // reveal main nav (after a tiny delay for smoothness)
                 setTimeout(() => {
-                    mainNav.classList.add('revealed');
+                    if (mainNav) mainNav.classList.add('revealed');
                 }, 200);
-
-                // optional: clean up / log
                 console.log('Welcome mat closed – nav revealed.');
             }
 
-            // click on "Let's take a look"
-            ctaBtn.addEventListener('click', function (e) {
-                e.preventDefault();
-                closeWelcomeMat();
+            // "Let's take a look" closes mat
+            if (welcomeCta) {
+                welcomeCta.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    closeWelcomeMat();
+                });
+            }
+
+            // "Return to Home" also closes mat (if not in store hub mode)
+            if (returnHome) {
+                returnHome.addEventListener('click', function (e) {
+                    // Only close mat if store hub is NOT active, or if we want to close anyway
+                    if (!storeHub.classList.contains('active')) {
+                        closeWelcomeMat();
+                    }
+                    // if hub is active, the other click handler handles it
+                });
+            }
+
+            // =============================================
+            // 5. STORE ROW CLICKS (demo)
+            // =============================================
+            document.querySelectorAll('.store-row').forEach(row => {
+                row.addEventListener('click', function () {
+                    const name = this.querySelector('.s-name')?.textContent || 'store';
+                    alert(`🌐 Switch to ${name} (simulated)`);
+                });
             });
 
-            // also "Return to Home" closes mat (optional)
-            document.getElementById('rtntohome').addEventListener('click', function (e) {
-                e.preventDefault();
-                closeWelcomeMat();
+            // =============================================
+            // 6. HUB FOOTER LINKS (demo)
+            // =============================================
+            document.querySelectorAll('.hub-footer a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    alert(`📌 ${this.textContent.trim()} (demo)`);
+                });
             });
 
-            // ----- 4) THEME TOGGLE (dummy) -----
-            window.toggleTheme = function (e) {
-                e.preventDefault();
-                document.body.classList.toggle('light-mode');
-                const icon = document.getElementById('theme-icon');
-                const status = document.getElementById('light-status');
-                if (document.body.classList.contains('light-mode')) {
-                    icon.className = 'bi bi-lightbulb-fill';
-                    status.textContent = 'lights on';
-                } else {
-                    icon.className = 'bi bi-lightbulb';
-                    status.textContent = 'lights off';
+            // =============================================
+            // 7. INITIALIZATION
+            // =============================================
+            function init() {
+                // Ensure storeHub is hidden initially
+                if (storeHub) storeHub.classList.remove('active');
+
+                // Ensure bio is truncated
+                if (matBio) {
+                    matBio.classList.remove('expanded');
+                    matBio.classList.add('truncated');
                 }
-            };
+                if (bioToggle) bioToggle.textContent = 'Read More';
 
-            window.showHint = function (type) { /* dummy */ };
-            window.hideHint = function () { /* dummy */ };
+                // Ensure nav is hidden initially
+                if (mainNav) mainNav.classList.remove('revealed');
 
-            // resize handler for bio
+                // Check bio overflow after render
+                setTimeout(checkBioOverflow, 400);
+            }
+
+            // =============================================
+            // 8. LOADER HANDLING (if loader element exists)
+            // =============================================
+            const loader = document.getElementById('loader');
+            if (loader) {
+                window.addEventListener('DOMContentLoaded', function () {
+                    // Simulate loader
+                    setTimeout(() => {
+                        loader.classList.add('fade-out');
+                        body.classList.add('content-loaded');
+
+                        setTimeout(() => {
+                            welcomeMat.classList.add('active');
+                            body.classList.add('no-scroll');
+                            setTimeout(checkBioOverflow, 400);
+                        }, 200);
+
+                        setTimeout(() => {
+                            loader.style.display = 'none';
+                        }, 800);
+
+                    }, 3000);
+                });
+            } else {
+                // No loader, just init
+                window.addEventListener('DOMContentLoaded', function () {
+                    welcomeMat.classList.add('active');
+                    body.classList.add('no-scroll');
+                    setTimeout(checkBioOverflow, 400);
+                });
+            }
+
+            // =============================================
+            // 9. RESIZE HANDLER
+            // =============================================
             let resizeTimer;
             window.addEventListener('resize', function () {
                 clearTimeout(resizeTimer);
-                if (!isExpanded) {
+                if (!bioExpanded) {
                     resizeTimer = setTimeout(checkBioOverflow, 250);
                 }
             });
 
-            // ensure nav is hidden initially (it's hidden by CSS)
-            // but if something fails, force hide
-            mainNav.classList.remove('revealed');
+            // =============================================
+            // 10. DUMMY FUNCTIONS (for inline event handlers)
+            // =============================================
+            window.showHint = function (type) { /* dummy */ };
+            window.hideHint = function () { /* dummy */ };
 
-            // Extra: if user tries to scroll while locked, it's blocked by CSS
-            // but we also prevent wheel/touch events on body when locked (optional)
-            // already handled by overflow:hidden
+            // Run init
+            init();
+
+            console.log('✅ Welcome Mat initialized successfully');
         })();
     </script>
     <style>
@@ -3388,6 +3589,7 @@ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);">
                 btn.style.pointerEvents = 'auto';
             }
         }
+
 
         function openNavView(viewId, targetWidth = "34rem") {
             const nav = document.getElementById('main-nav');
