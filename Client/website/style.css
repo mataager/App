@@ -10,6 +10,9 @@
     --footer-glass: rgba(18, 22, 28, 0.65);
     --footer-border: rgba(255, 255, 255, 0.06);
     --footer-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+
+    --txtcol: rgb(255 255 255 / 0.4);
+
 }
 
 .light-theme {
@@ -23,10 +26,17 @@
     --footer-glass: rgb(231, 231, 231);
     --footer-border: rgb(231, 231, 231);
     --footer-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+
+    --txtcol: #6b7280;
 }
 
 .light-theme .hero-bg-layer {
     filter: brightness(1) saturate(1);
+}
+
+.card {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
 }
 
 body {
@@ -176,6 +186,7 @@ nav {
     transform: translate(-50%, -120%) scale(0.96);
     z-index: 100;
     width: 92%;
+    height: 570px;
     max-width: 32rem;
     border-radius: 0 0 32px 32px;
     background: rgba(10, 10, 10, 0.92);
@@ -293,7 +304,7 @@ body.no-scroll {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;
-    padding: 0.75rem 0;
+    /* padding: 0.75rem 0; */
 }
 
 .stat-item {
@@ -341,7 +352,7 @@ body.no-scroll {
 
 .bio-toggle-btn {
     background: transparent;
-    color: rgba(96, 165, 250, 0.6);
+    color: #2563eb;
     border: none;
     padding: 0.15rem 0.3rem;
     font-size: 0.65rem;
@@ -402,7 +413,8 @@ body.no-scroll {
 
 .mat-actions:last-child {
     border-top: 1px solid rgba(255, 255, 255, 0.04);
-    padding-top: 0.25rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     justify-content: center;
 }
 
@@ -443,7 +455,7 @@ body.light-theme .clb:hover {
 body.light-theme .mat-store-name,
 body.light-theme .stat-value,
 body.light-theme .txt1 {
-    color: #111 !important;
+    color: var(--txtcol) !important;
 }
 
 body.light-theme .txt2 {
@@ -530,23 +542,6 @@ body.light-theme hr {
     border-color: rgba(0, 0, 0, 0.08) !important;
 }
 
-body.light-theme #mode-categories {
-    background: rgba(0, 0, 0, 0.05) !important;
-    color: #1a1a1a !important;
-    border-color: rgba(0, 0, 0, 0.08) !important;
-}
-
-body.light-theme #mode-categories.active {
-    background: #1a1a1a !important;
-    color: #ffffff !important;
-}
-
-body.light-theme #mode-products.inactive {
-    background: rgba(0, 0, 0, 0.05) !important;
-    color: #1a1a1a !important;
-    border-color: rgba(0, 0, 0, 0.08) !important;
-}
-
 body.light-theme #search-input,
 body.light-theme #directory-search {
     background: #ffffff !important;
@@ -564,10 +559,6 @@ body.light-theme #directory-search:focus {
     border-color: #3b82f6 !important;
 }
 
-body.light-theme .txt1 {
-    color: #1a1a1a !important;
-}
-
 body.light-theme .txt2 {
     color: #1a1a1a !important;
 }
@@ -579,6 +570,12 @@ body.light-theme .badge {
 }
 
 body.light-theme .badge.active {
+    background: #3b82f6 !important;
+    color: #ffffff !important;
+    border-color: #3b82f6 !important;
+}
+
+.badge.active {
     background: #3b82f6 !important;
     color: #ffffff !important;
     border-color: #3b82f6 !important;
@@ -664,21 +661,6 @@ body.light-theme .hover\:bg-black\/5:hover {
 
 body.light-theme .hover\:text-black:hover {
     color: #1a1a1a !important;
-}
-
-body.light-theme #explore-btn {
-    background: #1a1a1a !important;
-    color: #ffffff !important;
-}
-
-body.light-theme #explore-btn:hover {
-    background: #2563eb !important;
-    color: #ffffff !important;
-}
-
-body.light-theme #explore-btn:disabled {
-    background: rgba(0, 0, 0, 0.08) !important;
-    color: rgba(0, 0, 0, 0.3) !important;
 }
 
 body.light-theme #items-counter {
@@ -1071,8 +1053,8 @@ body.light-theme .clb::placeholder {
     color: #9ca3af !important;
 }
 
-body.light-theme .txt1 {
-    color: #1a1a1a !important;
+.txt1 {
+    color: var(--txtcol) !important;
 }
 
 body.light-theme .txt2 {
@@ -2132,22 +2114,25 @@ body.light-theme #rtntohome:hover {
 }
 
 /* ============================================
-   MATAGER FOOTER ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ glassmorphism + refinement
+   MATAGER FOOTER ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ glassmorphism + refinement
    ============================================ */
 .matager-footer {
+    background: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(24px);
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 20px 60px;
+    max-height: calc(-4rem + 100vh);
+    overflow-y: auto;
     width: 90%;
     max-width: 80rem;
     margin: 0 auto;
     padding: 2rem 2rem 2.5rem;
     border-radius: 30px 30px 0 0;
-    background: var(--footer-glass);
     backdrop-filter: blur(18px) saturate(1.2);
     -webkit-backdrop-filter: blur(18px) saturate(1.2);
     border: 1px solid var(--footer-border);
     box-shadow: var(--footer-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.03);
     transition: all 0.2s ease;
     position: relative;
-    z-index: 50;
     pointer-events: auto;
     color: #eef2f6;
 }
@@ -2157,17 +2142,15 @@ body.light-theme #rtntohome:hover {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .footer-row-top {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     gap: 2rem 1.5rem;
-    padding-bottom: 1.75rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .brand-block {
@@ -2208,9 +2191,11 @@ body.light-theme #rtntohome:hover {
 }
 
 .nav-links a {
+    display: flex;
+    gap: 5px;
     color: rgba(255, 255, 255, 0.6);
     text-decoration: none;
-    font-size: 0.85rem;
+    font-size: 0.65rem;
     font-weight: 450;
     letter-spacing: 0.02em;
     transition: color 0.2s ease, transform 0.15s ease;
@@ -2230,7 +2215,7 @@ body.light-theme #rtntohome:hover {
 }
 
 .nav-links a:hover {
-    color: #ffffff;
+    color: #6d8cff;
     transform: translateY(-1px);
 }
 
@@ -2779,7 +2764,8 @@ body.light-theme #rtntohome:hover {
 }
 
 /* ===== QUICK LOOK BUTTON ===== */
-.quick-look-btn {
+.quick-look-btn,
+.next-store-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2905,3 +2891,48 @@ body.light-theme #rtntohome:hover {
     }
 }
 
+/* Scroll bar animation */
+@keyframes scrollBarMove {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0.5;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(200%);
+        opacity: 0.5;
+    }
+}
+
+.animate-scroll-bar {
+    animation: scrollBarMove 2s ease-in-out infinite;
+}
+
+/* Hide scrollbar */
+.scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+    display: none;
+}
+
+/* Subtle fade on right edge of scrollable container */
+#badgeScroll {
+    mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+}
+
+/* Dark mode adjustments */
+.dark .animate-scroll-bar {
+    background: linear-gradient(to right, rgba(96, 165, 250, 0.3), rgba(96, 165, 250, 0.8), rgba(96, 165, 250, 0.3));
+}
