@@ -40,12 +40,26 @@
 }
 
 body {
-    background-color: var(--bg-color);
+    position: relative;
     color: var(--text-main);
     transition: background-color 0.4s ease, color 0.4s ease;
     margin: 0;
     font-family: 'Plus Jakarta Sans', sans-serif;
     min-height: 100vh;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(./3878.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
 }
 
 * {
@@ -495,13 +509,14 @@ body.light-theme .badge.verified {
     color: #2b8c4a !important;
 }
 
-body.light-theme #main-nav {
-    background: rgb(231, 231, 231) !important;
+body.light-theme #main-nav,
+body.light-theme footer {
+    /* background: rgb(231, 231, 231) !important; */
     border-color: rgb(231, 231, 231) !important;
 }
 
 body.light-theme #main-nav {
-    background: rgba(245, 245, 245, 0.92) !important;
+    /* background: rgba(245, 245, 245, 0.92) !important; */
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(0, 0, 0, 0.06) !important;
@@ -2114,23 +2129,18 @@ body.light-theme #rtntohome:hover {
 }
 
 /* ============================================
-   MATAGER FOOTER ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ glassmorphism + refinement
+   MATAGER FOOTER ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ glassmorphism + refinement
    ============================================ */
 .matager-footer {
-    background: rgba(10, 10, 10, 0.92);
     backdrop-filter: blur(24px);
     box-shadow: rgba(0, 0, 0, 0.8) 0px 20px 60px;
     max-height: calc(-4rem + 100vh);
     overflow-y: auto;
-    width: 90%;
-    max-width: 80rem;
+    width: fit-content;
     margin: 0 auto;
     padding: 2rem 2rem 2.5rem;
     border-radius: 30px 30px 0 0;
-    backdrop-filter: blur(18px) saturate(1.2);
     -webkit-backdrop-filter: blur(18px) saturate(1.2);
-    border: 1px solid var(--footer-border);
-    box-shadow: var(--footer-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.03);
     transition: all 0.2s ease;
     position: relative;
     pointer-events: auto;
@@ -2327,17 +2337,6 @@ body.light-theme #rtntohome:hover {
     margin: 0.4rem 0 0.2rem;
 }
 
-.matager-footer::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: 20%;
-    right: 20%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(109, 140, 255, 0.15), transparent);
-    border-radius: 100%;
-    filter: blur(1px);
-}
 
 .fa-regular,
 .fas,

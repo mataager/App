@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LUXE GALLERY - Premium Collection</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap"
+        rel="stylesheet" />
+    <style>
+        /* ── Reset & Base ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b0b0b;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* ── Header ── */
+        .gallery-header {
+            padding: 2.5rem 3rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .gallery-header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 40%, #a0a0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gallery-header .sub {
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: #888;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            -webkit-text-fill-color: #888;
+        }
+
+        .filters {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .filters button {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #ccc;
+            padding: 0.5rem 1.4rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .filters button:hover,
+        .filters button.active {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #fff;
+            transform: scale(1.02);
+        }
+
+        .filters button.active {
+            background: #fff;
+            color: #0b0b0b;
+            border-color: #fff;
+        }
+
+        /* ── Scrollable Gallery ── */
+        .gallery-scroll {
+            display: flex;
+            gap: 1.8rem;
+            padding: 2.5rem 3rem 4rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+
+        .gallery-scroll::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .gallery-scroll::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 10px;
+        }
+
+        .gallery-scroll::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 10px;
+        }
+
+        /* ── Card ── */
+        .gallery-card {
+            flex: 0 0 340px;
+            max-width: 340px;
+            scroll-snap-align: start;
+            background: #141414;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            position: relative;
+            cursor: default;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(255, 255, 255, 0.06);
+        }
+
+        /* ── Image Container ── */
+        .card-image {
+            position: relative;
+            width: 100%;
+            padding-top: 130%;
+            /* portrait ratio */
+            overflow: hidden;
+            background: #0a0a0a;
+        }
+
+        .card-image img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                filter 0.5s ease;
+            will-change: transform;
+        }
+
+        .gallery-card:hover .card-image img {
+            transform: scale(1.06);
+            filter: brightness(0.7) saturate(1.1);
+        }
+
+        /* ── Overlay on hover ── */
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.8rem 1.5rem;
+        }
+
+        .gallery-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .card-overlay .quick-actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .card-overlay .quick-actions button {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .card-overlay .quick-actions button:hover {
+            background: #fff;
+            color: #0b0b0b;
+            border-color: #fff;
+            transform: scale(1.04);
+        }
+
+        /* ── Card Body ── */
+        .card-body {
+            padding: 1.2rem 1.4rem 1.6rem;
+        }
+
+        .card-body .tag {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #aaa;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-body h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.25rem;
+            color: #f0f0f0;
+        }
+
+        .card-body .category {
+            font-size: 0.75rem;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-body .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.01em;
+        }
+
+        .card-body .price span {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: #888;
+            text-decoration: line-through;
+            margin-left: 0.5rem;
+        }
+
+        .card-body .badge {
+            display: inline-block;
+            background: #c9a84c;
+            color: #0b0b0b;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.15rem 0.7rem;
+            border-radius: 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.3rem;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .gallery-header {
+                padding: 1.5rem 1.2rem 1rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .gallery-header h1 {
+                font-size: 2rem;
+            }
+
+            .gallery-scroll {
+                padding: 1.5rem 1.2rem 3rem;
+                gap: 1.2rem;
+            }
+
+            .gallery-card {
+                flex: 0 0 280px;
+                max-width: 280px;
+            }
+
+            .card-image {
+                padding-top: 140%;
+            }
+
+            .filters button {
+                padding: 0.35rem 1rem;
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-card {
+                flex: 0 0 240px;
+                max-width: 240px;
+            }
+
+            .card-body h3 {
+                font-size: 0.95rem;
+            }
+
+            .card-body .price {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ─── HEADER ─── -->
+    <header class="gallery-header">
+        <div>
+            <h1>EDITORIAL</h1>
+            <span class="sub">SS26 · curated collection</span>
+        </div>
+        <div class="filters" id="filterBar">
+            <button class="active" data-filter="all">All</button>
+            <button data-filter="mens">Mens</button>
+            <button data-filter="womens">Womens</button>
+            <button data-filter="summer">Summer</button>
+            <button data-filter="new">New In</button>
+        </div>
+    </header>
+
+    <!-- ─── GALLERY ─── -->
+    <div class="gallery-scroll" id="galleryContainer">
+        <!-- cards injected by JS -->
+    </div>
+
+    <script>
+        // ─── DATA ────────────────────────────────────────────────
+        const products = [{
+            id: 1,
+            title: "Linen Blend Blazer",
+            category: "Mens · Summer",
+            price: 189,
+            originalPrice: 245,
+            tag: "New In",
+            badge: "Best Seller",
+            filter: ["mens", "summer", "new"],
+            img: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&h=800&fit=crop&crop=center"
+        }, {
+            id: 2,
+            title: "Silk Midi Dress",
+            category: "Womens · Summer",
+            price: 275,
+            originalPrice: null,
+            tag: "Exclusive",
+            badge: null,
+            filter: ["womens", "summer"],
+            img: "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600&h=800&fit=crop&crop=center"
+        }, {
+            id: 3,
+            title: "Wool Cashmere Coat",
+            category: "Mens · Winter",
+            price: 420,
+            originalPrice: 590,
+            tag: "Limited",
+            badge: "40% OFF",
+            filter: ["mens"],
+            img: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=600&h=800&fit=crop&crop=center"
+        }, {
+            id: 4,
+            title: "Pleated Trousers",
+            category: "Mens · Summer",
+            price: 135,
+            originalPrice: null,
+            tag: "Sustainable",
+            badge: "Eco",
+            filter: ["mens", "summer"],
+            img: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&h=800&fit=crop&crop=center"
+        }, {
+            id: 5,
+            title: "Cropped Knit Top",
+            category: "Womens · Summer",
+            price: 95,
+            originalPrice: 140,
+            tag: "New In",
+            badge: null,
+            filter: ["womens", "summer", "new"],
+            img: "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=600&h=800&fit=crop&crop=center"
+        }, {
+            id: 6,
+            title: "Leather Bomber Jacket",
+            category: "Mens · Fall",
+            price: 340,
+            originalPrice: 490,
+            tag: "Icon",
+            badge: "Staff Pick",
+            filter: ["mens"],
+            img: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&h=800&fit=crop&crop=center"
+        }, {
+            id: 7,
+            title: "Flowing Maxi Skirt",
+            category: "Womens · Summer",
+            price: 165,
+            originalPrice: null,
+            tag: "Bestseller",
+            badge: null,
+            filter: ["womens", "summer"],
+            img: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=600&h=800&fit=crop&crop=center"
+        }, {
+            id: 8,
+            title: "Double-Breasted Vest",
+            category: "Mens · Spring",
+            price: 210,
+            originalPrice: 280,
+            tag: "New In",
+            badge: "Exclusive",
+            filter: ["mens", "new"],
+            img: "https://images.unsplash.com/photo-1617137968427-85924b8002b6?w=600&h=800&fit=crop&crop=center"
+        }, {
+            id: 9,
+            title: "Satin Slip Dress",
+            category: "Womens · Evening",
+            price: 310,
+            originalPrice: null,
+            tag: "Luxury",
+            badge: "Limited",
+            filter: ["womens"],
+            img: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600&h=800&fit=crop&crop=center"
+        }, {
+            id: 10,
+            title: "Cargo Utility Pants",
+            category: "Mens · Summer",
+            price: 155,
+            originalPrice: 195,
+            tag: "Street",
+            badge: "New",
+            filter: ["mens", "summer", "new"],
+            img: "https://images.unsplash.com/photo-1584865288642-420a9fbb62b7?w=600&h=800&fit=crop&crop=center"
+        }, {
+            id: 11,
+            title: "Off-Shoulder Top",
+            category: "Womens · Summer",
+            price: 85,
+            originalPrice: null,
+            tag: "Essential",
+            badge: null,
+            filter: ["womens", "summer"],
+            img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=800&fit=crop&crop=center"
+        }, {
+            id: 12,
+            title: "Tailored Shorts Set",
+            category: "Mens · Summer",
+            price: 225,
+            originalPrice: 310,
+            tag: "Co-ord",
+            badge: "40% OFF",
+            filter: ["mens", "summer"],
+            img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&h=800&fit=crop&crop=center"
+        }];
+
+        // ─── RENDER ──────────────────────────────────────────────
+        const container = document.getElementById('galleryContainer');
+        let currentFilter = 'all';
+
+        function renderGallery(filter = 'all') {
+            const filtered = filter === 'all' ?
+                products :
+                products.filter(p => p.filter.includes(filter));
+
+            container.innerHTML = filtered.map(p => `
+                <div class="gallery-card" data-id="${p.id}">
+                    <div class="card-image">
+                        <img src="${p.img}" alt="${p.title}" loading="lazy" />
+                        <div class="card-overlay">
+                            <div class="quick-actions">
+                                <button>Quick View</button>
+                                <button>❤️</button>
+                                <button>➕</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <span class="tag">${p.tag}</span>
+                        <h3>${p.title}</h3>
+                        <div class="category">${p.category}</div>
+                        <div class="price">
+                            $${p.price}
+                            ${p.originalPrice ? `<span>$${p.originalPrice}</span>` : ''}
+                        </div>
+                        ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ─── FILTER LOGIC ──────────────────────────────────────
+        document.getElementById('filterBar').addEventListener('click', (e) => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+
+            document.querySelectorAll('#filterBar button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            currentFilter = btn.dataset.filter;
+            renderGallery(currentFilter);
+        });
+
+        // ─── INIT ──────────────────────────────────────────────
+        renderGallery('all');
+    </script>
+</body>
+
+</html>
