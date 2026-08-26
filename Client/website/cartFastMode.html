@@ -16,6 +16,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
+    <!-- rendering slop -->
+    <script src="./slop.js"></script>
+
     <style>
 
     </style>
@@ -6525,6 +6528,16 @@
 
 <body class="antialiased content-loaded">
 
+    <!-- 
+        start engine
+    -->
+    <script>
+
+    </script>
+
+    <!-- 
+            Go ---
+    -->
 
 
     <!-- matager loader -->
@@ -6540,7 +6553,7 @@
 
     <!-- navbar  -->
     <nav id="main-nav"
-        class="fixed top-[-3px] z-50 left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-b-[1.5rem] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] overflow-y-auto transform max-h-[calc(-4rem+100vh)] revealed translate-y-0 opacity-100 pointer-events-auto py-4 px-6"
+        class="fixed z-50 left-1/2 -translate-x-1/2 w-[90%] max-w-[30rem] rounded-b-[1.5rem] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.3,1)] overflow-y-auto transform max-h-[calc(-4rem+100vh)] translate-y-0 opacity-100 pointer-events-auto px-4 py-4"
         style="backdrop-filter: blur(24px); box-shadow: rgba(0, 0, 0, 0.8) 0px 15px 30px; max-height: calc(-4rem + 100vh); overflow-y: auto;">
         <div class="max-w-7xl mx-auto flex justify-between items-center transition-all duration-500" id="nav-header">
 
@@ -6584,7 +6597,7 @@
                         onclick="openHome(event)" onmouseenter="showHint('Home')" onmouseleave="hideHint()">
                         <i class="bi bi-sliders2"></i>
                     </a>
-                    <a href="#" class="nav-bubble" id="themeToggle" onclick="toggleTheme(event)">
+                    <a href="#" class="nav-bubble" id="themeToggle" onclick="(event)">
                         <i id="theme-icon" class="bi bi-lightbulb" style="font-size: 1rem;"></i>
                     </a>
                 </div>
@@ -7360,11 +7373,11 @@
             <!-- ===== SEARCH MODE SELECTOR ===== -->
             <div class="flex justify-end items-center gap-2 px-1 mb-3">
                 <button id="mode-products" onclick="switchSearchMode('products')"
-                    class="flex-shrink-0 px-4 py-2 rounded-full text-blue-600 dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black active">
+                    class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 active">
                     <i class="bi bi-search mr-1.5"></i> Products
                 </button>
                 <button id="mode-categories" onclick="switchSearchMode('categories')"
-                    class="flex-shrink-0 px-4 py-2 rounded-full text-blue-600 dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black">
+                    class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 active">
                     <i class="bi bi-grid-3x3-gap-fill mr-1.5"></i> Categories
                 </button>
             </div>
@@ -7389,14 +7402,14 @@
                             <div class="flex items-center gap-2">
                                 <div class="flex-1 flex items-center gap-2 overflow-x-auto scrollbar-hide">
                                     <span
-                                        class="flex-shrink-0 px-4 py-2 rounded-full text-blue-600 dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black ">
+                                        class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 ">
                                         Adidas
                                     </span>
                                     <span
-                                        class="flex-shrink-0 px-4 py-2 rounded-full text-blue-600 dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black ">Nike</span>
+                                        class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 ">Nike</span>
                                 </div>
                                 <button
-                                    class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none bg-blue-600 hover:bg-blue-700 text-white">
+                                    class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none bg-gradient-to-r from-blue-500 to-emerald-500 text-white">
                                     Explore <i
                                         class="bi bi-chevron-right transition-transform group-hover:translate-x-1"></i>
                                 </button>
@@ -7411,12 +7424,12 @@
                             <div class="flex items-center gap-2">
                                 <div class="flex-1 flex items-center gap-2 overflow-x-auto scrollbar-hide">
                                     <span
-                                        class="flex-shrink-0 px-4 py-2 rounded-full text-blue-600 dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black ">Sneakers</span>
+                                        class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 ">Sneakers</span>
                                     <span
-                                        class="flex-shrink-0 px-4 py-2 rounded-full text-blue-600 dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black ">Streetwear</span>
+                                        class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 ">Streetwear</span>
                                 </div>
                                 <button
-                                    class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none bg-blue-600 hover:bg-blue-700 text-white">
+                                    class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none bg-gradient-to-r from-blue-500 to-emerald-500 text-white">
                                     Explore <i
                                         class="bi bi-chevron-right transition-transform group-hover:translate-x-1"></i>
                                 </button>
@@ -7463,9 +7476,9 @@
                         </p>
                         <div class="flex gap-2 overflow-x-auto pb-4 scrollbar-hide no-scrollbar">
                             <span
-                                class="flex-shrink-0 px-4 py-2 rounded-full text-blue-600 dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black ">Streetwear</span>
+                                class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 ">Streetwear</span>
                             <span
-                                class="flex-shrink-0 px-4 py-2 rounded-full text-blue-600 dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black ">socks</span>
+                                class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 ">socks</span>
                         </div>
                     </div>
                 </div>
@@ -7498,7 +7511,7 @@
 
                 <div class="mt-2 px-2 flex flex-col gap-2 justify-between items-center">
                     <button id="explore-btn"
-                        class="w-full gap-2 px-3 py-2.5 rounded-xl text-xs font-bold transition-all truncate flex justify-center items-center bg-blue-600 text-white shadow-lg shadow-blue-600/20"
+                        class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
                         disabled="">
                         Explore : <span id="path-display"><span>Men</span> / <span>Tops</span> /
                             <span>T-Shirts</span></span>
@@ -7690,7 +7703,7 @@
                             counterEl.classList.add('opacity-100', 'text-green-600', 'dark:text-green-400', 'border-green-500/20', 'bg-green-500/5');
                             exploreBtn.removeAttribute('aria-disabled');
                             exploreBtn.href = `/catalog?gender=${selection.gender.toLowerCase()}&category=${selection.category.toLowerCase()}&sub=${selection.sub.toLowerCase()}`;
-                            exploreBtn.className = "block text-center w-fit py-4 px-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-blue-600 dark:hover:bg-blue-600 hover:text-white dark:hover:text-white transition-all active:scale-[0.98] cursor-pointer pointer-events-auto";
+                            exploreBtn.className = "px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105";
                         } else {
                             let pathArr = [];
                             if (selection.gender) pathArr.push(selection.gender);
@@ -7701,7 +7714,7 @@
                             counterEl.textContent = "0 items found";
                             exploreBtn.setAttribute('aria-disabled', 'true');
                             exploreBtn.href = "#";
-                            exploreBtn.className = "block text-center w-fit py-4 px-4 bg-black dark:bg-white text-white dark:text-black rounded-2xl font-black uppercase text-[10px] tracking-widest hover:bg-blue-600 dark:hover:bg-blue-600 hover:text-white dark:hover:text-white transition-all active:scale-[0.98] cursor-pointer pointer-events-auto";
+                            exploreBtn.className = "px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105";
                         }
                     }
 
@@ -8300,8 +8313,9 @@
                                 class="text-[10px] font-medium text-black/50 dark:text-white/40 uppercase txt1 text-[10px] font-bold uppercase tracking-wide">
                                 items that fit me
                             </p><button onclick="alert('edit fit panel would open')"
-                                class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none bg-blue-600 hover:bg-blue-700 text-white">
-                                ✎ Edit my fit
+                                class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none bg-gradient-to-r from-blue-500 to-emerald-500 text-white">
+                                Edit my fit
+                                <i class="bi bi-chevron-right transition-transform group-hover:translate-x-1"></i>
                             </button>
 
                         </div>
@@ -8311,46 +8325,43 @@
                             <div class="flex gap-2.5 w-max">
                                 <!-- active badge example: 'All' stays active -->
                                 <span
-                                    class="flex-shrink-0 px-4 py-2 rounded-full dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black">
+                                    class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105">
                                     All
                                 </span>
                                 <span
-                                    class="flex-shrink-0 px-4 py-2 rounded-full dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black"
-                                    onclick="filterGrid('tshirt')">
-                                    <span class="text-black dark:text-white font-semibold mr-1">(20)</span>T‑shirts
+                                    class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                                    onclick="filterGrid('tshirt')">T‑shirts
                                 </span>
                                 <span
-                                    class="flex-shrink-0 px-4 py-2 rounded-full dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black"
-                                    onclick="filterGrid('hoodie')">
-                                    <span class="text-black dark:text-white font-semibold mr-1">(2)</span>Hoodies
+                                    class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                                    onclick="filterGrid('hoodie')">Hoodies
                                 </span>
                                 <span
-                                    class="flex-shrink-0 px-4 py-2 rounded-full dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black"
+                                    class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
                                     onclick="filterGrid('pants')">
                                     Pants
                                 </span>
                                 <span
-                                    class="flex-shrink-0 px-4 py-2 rounded-full dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black"
-                                    onclick="filterGrid('shoes')">
-                                    <span class="text-black dark:text-white font-semibold mr-1">(7)</span> Shoes
+                                    class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                                    onclick="filterGrid('shoes')">Shoes
                                 </span>
                                 <span
-                                    class="flex-shrink-0 px-4 py-2 rounded-full dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black"
+                                    class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
                                     onclick="filterGrid('accessory')">
                                     Accessories
                                 </span>
                                 <span
-                                    class="flex-shrink-0 px-4 py-2 rounded-full dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black"
+                                    class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
                                     onclick="filterGrid('adidas')">
                                     Adidas
                                 </span>
                                 <span
-                                    class="flex-shrink-0 px-4 py-2 rounded-full dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black"
+                                    class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
                                     onclick="filterGrid('nike')">
                                     Nike
                                 </span>
                                 <span
-                                    class="flex-shrink-0 px-4 py-2 rounded-full dark:text-blue-400 text-[11px] font-bold border border-blue-500/30 cursor-pointer badge group active:scale-95 hover:bg-black/5 dark:hover:bg-white/5 hover:tex-black"
+                                    class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
                                     onclick="filterGrid('newbalance')">
                                     New Balance
                                 </span>
@@ -8844,80 +8855,181 @@
                         <!-- Divider -->
                         <div style="width: 1px; height: 28px; background: rgba(128,128,128,0.2); flex-shrink: 0;"></div>
 
-                        <!-- Custom Select Dropdown -->
-                        <div class="relative flex-shrink-0" style="min-width: 110px;">
-                            <!-- Hidden native select for value tracking -->
-                            <select id="orderFilter" class="hidden">
-                                <option value="All">All</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Processing">Processing</option>
-                                <option value="Shipped">Shipped</option>
-                                <option value="Delivered">Delivered</option>
-                                <option value="Returned">Returned</option>
-                            </select>
-
-                            <!-- Custom trigger button -->
+                        <div class="relative flex-shrink-0" style="min-width:110px">
                             <button id="filterTrigger"
-                                class="font-semibold uppercase transition-all active:scale-95 shadow-sm bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-2 px-4 text-[10px] tracking-wider flex items-center gap-2 whitespace-nowrap justify-center relative"
-                                style="min-width: 80px; border: none; letter-spacing: 0.5px;">
-                                <span id="selectedText" style="font-size: 11px; font-weight: 700;">Pending</span>
+                                class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105 border-blue-500/20"
+                                style="min-width:80px;border:none;letter-spacing:.5px">
+                                <span id="selectedText" style="font-size:11px;font-weight:700">All</span>
                                 <i class="bi bi-chevron-down"
-                                    style="font-size: 0.75rem; transition: transform 0.3s ease;"></i>
+                                    style="font-size:.75rem;transition:transform .3s ease"></i>
                             </button>
-
-                            <!-- Custom dropdown -->
                             <div id="dropdownMenu"
-                                class="absolute top-full right-0 mt-3 bg-whie/5 dark:bg-white/[0.02] border border-gray-200 dark:border-white/5 backdrop-blur-md transition-all rounded-2xl shadow-2xl overflow-hidden z-50"
-                                style="width: 140px;max-height: 0;opacity: 0;transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);transform: translateY(-10px);pointer-events: none;box-shadow: 0 20px 60px rgba(0,0,0,0.15);background: var(--bg-color);">
+                                class="rounded-xl border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 flex flex-col gap-2 hover:scale-105"
+                                style="background: #272726;margin-top:5px;position:fixed;right:0;width:140px;max-height:0;opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);transform:translateY(-10px);pointer-events:none">
                                 <div id="optionsContainer"
-                                    class="py-2 space-y-1 max-h-[200px] overflow-y-auto custom-scroll"
-                                    style="padding: 6px 8px;">
-                                    <div class="dropdown-option px-4 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-all duration-200 flex items-center gap-2"
-                                        data-value="All"
-                                        style="border-width: medium; border-style: none; border-color: currentcolor; border-image: none;">
-
-                                        All
-                                    </div>
-                                    <div class="dropdown-option px-4 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-all duration-200 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-white/5 text-gray-700 dark:text-gray-300 txt2 bg-blue-50 dark:bg-white/10 text-blue-600 dark:text-blue-400"
+                                    class="px-4 py-2 rounded-xl text-xs font-medium text-slate-300 transition-all duration-300 flex flex-col gap-2"
+                                    style="overflow:auto;max-height:105px;padding:6px 8px">
+                                    <div class="dropdown-option px-4 py-2 rounded-xl bg-white/5 border border-white/10 bg-blue-500/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                                        data-value="All" style="border:1px solid rgba(59,130,246,.2)">All</div>
+                                    <div class="dropdown-option px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
                                         data-value="Pending"
-                                        style="background: rgb(26, 26, 26); border: 1px solid rgba(59, 130, 246, 0.2);">
-                                        <i class="bi bi-check-circle-fill"
-                                            style="font-size: 0.7rem; color: rgb(59, 130, 246);"></i>
-                                        <span
-                                            style="width: 6px; height: 6px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
-                                        Pending
+                                        style="border-width:medium;border-style:none;border-color:currentcolor;border-image:none">
+                                        <span class="status-dot" style="background:#f59e0b"></span>Pending
                                     </div>
-                                    <div class="dropdown-option px-4 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-all duration-200 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-white/5 text-gray-700 dark:text-gray-300 txt2"
+                                    <div class="dropdown-option px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
                                         data-value="Processing"
-                                        style="background: rgb(26, 26, 26); border-width: medium; border-style: none; border-color: currentcolor; border-image: none;">
-                                        <span
-                                            style="width: 6px; height: 6px; border-radius: 50%; background: #3b82f6; display: inline-block;"></span>
-                                        Processing
+                                        style="border-width:medium;border-style:none;border-color:currentcolor;border-image:none">
+                                        <span class="status-dot" style="background:#3b82f6"></span>Processing
                                     </div>
-                                    <div class="dropdown-option px-4 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-all duration-200 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-white/5 text-gray-700 dark:text-gray-300 txt2"
+                                    <div class="dropdown-option px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
                                         data-value="Shipped"
-                                        style="background: rgb(26, 26, 26); border-width: medium; border-style: none; border-color: currentcolor; border-image: none;">
-                                        <span
-                                            style="width: 6px; height: 6px; border-radius: 50%; background: #8b5cf6; display: inline-block;"></span>
-                                        Shipped
+                                        style="border-width:medium;border-style:none;border-color:currentcolor;border-image:none">
+                                        <span class="status-dot" style="background:#8b5cf6"></span>Shipped
                                     </div>
-                                    <div class="dropdown-option px-4 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-all duration-200 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-white/5 text-gray-700 dark:text-gray-300"
+                                    <div class="dropdown-option px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
                                         data-value="Delivered"
-                                        style="background: rgb(26, 26, 26); border-width: medium; border-style: none; border-color: currentcolor; border-image: none;">
-                                        <span
-                                            style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-                                        Delivered
+                                        style="border-width:medium;border-style:none;border-color:currentcolor;border-image:none">
+                                        <span class="status-dot" style="background:#10b981"></span>Delivered
                                     </div>
-                                    <div class="dropdown-option px-4 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-wider cursor-pointer transition-all duration-200 flex items-center gap-2 hover:bg-gray-100 dark:hover:bg-white/5 text-gray-700 dark:text-gray-300"
+                                    <div class="dropdown-option px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
                                         data-value="Returned"
-                                        style="background: rgb(26, 26, 26); border-width: medium; border-style: none; border-color: currentcolor; border-image: none;">
-                                        <span
-                                            style="width: 6px; height: 6px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
-                                        Returned
+                                        style="border-width:medium;border-style:none;border-color:currentcolor;border-image:none">
+                                        <span class="status-dot" style="background:#ef4444"></span>Returned
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <style>
+                            .custom-select-wrapper {
+                                background: rgba(255, 255, 255, 0.03);
+                                backdrop-filter: blur(10px);
+                            }
+
+                            .custom-scroll::-webkit-scrollbar {
+                                width: 3px;
+                            }
+
+                            .custom-scroll::-webkit-scrollbar-track {
+                                background: transparent;
+                            }
+
+                            .custom-scroll::-webkit-scrollbar-thumb {
+                                background: #d1d5db;
+                                border-radius: 20px;
+                            }
+
+                            .dark .custom-scroll::-webkit-scrollbar-thumb {
+                                background: #4b5563;
+                            }
+
+                            #dropdownMenu.open {
+                                max-height: 300px !important;
+                                opacity: 1 !important;
+                                transform: translateY(0) !important;
+                                pointer-events: auto !important;
+                            }
+
+                            #filterTrigger .bi-chevron-down {
+                                transition: transform 0.3s ease;
+                            }
+
+                            #filterTrigger.active .bi-chevron-down {
+                                transform: rotate(180deg);
+                            }
+
+                            .dropdown-option {
+                                position: relative;
+                                cursor: pointer;
+                            }
+
+                            .dropdown-option:active {
+                                transform: scale(0.97);
+                            }
+
+                            .status-dot {
+                                width: 6px;
+                                height: 6px;
+                                border-radius: 50%;
+                                display: inline-block;
+                                flex-shrink: 0;
+                            }
+                        </style>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const trigger = document.getElementById('filterTrigger');
+                                const dropdown = document.getElementById('dropdownMenu');
+                                const selectedText = document.getElementById('selectedText');
+                                const options = document.querySelectorAll('.dropdown-option');
+                                let isOpen = false;
+
+                                // Toggle dropdown on trigger click
+                                trigger.addEventListener('click', function (e) {
+                                    e.stopPropagation();
+                                    isOpen = !isOpen;
+                                    dropdown.classList.toggle('open', isOpen);
+                                    trigger.classList.toggle('active', isOpen);
+                                });
+
+                                // Handle option selection
+                                options.forEach(option => {
+                                    option.addEventListener('click', function (e) {
+                                        e.stopPropagation();
+                                        const value = this.dataset.value;
+                                        const label = this.textContent.trim();
+
+                                        // Update selected text
+                                        selectedText.textContent = label;
+
+                                        // Remove active state from all options
+                                        options.forEach(opt => {
+                                            opt.classList.remove('border-blue-500/20', 'text-blue-600', 'bg-blue-500/10');
+                                            opt.style.border = 'none';
+                                            const checkIcon = opt.querySelector('.bi-check-circle-fill');
+                                            if (checkIcon) checkIcon.remove();
+                                            // Restore original border style for non-active options
+                                            if (!opt.classList.contains('border-blue-500/20')) {
+                                                opt.style.border = 'medium none currentcolor';
+                                            }
+                                        });
+
+                                        // Add active state to selected option
+                                        this.classList.add('border-blue-500/20', 'text-blue-600', 'bg-blue-500/10');
+                                        this.style.border = '1px solid rgba(59,130,246,0.2)';
+
+
+                                        // Close dropdown
+                                        isOpen = false;
+                                        dropdown.classList.remove('open');
+                                        trigger.classList.remove('active');
+
+                                        // Trigger custom event for selection change
+                                        const event = new CustomEvent('filterChange', {
+                                            detail: { value: value, label: label }
+                                        });
+                                        document.dispatchEvent(event);
+
+                                        console.log('Selected:', value);
+                                    });
+                                });
+
+                                // Close dropdown when clicking outside
+                                document.addEventListener('click', function (e) {
+                                    if (isOpen && !dropdown.contains(e.target) && !trigger.contains(e.target)) {
+                                        isOpen = false;
+                                        dropdown.classList.remove('open');
+                                        trigger.classList.remove('active');
+                                    }
+                                });
+
+                                // Prevent dropdown from closing when clicking inside it
+                                dropdown.addEventListener('click', function (e) {
+                                    e.stopPropagation();
+                                });
+
+                            });
+                        </script>
                     </div>
 
                     <style>
@@ -8976,80 +9088,7 @@
                         }
                     </style>
 
-                    <script>
-                        // Enhanced dropdown functionality
-                        document.addEventListener('DOMContentLoaded', function () {
-                            const trigger = document.getElementById('filterTrigger');
-                            const dropdown = document.getElementById('dropdownMenu');
-                            const selectedText = document.getElementById('selectedText');
-                            const hiddenSelect = document.getElementById('orderFilter');
-                            const options = document.querySelectorAll('.dropdown-option');
-                            const chevronIcon = trigger.querySelector('.bi-chevron-down');
-                            let isOpen = false;
 
-                            // Toggle dropdown
-                            trigger.addEventListener('click', function (e) {
-                                e.stopPropagation();
-                                isOpen = !isOpen;
-                                dropdown.classList.toggle('open', isOpen);
-                                trigger.classList.toggle('active', isOpen);
-                            });
-
-                            // Select option
-                            options.forEach(option => {
-                                option.addEventListener('click', function () {
-                                    const value = this.dataset.value;
-                                    const label = this.textContent.trim();
-
-                                    selectedText.textContent = label;
-                                    hiddenSelect.value = value;
-
-                                    // Update active state
-                                    options.forEach(opt => {
-                                        opt.classList.remove('bg-blue-50', 'dark:bg-white/10', 'text-blue-600', 'dark:text-blue-400');
-                                        opt.style.border = 'none';
-                                        const checkIcon = opt.querySelector('.bi-check-circle-fill');
-                                        if (checkIcon) checkIcon.remove();
-                                    });
-
-                                    // Add active styles to selected
-                                    this.classList.add('bg-blue-50', 'dark:bg-white/10', 'text-blue-600', 'dark:text-blue-400');
-                                    this.style.border = '1px solid rgba(59,130,246,0.2)';
-
-                                    // Add check icon
-                                    const checkIcon = document.createElement('i');
-                                    checkIcon.className = 'bi bi-check-circle-fill';
-                                    checkIcon.style.cssText = 'font-size: 0.7rem; color: #3b82f6;';
-                                    this.prepend(checkIcon);
-
-                                    // Close dropdown
-                                    isOpen = false;
-                                    dropdown.classList.remove('open');
-                                    trigger.classList.remove('active');
-                                });
-                            });
-
-                            // Close on outside click
-                            document.addEventListener('click', function () {
-                                if (isOpen) {
-                                    isOpen = false;
-                                    dropdown.classList.remove('open');
-                                    trigger.classList.remove('active');
-                                }
-                            });
-
-                            // Prevent dropdown from closing when clicking inside it
-                            dropdown.addEventListener('click', function (e) {
-                                e.stopPropagation();
-                            });
-                        });
-
-                        // Search handler
-                        function handleSearch(value) {
-                            console.log('Searching for:', value);
-                            // Add your search logic here
-                        }
-                    </script>
 
 
                     <div class="space-y-4 max-h-[400px] pr-2 scrollbar-none">
@@ -9761,107 +9800,6 @@
     </nav>
     <!-- navbar -->
 
-    <!-- WELCOME MAT (main card) -->
-    <div id="welcome-mat" class="glass">
-        <div class="mat-card" id="matCard">
-
-            <!-- ===== TOP ROW: User + Theme ===== -->
-            <div class="mat-header">
-                <div class="mat-user-info">
-                    <div class="mat-store-info">
-                        <div class="mat-store-name">James Delaney</div>
-                        <div class="mat-store-meta">
-                            <span class="badge year">james.d@example.com</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="mat-theme-control">
-                    <span id="light-status" class="stat-label">lights off</span>
-                    <a href="#" class="nav-bubble" id="themeToggle" onclick="toggleTheme(event)">
-                        <i id="theme-icon" class="bi bi-lightbulb-fill" style="font-size: 1rem;"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div style="display: flex;align-items: center;justify-content: space-between;gap: 1rem;">
-                <!-- Left: "You are now on" with store name -->
-                <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1;">
-                    <div style="display: flex; flex-direction: column;">
-                        <span
-                            style="font-size: 0.55rem;font-weight: 600;color: var(--text-muted, #6b7280);letter-spacing: 0.3px;text-transform: uppercase;">
-                            You are now on
-                        </span>
-                        <div class="mat-store-info"
-                            style="display: flex;flex:1;align-items: flex-start;flex-direction: row;">
-                            <div class="mat-store-name">LANVIN</div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right: "Go to next store" button -->
-                <div class="group flex-shrink-0 flex items-center gap-2 px-4 py-2 rounded-full text-[8px] font-black uppercase transition-all active:scale-95 shadow-md shadow-black/5 dark:shadow-none bg-blue-600 hover:bg-blue-700 text-white"
-                    style="flex-shrink: 0;">
-                    <a href="#">
-                        <span>Go to next store</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
-
-            <!-- ===== STORE HEADER ===== -->
-            <div class="card" style="
-    border-radius: 20px;
-    border: 1px solid #8080804a;
-    display: flex;
-    flex-direction: column;
-    gap: 1.24rem;
-">
-                <div class="mat-header"
-                    style="display: flex;align-items: center;justify-content: space-between;width: 100%;padding-bottom: 0.75rem;flex-direction: column;gap: 1.25rem;border-bottom: none;padding-bottom: 0;">
-                    <div class="store-icon"
-                        style="background-image: url('https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=300&amp;h=300&amp;fit=crop&amp;crop=center&amp;q=80'); background-size: cover; background-position: center;">
-                        <div class="store-img-logo">
-                            <div class="logo-placeholder"
-                                style="background-image: url('https://static.vecteezy.com/system/resources/previews/024/044/738/large_2x/shopping-cart-logo-design-cart-icon-ecommerce-logo-vector.jpg'); background-size: cover; background-position: center; background-color: transparent; border: none; color: transparent; text-shadow: none; width: 52px; height: 52px; border-radius: 50%; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.4);">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mat-stats">
-                    <div class="stat-item"><span class="stat-value">12+</span><span
-                            class="stat-label">Collections</span>
-                    </div>
-                    <div class="stat-item"><span class="stat-value">4.9</span><span class="stat-label">Client
-                            Rating</span>
-                    </div>
-                    <div class="stat-item"><span class="stat-value">405</span><span class="stat-label">Followers</span>
-                    </div>
-                    <div class="stat-item"><span class="stat-value">24</span><span class="stat-label">Products</span>
-                    </div>
-                </div>
-                <div class="mat-bio-wrapper" style="padding-inline: 10px;">
-                    <div class="mat-bio truncated" id="matBio">
-                        where simplicity meets sophistication. Curated collections for the modern individual who values
-                        timeless design, impeccable quality and understated elegance. Each piece is carefully selected
-                        to bring you the finest in contemporary fashion.
-                    </div>
-                    <button class="bio-toggle-btn" id="bioToggleBtn" style="display: inline-block;">Read More</button>
-                </div>
-                <div class="mat-actions" style="
-    padding-inline: 10px;
-">
-                    <div class="fit-badge">🎯 8 items fit you</div>
-                    <a href="#" class="cta-primary" id="welcomeCta">Let's take a look</a>
-                </div>
-
-            </div>
-
-            <!-- end store-hub -->
-
-        </div> <!-- mat-card -->
-    </div>
-
 
     <script>
         function toggleMenu() {
@@ -9947,21 +9885,45 @@
             const mainNav = document.getElementById("main-nav");
             let hasRevealed = false;
 
-            function handleFirstScroll() {
-                if (!hasRevealed && window.scrollY > 20) {
+            // Function to reveal the nav (adds .revealed and visible classes)
+            function revealNav() {
+                if (!hasRevealed) {
                     hasRevealed = true;
-
-                    // Smoothly slide down to original position and make clickable
                     mainNav.classList.remove("-translate-y-24", "opacity-0", "pointer-events-none");
                     mainNav.classList.add("translate-y-0", "opacity-100", "pointer-events-auto");
-
-                    // Clean up the window event listener since it's now revealed
+                    // ✅ Add the "revealed" class when opened
+                    mainNav.classList.add("revealed");
+                    // Remove scroll listener after first reveal
                     window.removeEventListener("scroll", handleFirstScroll);
+                }
+            }
+
+            // Function to close the nav (removes .revealed and hides it)
+            function closeNav() {
+                if (hasRevealed) {
+                    hasRevealed = false;
+                    // Remove the "revealed" class
+                    mainNav.classList.remove("revealed");
+                    // Revert to hidden state
+                    mainNav.classList.remove("translate-y-0", "opacity-100", "pointer-events-auto");
+                    mainNav.classList.add("-translate-y-24", "opacity-0", "pointer-events-none");
+                    // Optionally re-bind the scroll listener if you want it to reappear on scroll again
+                    window.addEventListener("scroll", handleFirstScroll);
+                }
+            }
+
+            // Scroll handler
+            function handleFirstScroll() {
+                if (!hasRevealed && window.scrollY > 20) {
+                    revealNav();
                 }
             }
 
             // Bind scroll listener
             window.addEventListener("scroll", handleFirstScroll);
+
+            // Expose closeNav to global scope so you can call it from a button
+            window.closeNav = closeNav;
         });
     </script>
 
@@ -9972,8 +9934,6 @@
 
 
     <main class="flex flex-col items-center">
-
-
         <section class="store-header-area w-full max-w-7xl mx-auto px-6 pt-8 pb-4 transition-all duration-500"
             style="padding-top: 90px;scale: 0.8;">
 
@@ -10338,21 +10298,54 @@
             </div>
 
             <script>
-                // Toggle theme function
                 function toggleTheme(event) {
-                    if (event) event.preventDefault();
-                    document.documentElement.classList.toggle('dark');
-                    const icon = document.getElementById('theme-icon');
-                    if (icon) {
-                        icon.classList.toggle('bi-lightbulb-fill');
-                        icon.classList.toggle('bi-lightbulb-off-fill');
-                    }
-                    const status = document.getElementById('light-status');
-                    if (status) {
-                        status.textContent = document.documentElement.classList.contains('dark') ? 'lights off' : 'lights on';
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    const body = document.body;
+                    const themeIcon = document.getElementById('theme-icon');
+
+                    // Toggle dark mode class
+                    body.classList.toggle('dark-mode');
+
+                    // Check if dark mode is active
+                    if (body.classList.contains('dark-mode')) {
+                        // Dark mode - reduce brightness of the background image
+                        body.style.setProperty('--bg-brightness', '0.4');
+                        body.style.backgroundColor = '#0a0a0a';
+                        themeIcon.className = 'bi bi-sun text-base';
+                        themeIcon.style.color = '#FFD700';
+
+                        // Save preference
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        // Light mode - restore brightness
+                        body.style.setProperty('--bg-brightness', '1');
+                        body.style.backgroundColor = '';
+                        themeIcon.className = 'bi bi-lightbulb text-base';
+                        themeIcon.style.color = '';
+
+                        // Save preference
+                        localStorage.setItem('theme', 'light');
                     }
                 }
 
+                // Load saved theme
+                function loadTheme() {
+                    const savedTheme = localStorage.getItem('theme');
+                    if (savedTheme === 'dark') {
+                        const body = document.body;
+                        const themeIcon = document.getElementById('theme-icon');
+
+                        body.classList.add('dark-mode');
+                        body.style.setProperty('--bg-brightness', '0.4');
+                        body.style.backgroundColor = '#0a0a0a';
+                        themeIcon.className = 'bi bi-sun text-base';
+                        themeIcon.style.color = '#FFD700';
+                    }
+                }
+
+                document.addEventListener('DOMContentLoaded', loadTheme);
                 // Auth functions (demo)
                 function signIn() {
                     alert('🔐 Redirecting to sign in page...\n(Full access: complete orders, follow stores, save products, etc.)');
@@ -10384,80 +10377,76 @@
 
         </section>
 
-
-
-
-
-
-
-
+        <div id="filter-container"></div>
 
 
 
         <section id="products"
-            class=" w-full max-w-7xl mx-auto px-6 md:p-8 pt-8 pb-4 overflow-hidden rounded-3xl border border-white/10 dark:border-white/10 shadow-2xl"
-            style="
-    scale: 0.8;
-    backdrop-filter: blur(24px);
-">
-            <!-- Category Navigation (Unchanged) -->
+            class="w-full max-w-7xl mx-auto px-6 md:p-8 pt-8 pb-4 overflow-hidden rounded-3xl border border-white/10 dark:border-white/10 shadow-2xl"
+            style="scale:0.8; backdrop-filter:blur(24px);">
+
+            <!-- Category Navigation -->
             <div class="flex flex-wrap gap-4 mb-16">
                 <button onclick="filterProducts('featured', this)"
-                    class="category-btn px-8 py-3 rounded-xl border font-bold text-xs tracking-[0.2em] uppercase transition-all duration-500 active border-slate-500">Featured</button>
+                    class="category-btn px-8 py-3 rounded-xl border font-bold text-xs tracking-[0.2em] uppercase hover:bg-white/10 transition-all duration-500 active border-slate-500">Featured</button>
                 <button onclick="filterProducts('best-seller', this)"
                     class="category-btn px-8 py-3 rounded-xl border font-bold text-xs tracking-[0.2em] uppercase hover:bg-white/10 transition-all duration-500 border-white/10">Best
                     Seller</button>
+                <button onclick="filterProducts('limited-items', this)"
+                    class="category-btn px-8 py-3 rounded-xl border font-bold text-xs tracking-[0.2em] uppercase hover:bg-white/10 transition-all duration-500 border-white/10">Limited
+                    Items</button>
                 <button onclick="filterProducts('sale-items', this)"
                     class="category-btn px-8 py-3 rounded-xl border font-bold text-xs tracking-[0.2em] uppercase hover:bg-white/10 transition-all duration-500 border-white/10">Sale
                     Items</button>
                 <button onclick="filterProducts('Collections-items', this)"
-                    class="category-btn px-8 py-3 rounded-xl border border-white/10 font-bold text-xs tracking-[0.2em] uppercase hover:bg-white/10 transition-all duration-500">Collections</button>
+                    class="category-btn px-8 py-3 rounded-xl border font-bold text-xs tracking-[0.2em] uppercase hover:bg-white/10 transition-all duration-500 border-white/10">Collections</button>
             </div>
 
-            <!-- Header Section (Unchanged) -->
-            <!-- Container: Changed items-start to items-center on mobile for better balance -->
-            <!-- Added dynamic min-height classes for different screen sizes -->
+            <!-- Header -->
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-16 gap-8">
                 <div class="relative min-h-[160px] sm:min-h-[180px] md:min-h-[120px] flex-1 w-full">
 
                     <!-- Featured -->
-                    <div id="text-featured" class="text-content-wrapper active-text">
-                        <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">
-                            Featured.
-                        </h2>
-                        <p class="text-slate-500 text-base md:text-lg max-w-xs md:max-w-md font-light">
-                            Carefully selected pieces designed to elevate your daily environment.
-                        </p>
+                    <div id="text-featured" class="text-content-wrapper hidden-text">
+                        <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">Featured.</h2>
+                        <p class="text-slate-500 text-base md:text-lg max-w-xs md:max-w-md font-light">Carefully
+                            selected pieces
+                            designed to elevate your daily environment.</p>
                     </div>
 
                     <!-- Best Sellers -->
-                    <div id="text-best-seller" class="text-content-wrapper hidden-text">
-                        <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">
-                            Best Sellers.
+                    <div id="text-best-seller" class="text-content-wrapper active-text">
+                        <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">Best Sellers.
                         </h2>
-                        <p class="text-slate-500 text-base md:text-lg max-w-xs md:max-w-md font-light">
-                            The items our community loves most, tested and proven by time.
-                        </p>
+                        <p class="text-slate-500 text-base md:text-lg max-w-xs md:max-w-md font-light">The items our
+                            community
+                            loves most, tested and proven by time.</p>
                     </div>
 
                     <!-- Sale Items -->
                     <div id="text-sale-items" class="text-content-wrapper hidden-text">
-                        <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">
-                            On Sale.
+                        <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">On Sale.</h2>
+                        <p class="text-slate-500 text-base md:text-lg max-w-xs md:max-w-md font-light">High-end
+                            essentials
+                            currently available at limited-time pricing.</p>
+                    </div>
+
+                    <!-- Sale Items -->
+                    <div id="text-limited-items" class="text-content-wrapper hidden-text">
+                        <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">Limited Picks.
                         </h2>
-                        <p class="text-slate-500 text-base md:text-lg max-w-xs md:max-w-md font-light">
-                            High-end essentials currently available at limited-time pricing.
-                        </p>
+                        <p class="text-slate-500 text-base md:text-lg max-w-xs md:max-w-md font-light">Exclusive drops,
+                            limited
+                            quantities</p>
                     </div>
 
                     <!-- Collections Items -->
                     <div id="text-Collections-items" class="text-content-wrapper hidden-text">
-                        <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">
-                            Collections.
+                        <h2 class="text-5xl md:text-7xl font-bold tracking-tighter leading-[0.85] mb-4">Collections.
                         </h2>
-                        <p class="text-slate-500 text-base md:text-lg max-w-xs md:max-w-md font-light">
-                            High-end essentials Collections available Now.
-                        </p>
+                        <p class="text-slate-500 text-base md:text-lg max-w-xs md:max-w-md font-light">High-end
+                            essentials
+                            Collections available Now.</p>
                     </div>
                 </div>
 
@@ -10469,168 +10458,740 @@
                 </button>
             </div>
 
-
-            <!-- Animation Wrapper for Grids -->
-            <div class="relative min-h-[600px] w-full">
-
-                <!-- Featured Grid -->
-                <div id="grid-featured"
-                    class="product-grid grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 visible-grid">
-                    <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full bg-black"
-                        onclick="event.stopPropagation(); openQuickLook('PROD_001')">
-
-                        <div class="aspect-[4/5] overflow-hidden relative">
-                            <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
-                                style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
-                            </div>
-
-                            <div
-                                class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
-                                50% off
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
-
-
-
-                                <div
-                                    class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
-                                    <h4 class="font-bold text-lg text-white leading-tight">Adidas classic t-shirt
-                                    </h4>
-                                    <p class="text-[10px] mb-3 opacity-60 tracking-[0.2em] uppercase text-white">
-                                        ADIDAS
-                                    </p>
-
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center justify-between">
-                                            <span class="text-[10px] font-bold text-white tracking-wide">EGP
-                                                4,500</span>
-                                        </div>
-                                        <span class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
-                                            Free Delivery
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative w-full bg-black/50 opacity-90">
-
-                        <div class="aspect-[4/5] overflow-hidden relative">
-                            <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm brightness-[0.7]"
-                                style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
-                            </div>
-
-                            <div
-                                class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
-                                Sold Out
-                            </div>
-
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
-
-                                <div
-                                    class="flex flex-col gap-2 mb-6 transform translate-y-4 transition-transform duration-700 delay-75 group-hover:translate-y-0">
-                                    <button
-                                        class="w-full py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold transition active:scale-95 flex items-center justify-center gap-1 text-[10px] uppercase tracking-wider"
-                                        onclick="event.stopPropagation(); showAlert('reminder', 'We\'ll notify you the instant this item restocks!')">
-                                        <i class="bi bi-bell-fill"></i> Set Reminder
-                                    </button>
-                                </div>
-
-                                <div
-                                    class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
-                                    <h4 class="font-bold text-lg text-white/50 line-through leading-tight">Adidas
-                                        classic t-shirt</h4>
-                                    <p class="text-[10px] mb-3 opacity-40 tracking-[0.2em] uppercase text-white">ADIDAS
-                                    </p>
-
-                                    <div class="flex items-center justify-between">
-                                        <div class="flex items-center justify-between">
-                                            <span class="text-[10px] font-bold text-white tracking-wide">EGP
-                                                4,500</span>
-                                        </div>
-                                        <span class="text-[10px] text-zinc-500 font-bold flex items-center gap-1">
-                                            Unavailable
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Best Seller Grid (Empty Placeholder) -->
-                <div id="grid-best-seller"
-                    class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 hidden-grid">
-
-                </div>
-
-                <!-- Sale Items Grid (Empty Placeholder) -->
-                <div id="grid-sale-items"
-                    class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 hidden-grid">
-                    <!-- Insert similar cards here -->
+            <!-- Grid Controls -->
+            <div class="flex items-center gap-3 pb-4" style="display:flex; flex-direction:row-reverse;">
+                <span class="text-[10px] font-bold opacity-40 text-black dark:text-white mr-2" id="item-count">24
+                    Items</span>
+                <div class="flex bg-black/5 dark:bg-white/5 p-1 rounded-xl gap-1">
+                    <!-- 1 Row: Bigger cards -->
+                    <button onclick="setExploreGrid(1)"
+                        class="grid-toggle-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-white dark:hover:bg-white/10 transition-all text-sm text-black dark:text-white"
+                        data-rows="1">
+                        <i class="bi bi-square-fill"></i>
+                    </button>
+                    <!-- 2 Rows: Medium cards (DEFAULT) -->
+                    <button onclick="setExploreGrid(2)"
+                        class="grid-toggle-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-white dark:hover:bg-white/10 transition-all text-sm text-black dark:text-white active border border-slate-500/60"
+                        data-rows="2">
+                        <i class="bi bi-grid-fill"></i>
+                    </button>
+                    <!-- 3 Rows: Smaller cards -->
+                    <button onclick="setExploreGrid(3)"
+                        class="grid-toggle-btn w-7 h-7 flex items-center justify-center rounded-lg hover:bg-white dark:hover:bg-white/10 transition-all text-sm text-black dark:text-white"
+                        data-rows="3">
+                        <i class="bi bi-grid-3x3-gap-fill"></i>
+                    </button>
                 </div>
             </div>
 
-        </section>
+            <!-- ====== ROW-CONTROLLED GRID ====== -->
+            <div class="relative w-full">
 
-        <style>
+                <!-- ★ Featured Grid (visible by default) -->
+                <div id="grid-featured" class="scroll-grid-x visible-grid" data-rows="2">
 
-        </style>
+                    <!-- product card 1 -->
+                    <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative bg-black/70"
+                        onclick="event.stopPropagation(); openQuickLook('PROD_001')">
+                        <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
+                            <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
+                            </div>
+                            <div
+                                class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                50% off</div>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
+                                <div
+                                    class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
+                                    <h4 class="font-bold text-lg text-white leading-tight">Adidas classic t-shirt</h4>
+                                    <p class="text-[10px] mb-3 opacity-60 tracking-[0.2em] uppercase text-white">ADIDAS
+                                    </p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] font-bold text-white tracking-wide">EGP 4,500</span>
+                                        <span
+                                            class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">Free
+                                            Delivery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        <script>
-            // Updated Filter Logic
-            function filterProducts(targetId, btn) {
-                document.querySelectorAll('.category-btn').forEach(b => {
-                    // Reset all buttons to the "inactive" glass state
-                    b.classList.remove('active', 'border-slate-500');
-                    b.classList.add('border-white/10');
-                });
+                    <!-- product card 2 -->
+                    <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative bg-black/70"
+                        onclick="event.stopPropagation(); openQuickLook('PROD_002')">
+                        <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
+                            <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/1f4a9c8e1f6d4b9a8f1a6e8c3d2b4a5e_9366/JS1234_HM1.jpg');">
+                            </div>
+                            <div
+                                class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                30% off</div>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
+                                <div
+                                    class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
+                                    <h4 class="font-bold text-lg text-white leading-tight">Ultraboost 5.0</h4>
+                                    <p class="text-[10px] mb-3 opacity-60 tracking-[0.2em] uppercase text-white">ADIDAS
+                                    </p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] font-bold text-white tracking-wide">EGP 6,200</span>
+                                        <span
+                                            class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">Free
+                                            Delivery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                // Apply "active" state with specific Slate 500 border
-                btn.classList.add('active', 'border-slate-500');
-                btn.classList.remove('border-white/10');
+                    <!-- product card 3 -->
+                    <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative bg-black/70"
+                        onclick="event.stopPropagation(); openQuickLook('PROD_003')">
+                        <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
+                            <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/7b6c5d4e3f2a1b9c8d7e6f5a4b3c2d1e_9366/XY7890_HM1.jpg');">
+                            </div>
+                            <div
+                                class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                25% off</div>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
+                                <div
+                                    class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
+                                    <h4 class="font-bold text-lg text-white leading-tight">Stan Smith</h4>
+                                    <p class="text-[10px] mb-3 opacity-60 tracking-[0.2em] uppercase text-white">ADIDAS
+                                        ORIGINALS</p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] font-bold text-white tracking-wide">EGP 3,800</span>
+                                        <span
+                                            class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">Free
+                                            Delivery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                // Text Transition Logic
-                const allTextWrappers = document.querySelectorAll('.text-content-wrapper');
-                const targetText = document.getElementById(`text-${targetId}`);
+                    <!-- product card 4 -->
+                    <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative bg-black/70"
+                        onclick="event.stopPropagation(); openQuickLook('PROD_004')">
+                        <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
+                            <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d_9366/RT4567_HM1.jpg');">
+                            </div>
+                            <div
+                                class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                15% off</div>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
+                                <div
+                                    class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
+                                    <h4 class="font-bold text-lg text-white leading-tight">Tiro Track Jacket</h4>
+                                    <p class="text-[10px] mb-3 opacity-60 tracking-[0.2em] uppercase text-white">ADIDAS
+                                    </p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] font-bold text-white tracking-wide">EGP 5,100</span>
+                                        <span
+                                            class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">Free
+                                            Delivery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                allTextWrappers.forEach(wrap => {
-                    if (wrap.classList.contains('active-text')) {
-                        wrap.classList.remove('active-text');
-                        wrap.classList.add('exit-text');
-                        setTimeout(() => wrap.classList.remove('exit-text'), 700);
+                    <!-- product card 5 -->
+                    <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative bg-black/70"
+                        onclick="event.stopPropagation(); openQuickLook('PROD_005')">
+                        <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
+                            <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/8f7e6d5c4b3a2918c7d6e5f4a3b2c1d0_9366/QW2345_HM1.jpg');">
+                            </div>
+                            <div
+                                class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                40% off</div>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
+                                <div
+                                    class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
+                                    <h4 class="font-bold text-lg text-white leading-tight">Essentials Hoodie</h4>
+                                    <p class="text-[10px] mb-3 opacity-60 tracking-[0.2em] uppercase text-white">ADIDAS
+                                    </p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] font-bold text-white tracking-wide">EGP 2,900</span>
+                                        <span
+                                            class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">Free
+                                            Delivery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- product card 6 -->
+                    <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative bg-black/70"
+                        onclick="event.stopPropagation(); openQuickLook('PROD_006')">
+                        <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
+                            <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f_9366/ZX9876_HM1.jpg');">
+                            </div>
+                            <div
+                                class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                New</div>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
+                                <div
+                                    class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
+                                    <h4 class="font-bold text-lg text-white leading-tight">ZX 2K Boost</h4>
+                                    <p class="text-[10px] mb-3 opacity-60 tracking-[0.2em] uppercase text-white">ADIDAS
+                                    </p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] font-bold text-white tracking-wide">EGP 7,400</span>
+                                        <span
+                                            class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">Free
+                                            Delivery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- product card 7 -->
+                    <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative bg-black/70"
+                        onclick="event.stopPropagation(); openQuickLook('PROD_007')">
+                        <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
+                            <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b_9366/AS3456_HM1.jpg');">
+                            </div>
+                            <div
+                                class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                20% off</div>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
+                                <div
+                                    class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
+                                    <h4 class="font-bold text-lg text-white leading-tight">Campus 00s</h4>
+                                    <p class="text-[10px] mb-3 opacity-60 tracking-[0.2em] uppercase text-white">ADIDAS
+                                        ORIGINALS</p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] font-bold text-white tracking-wide">EGP 4,100</span>
+                                        <span
+                                            class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">Free
+                                            Delivery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- product card 8 -->
+                    <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative bg-black/70"
+                        onclick="event.stopPropagation(); openQuickLook('PROD_008')">
+                        <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
+                            <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d_9366/PO0987_HM1.jpg');">
+                            </div>
+                            <div
+                                class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                Limited</div>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
+                                <div
+                                    class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
+                                    <h4 class="font-bold text-lg text-white leading-tight">Forum Low</h4>
+                                    <p class="text-[10px] mb-3 opacity-60 tracking-[0.2em] uppercase text-white">ADIDAS
+                                    </p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] font-bold text-white tracking-wide">EGP 5,600</span>
+                                        <span
+                                            class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">Free
+                                            Delivery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- product card 9 -->
+                    <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative bg-black/70"
+                        onclick="event.stopPropagation(); openQuickLook('PROD_009')">
+                        <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
+                            <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f_9366/BN6543_HM1.jpg');">
+                            </div>
+                            <div
+                                class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                10% off</div>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
+                                <div
+                                    class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
+                                    <h4 class="font-bold text-lg text-white leading-tight">Adicolor Tee</h4>
+                                    <p class="text-[10px] mb-3 opacity-60 tracking-[0.2em] uppercase text-white">ADIDAS
+                                    </p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] font-bold text-white tracking-wide">EGP 2,200</span>
+                                        <span
+                                            class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">Free
+                                            Delivery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- product card 10 -->
+                    <div class="product-card glass rounded-[1rem] group cursor-pointer overflow-hidden transition-all duration-500 relative bg-black/70"
+                        onclick="event.stopPropagation(); openQuickLook('PROD_010')">
+                        <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
+                            <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a_9366/MN3210_HM1.jpg');">
+                            </div>
+                            <div
+                                class="absolute top-4 left-4 bg-red-950/80 backdrop-blur-md border border-red-500/30 text-red-400 text-[8px] uppercase font-black tracking-wider px-2 py-1 rounded-md z-40 shadow-md">
+                                Sale</div>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 translate-y-12 opacity-0 transition-all duration-500 ease-in-out group-hover:translate-y-0 group-hover:opacity-100 z-40">
+                                <div
+                                    class="transform translate-y-4 transition-transform duration-700 delay-150 group-hover:translate-y-0">
+                                    <h4 class="font-bold text-lg text-white leading-tight">Superstar</h4>
+                                    <p class="text-[10px] mb-3 opacity-60 tracking-[0.2em] uppercase text-white">ADIDAS
+                                        ORIGINALS</p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-[10px] font-bold text-white tracking-wide">EGP 4,900</span>
+                                        <span
+                                            class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">Free
+                                            Delivery</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- end grid-featured -->
+
+                <!-- Best Seller Grid (empty placeholder) -->
+                <div id="grid-best-seller" class="scroll-grid-x hidden-grid" data-rows="2"></div>
+
+                <!-- Limited items Items Grid (empty placeholder) -->
+                <div id="grid-sale-items" class="scroll-grid-x hidden-grid" data-rows="2"></div>
+
+                <!-- Sale Items Grid (empty placeholder) -->
+                <div id="grid-limited-items" class="scroll-grid-x hidden-grid" data-rows="2"></div>
+
+                <!-- Collections Grid (empty placeholder) -->
+                <div id="grid-Collections-items" class="scroll-grid-x hidden-grid" data-rows="2"></div>
+
+                <!-- Scroll Indicator -->
+                <div class="mt-4 text-[10px] text-white text-center tracking-widest">
+                    <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 flex items-center flex-col gap-2.5 opacity-70 hover:opacity-100 transition-opacity duration-300"
+                        id="scrollIndicator">
+                        <div class="relative w-16 h-[2px] rounded-full bg-zinc-200 dark:bg-zinc-700 overflow-hidden">
+                            <div
+                                class="absolute inset-y-0 w-1/2 rounded-full bg-gradient-to-r from-blue-400/60 via-blue-500 to-blue-400/60 dark:from-blue-400/40 dark:via-blue-400 dark:to-blue-400/40 animate-scroll-bar">
+                            </div>
+                        </div>
+                        <span class="inline"> &nbsp;·&nbsp; scroll horizontally &nbsp;·&nbsp; </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ====== STYLES ====== -->
+            <style>
+                /* ── Scroll grid: flex column wrap with fixed height ── */
+                .scroll-grid-x {
+                    display: flex;
+                    flex-direction: column;
+                    flex-wrap: wrap;
+                    gap: 0.5rem;
+                    /* gap-2 */
+                    padding: 10px;
+                    overflow-x: auto;
+                    overflow-y: visible;
+                    padding-bottom: 0.75rem;
+                    -webkit-overflow-scrolling: touch;
+                    scroll-snap-type: x mandatory;
+                    scroll-behavior: smooth;
+                    align-content: flex-start;
+                    /* rows stack from top */
+                    transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                }
+
+                /* Each card: fixed dimensions, snap, 4:5 aspect ratio */
+                .scroll-grid-x>.product-card {
+                    flex: 0 0 auto;
+                    scroll-snap-align: start;
+                    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    width: 180px;
+                    /* fallback, overridden by JS */
+                    height: 225px;
+                    /* fallback, overridden by JS */
+                    border-radius: 1rem;
+                    overflow: hidden;
+                }
+
+                /* Card inner wrapper fills the card */
+                .scroll-grid-x>.product-card>.aspect-\[4\/5\] {
+                    width: 100% !important;
+                    height: 100% !important;
+                    aspect-ratio: 4/5;
+                }
+
+                /* ── Custom scrollbar ── */
+                .scroll-grid-x::-webkit-scrollbar {
+                    height: 4px;
+                }
+
+                .scroll-grid-x::-webkit-scrollbar-track {
+                    background: rgba(255, 255, 255, 0.05);
+                    border-radius: 20px;
+                }
+
+                .scroll-grid-x::-webkit-scrollbar-thumb {
+                    background: rgba(255, 255, 255, 0.25);
+                    border-radius: 20px;
+                }
+
+                /* ── Grid visibility toggles ── */
+                .visible-grid {
+                    display: flex !important;
+                }
+
+                .hidden-grid {
+                    display: none !important;
+                }
+
+                /* ── Text transitions ── */
+                .text-content-wrapper {
+                    transition: opacity 0.5s ease, transform 0.5s ease;
+                    opacity: 0;
+                    transform: translateY(12px);
+                    pointer-events: none;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                }
+
+                .text-content-wrapper.active-text {
+                    opacity: 1;
+                    transform: translateY(0);
+                    pointer-events: auto;
+                    position: relative;
+                }
+
+                .text-content-wrapper.hidden-text {
+                    opacity: 0;
+                    transform: translateY(12px);
+                    pointer-events: none;
+                    position: absolute;
+                }
+
+                .text-content-wrapper.exit-text {
+                    opacity: 0;
+                    transform: translateY(-12px);
+                }
+
+                /* ── Category button active state ── */
+                .category-btn.active {
+                    border-color: #64748b !important;
+                    /* slate-500 */
+                }
+
+                .category-btn:not(.active) {
+                    border-color: rgba(255, 255, 255, 0.1);
+                }
+
+                /* ── Grid toggle button active ── */
+                .grid-toggle-btn.active {
+                    border: 1px solid #64748b;
+                    background: rgba(100, 116, 139, 0.15);
+                }
+
+                .grid-toggle-btn:not(.active) {
+                    border: 1px solid transparent;
+                    opacity: 0.5;
+                }
+
+                .grid-toggle-btn:hover {
+                    opacity: 1;
+                }
+
+                /* ── Scroll bar animation ── */
+                @keyframes scroll-bar {
+                    0% {
+                        transform: translateX(-100%);
                     }
-                    wrap.classList.add('hidden-text');
+
+                    100% {
+                        transform: translateX(300%);
+                    }
+                }
+
+                .animate-scroll-bar {
+                    animation: scroll-bar 2.4s ease-in-out infinite;
+                }
+            </style>
+
+            <!-- ====== JAVASCRIPT ====== -->
+            <script>
+                // ── Row configuration ──
+                // Each entry: [cardWidth, cardHeight, containerHeight]
+                const ROW_CONFIG = {
+                    1: { w: 224, h: 280, containerH: 380 },
+                    2: { w: 200, h: 250, containerH: 608 }, // 2*250 + 8 gap
+                    3: { w: 176, h: 220, containerH: 776 }, // 3*220 + 16 gap (2 gaps)
+                };
+
+                // ── Current state ──
+                let currentRows = 2;
+                let currentCategory = 'best-seller';
+
+                // ── Apply row configuration to a grid ──
+                function applyRowConfig(gridEl, rows) {
+                    if (!gridEl) return;
+                    const cfg = ROW_CONFIG[rows];
+                    if (!cfg) return;
+
+                    // Set container height
+                    gridEl.style.height = cfg.containerH + 'px';
+
+                    // Set each card's size
+                    const cards = gridEl.querySelectorAll('.product-card');
+                    cards.forEach(card => {
+                        card.style.width = cfg.w + 'px';
+                        card.style.height = cfg.h + 'px';
+                    });
+
+                    // Store rows on the element
+                    gridEl.dataset.rows = rows;
+                }
+
+                // ── Update all visible grids ──
+                function updateAllGrids(rows) {
+                    currentRows = rows;
+                    const allGrids = document.querySelectorAll('.scroll-grid-x');
+                    allGrids.forEach(grid => {
+                        // Only update visible grids (or all, harmless)
+                        if (grid.classList.contains('visible-grid') || !grid.classList.contains('hidden-grid')) {
+                            applyRowConfig(grid, rows);
+                        } else {
+                            // Still store the config for when it becomes visible
+                            grid.dataset.rows = rows;
+                        }
+                    });
+                }
+
+                // ── setExploreGrid: switch rows ──
+                function setExploreGrid(rows) {
+                    // Clamp to 1-3
+                    const r = Math.min(3, Math.max(1, rows));
+                    if (r === currentRows) return;
+
+                    // Update button states
+                    document.querySelectorAll('.grid-toggle-btn').forEach(btn => {
+                        btn.classList.remove('active', 'border-slate-500/60');
+                        const btnRows = parseInt(btn.dataset.rows, 10);
+                        if (btnRows === r) {
+                            btn.classList.add('active', 'border-slate-500/60');
+                        }
+                    });
+
+                    // Update all grids
+                    updateAllGrids(r);
+
+                    // Also update any hidden grids so they're ready
+                    document.querySelectorAll('.scroll-grid-x.hidden-grid').forEach(grid => {
+                        grid.dataset.rows = r;
+                    });
+                }
+
+                // ── filterProducts: category switching ──
+                function filterProducts(targetId, btn) {
+                    // Update category buttons
+                    document.querySelectorAll('.category-btn').forEach(b => {
+                        b.classList.remove('active', 'border-slate-500');
+                        b.classList.add('border-white/10');
+                    });
+                    btn.classList.add('active', 'border-slate-500');
+                    btn.classList.remove('border-white/10');
+
+                    currentCategory = targetId;
+
+                    // ── Text transition ──
+                    const allTextWrappers = document.querySelectorAll('.text-content-wrapper');
+                    const targetText = document.getElementById(`text-${targetId}`);
+
+                    allTextWrappers.forEach(wrap => {
+                        if (wrap.classList.contains('active-text')) {
+                            wrap.classList.remove('active-text');
+                            wrap.classList.add('exit-text');
+                            setTimeout(() => wrap.classList.remove('exit-text'), 700);
+                        }
+                        wrap.classList.add('hidden-text');
+                    });
+                    if (targetText) {
+                        targetText.classList.remove('hidden-text');
+                        targetText.classList.add('active-text');
+                    }
+
+                    // ── Grid transition ──
+                    const allGrids = document.querySelectorAll('.scroll-grid-x');
+                    const targetGrid = document.getElementById(`grid-${targetId}`);
+
+                    allGrids.forEach(grid => {
+                        grid.classList.remove('visible-grid');
+                        grid.classList.add('hidden-grid');
+                    });
+                    if (targetGrid) {
+                        targetGrid.classList.remove('hidden-grid');
+                        targetGrid.classList.add('visible-grid');
+                        // Apply current row config to the newly visible grid
+                        applyRowConfig(targetGrid, currentRows);
+                    }
+                }
+
+                // ── Initialize on page load ──
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Default: 2 rows
+                    const defaultRows = 2;
+                    currentRows = defaultRows;
+
+                    // Set the default button active
+                    document.querySelectorAll('.grid-toggle-btn').forEach(btn => {
+                        const r = parseInt(btn.dataset.rows, 10);
+                        if (r === defaultRows) {
+                            btn.classList.add('active', 'border-slate-500/60');
+                        } else {
+                            btn.classList.remove('active', 'border-slate-500/60');
+                        }
+                    });
+
+                    // Apply to all grids (visible + hidden)
+                    document.querySelectorAll('.scroll-grid-x').forEach(grid => {
+                        applyRowConfig(grid, defaultRows);
+                        // If it's a hidden grid, store the rows for later
+                        if (grid.classList.contains('hidden-grid')) {
+                            grid.dataset.rows = defaultRows;
+                        }
+                    });
+
+                    // Make sure the active category grid is visible and configured
+                    const activeGrid = document.querySelector('.scroll-grid-x.visible-grid');
+                    if (activeGrid) {
+                        applyRowConfig(activeGrid, defaultRows);
+                    }
                 });
-                targetText.classList.remove('hidden-text');
-                targetText.classList.add('active-text');
 
-                // Grid Transition Logic
-                const allGrids = document.querySelectorAll('.product-grid');
-                const targetGrid = document.getElementById(`grid-${targetId}`);
+                // ── Stubs for other functions ──
+                function openExplore() {
+                    console.log('Explore All clicked');
+                }
 
-                allGrids.forEach(grid => {
-                    grid.classList.remove('visible-grid');
-                    grid.classList.add('hidden-grid');
-                });
-                targetGrid.classList.remove('hidden-grid');
-                targetGrid.classList.add('visible-grid');
-            }
-        </script>
+                function openQuickLook(id) {
+                    console.log('Quick Look:', id);
+                }
+            </script>
 
-        <style>
-
-        </style>
+        </section>
 
     </main>
 
-    <footer class="matager-footer">
-        <div class="logo-wrap">
-            <img src="./favico.png" alt="Matager" class="logo-img" loading="lazy" decoding="async"
-                style="height: 40px;">
+    <!-- ============================================================
+     FOOTER
+     ============================================================ -->
+    <footer class="relative z-10 mt-8 border-t border-white/5 dark:border-white/5 bg-black/20 backdrop-blur-sm">
+        <div class="px-6 py-8 md:px-8 md:py-10">
+
+            <!-- === TOP ROW: Brand + Actions === -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+
+                <!-- Left: Platform Identity -->
+                <div class="flex items-center gap-4">
+                    <!-- Logo mark -->
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-blue-500/20 flex-shrink-0 overflow-hidden">
+
+                        <i class="bi bi-globe2"></i>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-bold tracking-tight text-white dark:text-white">
+                            Matager Platform
+                        </h3>
+                        <p class="text-[11px] text-slate-400 dark:text-slate-400 font-light">
+                            support@matager.com
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right: Action Buttons -->
+                <div class="flex items-center gap-2 flex-wrap">
+
+                    <!-- Help Link -->
+                    <a href="#"
+                        class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Help Center
+                    </a>
+
+                    <!-- Contact (with dropdown-like feel) -->
+                    <a href="#"
+                        class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        Contact
+                    </a>
+
+                    <!-- Divider -->
+                    <div class="w-px h-6 bg-white/10 dark:bg-white/10 hidden sm:block"></div>
+
+                    <!-- ★ Get a Store / Be a Seller (Primary CTA) -->
+                    <a href="#"
+                        class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-500 to-emerald-500 text-white text-[11px] font-bold uppercase tracking-wider hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-2 hover:scale-105 active:scale-95 whitespace-nowrap">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        Get a Store
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- === BOTTOM ROW: Copyright + Social + Legal === -->
+            <div
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-6 pt-5 border-t border-white/5 dark:border-white/5">
+
+                <!-- Copyright -->
+                <p class="text-[11px] text-slate-500 dark:text-slate-500 font-light">
+                    &copy; 2026 <span class="text-slate-400 dark:text-slate-400 font-medium">Matager</span>.
+                    All rights reserved.
+                </p>
+
+                <!-- Social Links + Legal -->
+                <div class="flex items-center gap-4 flex-wrap">
+
+                    <!-- Legal links -->
+                    <div class="flex items-center gap-3 text-[10px] text-slate-500 dark:text-slate-500">
+                        <a href="#" class="hover:text-slate-300 dark:hover:text-slate-300 transition-colors">Privacy</a>
+                        <span class="text-white/10 dark:text-white/10">|</span>
+                        <a href="#" class="hover:text-slate-300 dark:hover:text-slate-300 transition-colors">Terms</a>
+                        <span class="text-white/10 dark:text-white/10">|</span>
+                        <a href="#" class="hover:text-slate-300 dark:hover:text-slate-300 transition-colors">Cookies</a>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </footer>
 
@@ -10640,24 +11201,7 @@
 
 
     <script>
-        function toggleTheme(e) {
-            // Prevent the default anchor tag '#' jump behavior
-            if (e) e.preventDefault();
 
-            const body = document.body;
-            const icon = document.getElementById('theme-icon');
-            const status = document.getElementById('light-status');
-
-            body.classList.toggle('light-theme');
-
-            if (body.classList.contains('light-theme')) {
-                icon.classList.replace('bi-lightbulb', 'bi-lightbulb-fill');
-                status.textContent = 'lights on';  // Update status to "on"
-            } else {
-                icon.classList.replace('bi-lightbulb-fill', 'bi-lightbulb');
-                status.textContent = 'lights off'; // Update status to "off"
-            }
-        }
         function hideTogglingBtn() {
             const btn = document.getElementById('menu-toggle-btn');
             if (btn) {
@@ -10681,14 +11225,14 @@
             const overlay = document.getElementById('nav-overlay');
             const radial = document.getElementById('radial-wrapper');
             const closeBtn = document.getElementById('close-quicklook');
-            const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
+            // const themeBtn = document.querySelector('button[onclick="()"]');
 
             hideTogglingBtn();
 
             ['product-details', 'search-view', 'cart-view', 'notfications-view', 'profile-view', 'home-view', 'catalog-view', 'explore-view'].forEach(id => {
                 const view = document.getElementById(id);
                 if (id !== viewId && view) {
-                    view.classList.add('hidden', 'opacity-0', 'scale-95');
+                    view.classList.add('hidden', 'opacity-0');
                     view.classList.remove('is-open');
                 }
             });
@@ -10701,7 +11245,7 @@
             targetView.classList.remove('hidden');
 
             setTimeout(() => {
-                nav.classList.remove('px-6', 'py-4');
+                nav.classList.remove('px-4', 'py-4');
                 nav.classList.add('px-4', 'py-4');
 
                 nav.style.maxHeight = "calc(100vh - 4rem)";
@@ -10712,10 +11256,10 @@
                 nav.style.maxWidth = isMobile ? "calc(100vw - 2rem)" : targetWidth;
 
                 targetView.classList.add('is-open');
-                targetView.classList.remove('opacity-0', 'scale-95');
+                targetView.classList.remove('opacity-0');
 
                 if (closeBtn) closeBtn.classList.remove('hidden');
-                if (themeBtn) themeBtn.classList.add('hidden');
+                // if (themeBtn) themeBtn.classList.add('hidden');
             }, 10);
         }
 
@@ -10725,7 +11269,7 @@
             const overlay = document.getElementById('nav-overlay');
             const radial = document.getElementById('radial-wrapper');
             const closeBtn = document.getElementById('close-quicklook');
-            const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
+            // const themeBtn = document.querySelector('button[onclick="()"]');
 
             // FIX 2: Ensure radial menu state is closed structure-wise when going straight to quicklook
             closeMenu();
@@ -10739,7 +11283,7 @@
             const isMobile = window.innerWidth < 768;
 
             setTimeout(() => {
-                nav.classList.remove('px-6', 'py-4');
+                nav.classList.remove('px-4', 'py-4');
                 nav.classList.add('px-4', 'py-4');
 
                 nav.style.maxHeight = "calc(100vh - 4rem)";
@@ -10751,7 +11295,7 @@
                 details.classList.remove('opacity-0', 'scale-95');
 
                 if (closeBtn) closeBtn.classList.remove('hidden');
-                if (themeBtn) themeBtn.classList.add('hidden');
+                // if (themeBtn) themeBtn.classList.add('hidden');
             }, 10);
 
             // Inject Content
@@ -10773,7 +11317,7 @@
             const overlay = document.getElementById('nav-overlay');
             const radial = document.getElementById('radial-wrapper');
             const closeBtn = document.getElementById('close-quicklook');
-            const themeBtn = document.querySelector('button[onclick="toggleTheme()"]');
+            // const themeBtn = document.querySelector('button[onclick="()"]');
 
             showTogglingBtn();
 
@@ -10814,7 +11358,7 @@
             }, 500);
 
             if (closeBtn) closeBtn.classList.add('hidden');
-            if (themeBtn) themeBtn.classList.remove('hidden');
+            // if (themeBtn) themeBtn.classList.remove('hidden');
         }
 
         // Helper functions for specific triggers
@@ -10853,42 +11397,6 @@
 
     </script>
 
-    <script>
-        const progressPath = document.querySelector('#nav-progress');
-        const pathLength = 144.5;
-
-        // 1. Initial setup for the path
-        progressPath.style.transition = 'stroke-dashoffset 0.15s ease-out'; // The "smoothness" factor
-        progressPath.style.strokeDasharray = pathLength;
-        progressPath.style.strokeDashoffset = pathLength;
-
-        // 2. Optimized Scroll Listener
-        function updateScrollProgress() {
-            const pixelsScrolled = window.pageYOffset || document.documentElement.scrollTop;
-            const viewportHeight = window.innerHeight;
-            const totalHeight = document.documentElement.scrollHeight;
-
-            // Calculate percentage (0 to 1)
-            const scrollPercentage = pixelsScrolled / (totalHeight - viewportHeight);
-
-            // Ensure it stays within bounds
-            const cappedPercentage = Math.max(0, Math.min(1, scrollPercentage));
-
-            // 3. Apply the calculation
-            const drawLength = pathLength * cappedPercentage;
-            progressPath.style.strokeDashoffset = pathLength - drawLength;
-        }
-
-        // Use 'passive: true' to improve mobile scroll performance
-        window.addEventListener('scroll', updateScrollProgress, { passive: true });
-
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const el = document.querySelector('.fill-animation');
-                if (el) el.classList.add('is-loaded');
-            }, 300);
-        });
-    </script>
 
 
 
