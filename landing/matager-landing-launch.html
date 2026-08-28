@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#030712">
+  <meta name="description"
+    content="Matager — a modern commerce platform for launching stores, managing products, and connecting with customers.">
+  <title>Matager — Commerce, without the noise.</title>
+
+  <link rel="icon" type="image/png" href="./assets/img/favico.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url(./assets/img/18-fractal-glass-hero-bg.jpg);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: -1;
+      filter: brightness(var(--bg-brightness));
+      transition: filter 0.5s ease;
+    }
+
+    :root {
+      --bg: #02040a;
+      --panel: rgba(8, 15, 30, .62);
+      --line: rgba(255, 255, 255, .09);
+      --muted: rgba(226, 232, 240, .52);
+      --blue: #38bdf8;
+      --indigo: #6366f1;
+      --purple: #a855f7;
+      --teal: #2dd4bf;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background: rgba(56, 189, 248, .22);
+      color: #fff;
+    }
+
+    .ambient {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -10;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(110px);
+      opacity: .34;
+      will-change: transform;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+
+    .orb.a {
+      width: 42rem;
+      height: 42rem;
+      top: -18rem;
+      left: -13rem;
+      background: #0284c7;
+    }
+
+    .orb.b {
+      width: 52rem;
+      height: 52rem;
+      top: 24%;
+      left: 36%;
+      background: #1d4ed8;
+      opacity: .19;
+      animation-duration: 24s;
+    }
+
+    .orb.c {
+      width: 38rem;
+      height: 38rem;
+      right: -13rem;
+      bottom: -13rem;
+      background: #4f46e5;
+      animation-duration: 20s;
+    }
+
+    .orb.d {
+      width: 24rem;
+      height: 24rem;
+      right: -7rem;
+      top: 18%;
+      background: #a21caf;
+      opacity: .12;
+      animation-duration: 27s;
+    }
+
+    .orb.e {
+      width: 25rem;
+      height: 25rem;
+      left: -9rem;
+      bottom: 18%;
+      background: #0f766e;
+      opacity: .11;
+      animation-duration: 22s;
+    }
+
+    @keyframes drift {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate3d(35px, -28px, 0) scale(1.06);
+      }
+
+      100% {
+        transform: translate3d(-22px, 34px, 0) scale(.98);
+      }
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -9;
+      opacity: .24;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .025) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(circle at 50% 35%, black 0%, transparent 72%);
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -8;
+      opacity: .026;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    }
+
+    .glass {
+      background: linear-gradient(145deg, rgba(16, 30, 51, .58), rgba(17, 52, 129, 0.48));
+      border: none;
+      box-shadow: 0 28px 90px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .055);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+    }
+
+    .glass-soft {
+      background: linear-gradient(145deg, rgba(16, 30, 51, .58), rgba(17, 52, 129, 0.48));
+      border: none;
+      box-shadow: 0 28px 90px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .055);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      filter: blur(4px);
+      transition: opacity .75s var(--ease), transform .75s var(--ease), filter .75s var(--ease);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(5px);
+      animation: wordIn .7s var(--ease) forwards;
+    }
+
+    @keyframes wordIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    .gradient-text {
+      background: linear-gradient(100deg, #fff 12%, #bde9ff 45%, #9f8cff 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .shine {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shine::after {
+      content: '';
+      position: absolute;
+      inset: -80% -20%;
+      background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, .10) 50%, transparent 65%);
+      transform: translateX(-60%);
+      transition: transform .9s var(--ease);
+      pointer-events: none;
+    }
+
+    .shine:hover::after {
+      transform: translateX(60%);
+    }
+
+    .role-card {
+      position: relative;
+      isolation: isolate;
+      transition: transform .45s var(--ease), border-color .45s ease, background .45s ease, box-shadow .45s ease;
+    }
+
+    .role-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity .45s ease;
+      background: radial-gradient(circle at 15% 0%, rgba(56, 189, 248, .18), transparent 48%);
+    }
+
+    .role-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, .18);
+    }
+
+    .role-card:hover::before {
+      opacity: 1;
+    }
+
+    .role-card.selected {
+      border-color: rgba(56, 189, 248, .44);
+      background: linear-gradient(145deg, rgba(21, 54, 78, .52), rgba(7, 17, 33, .55));
+      box-shadow: 0 20px 65px rgba(14, 165, 233, .11), inset 0 1px 0 rgba(255, 255, 255, .08);
+    }
+
+    .role-card.customer.selected {
+      border-color: rgba(45, 212, 191, .40);
+      box-shadow: 0 20px 65px rgba(45, 212, 191, .08), inset 0 1px 0 rgba(255, 255, 255, .08);
+    }
+
+    .feature-card {
+      transition: transform .5s var(--ease), border-color .4s ease, background .4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 255, 255, .15);
+      background: rgba(255, 255, 255, .045);
+    }
+
+    .pulse-dot {
+      box-shadow: 0 0 0 0 rgba(45, 212, 191, .5);
+      animation: pulse 2.2s infinite;
+    }
+
+    @keyframes pulse {
+      70% {
+        box-shadow: 0 0 0 7px rgba(45, 212, 191, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(45, 212, 191, 0);
+      }
+    }
+
+    .nav-shell {
+      transition: transform .5s var(--ease), opacity .4s ease, background .4s ease;
+    }
+
+    .nav-shell.scrolled {
+      background: rgba(3, 8, 18, .72);
+    }
+
+    .modal {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .45s ease;
+    }
+
+    .modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-panel {
+      transform: translateY(14px) scale(.98);
+      opacity: 0;
+      transition: transform .5s var(--ease), opacity .45s ease;
+    }
+
+    .modal.open .modal-panel {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <!-- Floating navigation -->
+  <header id="nav"
+    class="nav-shell fixed top-4 left-1/2 z-50 w-[calc(100%-2rem)] max-w-6xl -translate-x-1/2 rounded-2xl border border-white/10 bg-black/20 px-3 py-3 backdrop-blur-xl">
+    <div class="flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-3 px-2" aria-label="Matager home">
+        <img src="./assets/img/Logo.png" alt="Matager" class="h-7 w-auto opacity-90">
+      </a>
+
+      <nav class="hidden items-center gap-1 md:flex" aria-label="Primary navigation">
+        <a href="#platform"
+          class="rounded-xl px-4 py-2 text-xs font-medium text-white/50 transition hover:bg-white/[.05] hover:text-white">Platform</a>
+        <a href="#workflow"
+          class="rounded-xl px-4 py-2 text-xs font-medium text-white/50 transition hover:bg-white/[.05] hover:text-white">How
+          it works</a>
+        <a href="#features"
+          class="rounded-xl px-4 py-2 text-xs font-medium text-white/50 transition hover:bg-white/[.05] hover:text-white">Features</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <a href="./signing.html"
+          class="hidden rounded-xl px-4 py-2 text-xs font-semibold text-white/55 transition hover:text-white sm:block">Sign
+          in</a>
+        <a href="#start"
+          class="shine rounded-xl bg-white px-4 py-2.5 text-xs font-bold text-black transition hover:bg-slate-100 active:scale-[.97]">Get
+          started</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero / role selection -->
+    <section class="relative flex min-h-screen items-center justify-center px-4 pb-20 pt-28 sm:px-6">
+      <div class="absolute left-1/2 top-[18%] h-72 w-72 -translate-x-1/2 rounded-full bg-blue-500/10 blur-[120px]"
+        aria-hidden="true"></div>
+
+      <div class="relative z-10 w-full max-w-5xl">
+        <div class="mx-auto mb-8 max-w-3xl text-center">
+          <div
+            class="reveal mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[.025] px-3 py-1.5 text-[10px] font-medium uppercase tracking-[.2em] text-white/40">
+            <span class="pulse-dot h-1.5 w-1.5 rounded-full bg-teal-400"></span>
+            One commerce workspace
+          </div>
+
+          <h1 id="heroTitle" class="text-5xl font-extrabold leading-[.98] tracking-[-.055em] sm:text-6xl md:text-8xl">
+            Commerce, <span class="gradient-text">without the noise.</span>
+          </h1>
+          <p class="reveal mx-auto mt-6 max-w-2xl text-sm leading-7 text-white/40 sm:text-base sm:leading-8"
+            style="transition-delay:.45s">
+            Build your storefront, manage the operation, and give customers a cleaner way to discover and buy — all
+            through one connected Matager workspace.
+          </p>
+        </div>
+
+        <div id="start" class="glass reveal mx-auto max-w-4xl rounded-[2rem] p-3 sm:p-5" style="transition-delay:.2s">
+          <div class="mb-4 flex items-center justify-between px-2 pt-1">
+            <div>
+              <p class="text-[9px] font-semibold uppercase tracking-[.24em] text-white/30">Choose your path</p>
+              <p id="roleHint" class="mt-1 text-xs text-white/45">Start with the side of Matager you need today.</p>
+            </div>
+            <span id="roleState"
+              class="rounded-full border border-white/10 bg-white/[.03] px-2.5 py-1 text-[9px] font-mono text-white/35">READY</span>
+          </div>
+
+          <div class="grid gap-3 md:grid-cols-2">
+            <button type="button" data-role="seller"
+              class="role-card selected group rounded-[1.5rem] border border-white/10 bg-white/[.025] p-5 text-left">
+              <div class="flex items-start justify-between gap-4">
+                <div
+                  class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-sky-400/20 bg-sky-400/10 text-sky-300 transition group-hover:scale-105">
+                  <i class="bi bi-shop-window text-lg"></i>
+                </div>
+                <span
+                  class="role-check flex h-7 w-7 items-center justify-center rounded-full border border-sky-300/25 bg-sky-300/10 text-sky-300"><i
+                    class="bi bi-check2"></i></span>
+              </div>
+              <h2 class="mt-5 text-lg font-bold tracking-tight">Seller Engine</h2>
+              <p class="mt-1.5 max-w-md text-xs leading-6 text-white/40">Launch your store, organize products, manage
+                the operation, and prepare to scale.</p>
+              <div class="mt-5 flex flex-wrap gap-2">
+                <span
+                  class="rounded-full border border-sky-400/15 bg-sky-400/[.06] px-2.5 py-1 text-[9px] font-semibold uppercase tracking-wider text-sky-300/80">For
+                  sellers</span>
+                <span
+                  class="rounded-full border border-white/10 bg-white/[.025] px-2.5 py-1 text-[9px] font-medium uppercase tracking-wider text-white/30">Store
+                  + operations</span>
+              </div>
+            </button>
+
+            <button type="button" data-role="customer"
+              class="role-card customer group rounded-[1.5rem] border border-white/10 bg-white/[.025] p-5 text-left">
+              <div class="flex items-start justify-between gap-4">
+                <div
+                  class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-teal-400/20 bg-teal-400/10 text-teal-300 transition group-hover:scale-105">
+                  <i class="bi bi-bag-heart text-lg"></i>
+                </div>
+                <span
+                  class="role-check flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-white/[.02] text-white/0"><i
+                    class="bi bi-check2"></i></span>
+              </div>
+              <h2 class="mt-5 text-lg font-bold tracking-tight">Customer Mode</h2>
+              <p class="mt-1.5 max-w-md text-xs leading-6 text-white/40">Discover stores, explore products, and move
+                from discovery to purchase with less friction.</p>
+              <div class="mt-5 flex flex-wrap gap-2">
+                <span
+                  class="rounded-full border border-teal-400/15 bg-teal-400/[.06] px-2.5 py-1 text-[9px] font-semibold uppercase tracking-wider text-teal-300/80">For
+                  shoppers</span>
+                <span
+                  class="rounded-full border border-white/10 bg-white/[.025] px-2.5 py-1 text-[9px] font-medium uppercase tracking-wider text-white/30">Discover
+                  + shop</span>
+              </div>
+            </button>
+          </div>
+
+          <div class="mt-3 grid gap-2 sm:grid-cols-[1fr_auto]">
+            <div class="flex items-center gap-3 rounded-2xl border border-white/[.06] bg-white/[.018] px-4 py-3">
+              <i class="bi bi-lightbulb text-white/25"></i>
+              <p id="microcopy" class="text-[11px] leading-5 text-white/35">Seller Engine is the fastest route from idea
+                to a working store.</p>
+            </div>
+            <a id="primaryAction" href="./signing.html"
+              class="shine flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-white px-6 text-xs font-bold text-black transition hover:bg-slate-100 active:scale-[.98]">
+              Build my store <i class="bi bi-arrow-up-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="reveal mx-auto mt-5 flex max-w-4xl flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[10px] uppercase tracking-[.18em] text-white/20"
+          style="transition-delay:.35s">
+          <span><i class="bi bi-lightning-charge mr-1"></i>Fast setup</span>
+          <span><i class="bi bi-grid-1x2 mr-1"></i>Unified workspace</span>
+          <span><i class="bi bi-shield-check mr-1"></i>Built for growth</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Platform -->
+    <section id="platform" class="mx-auto w-full max-w-7xl px-4 py-24 sm:px-6 lg:py-32">
+      <div class="reveal mb-10 max-w-2xl">
+        <p class="mb-3 text-[10px] font-semibold uppercase tracking-[.24em] text-sky-300/60">The platform</p>
+        <h2 class="text-3xl font-bold tracking-[-.035em] sm:text-5xl">One system. Two sides of commerce.</h2>
+        <p class="mt-4 text-sm leading-7 text-white/40 sm:text-base">Matager is designed around the actual flow of
+          commerce: businesses need control, customers need clarity.</p>
+      </div>
+
+      <div class="grid gap-4 lg:grid-cols-3">
+        <article class="feature-card glass-soft reveal rounded-[1.75rem] p-7 lg:col-span-2">
+          <div class="flex h-full flex-col justify-between gap-14">
+            <div>
+              <div class="mb-7 flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-400/10 text-sky-300"><i
+                  class="bi bi-window-stack text-xl"></i></div>
+              <h3 class="text-2xl font-bold tracking-tight">A storefront that feels like your brand.</h3>
+              <p class="mt-3 max-w-xl text-sm leading-7 text-white/40">Start with the essentials and keep the interface
+                focused. Your identity, products, collections, and customer journey stay at the center.</p>
+            </div>
+            <div class="grid gap-2 sm:grid-cols-3">
+              <div class="rounded-2xl border border-white/[.06] bg-black/10 p-4">
+                <p class="text-[9px] uppercase tracking-widest text-white/25">01</p>
+                <p class="mt-2 text-xs font-semibold text-white/65">Brand identity</p>
+              </div>
+              <div class="rounded-2xl border border-white/[.06] bg-black/10 p-4">
+                <p class="text-[9px] uppercase tracking-widest text-white/25">02</p>
+                <p class="mt-2 text-xs font-semibold text-white/65">Product catalog</p>
+              </div>
+              <div class="rounded-2xl border border-white/[.06] bg-black/10 p-4">
+                <p class="text-[9px] uppercase tracking-widest text-white/25">03</p>
+                <p class="mt-2 text-xs font-semibold text-white/65">Customer flow</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="feature-card glass-soft reveal rounded-[1.75rem] p-7" style="transition-delay:.08s">
+          <div class="flex h-full flex-col">
+            <div class="mb-7 flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-400/10 text-purple-300"><i
+                class="bi bi-kanban text-xl"></i></div>
+            <h3 class="text-xl font-bold tracking-tight">Operations in one place.</h3>
+            <p class="mt-3 text-sm leading-7 text-white/40">Keep the business side close to the storefront instead of
+              stitching together disconnected tools.</p>
+            <div class="mt-auto pt-10 space-y-2 text-xs text-white/45">
+              <div class="flex items-center gap-2"><i class="bi bi-check2 text-purple-300"></i>Products & inventory
+              </div>
+              <div class="flex items-center gap-2"><i class="bi bi-check2 text-purple-300"></i>Orders & customer flow
+              </div>
+              <div class="flex items-center gap-2"><i class="bi bi-check2 text-purple-300"></i>Growth-ready foundation
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Workflow -->
+    <section id="workflow" class="mx-auto w-full max-w-7xl px-4 py-24 sm:px-6 lg:py-32">
+      <div class="glass reveal rounded-[2rem] p-6 sm:p-10 lg:p-14">
+        <div class="grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+          <div>
+            <p class="mb-3 text-[10px] font-semibold uppercase tracking-[.24em] text-teal-300/60">How it works</p>
+            <h2 class="text-3xl font-bold tracking-[-.035em] sm:text-5xl">From first decision to first sale.</h2>
+            <p class="mt-4 max-w-lg text-sm leading-7 text-white/40">The onboarding flow should ask only what matters,
+              keep the user oriented, and turn each answer into useful platform state.</p>
+          </div>
+
+          <div class="space-y-3">
+            <div class="reveal flex gap-4 rounded-2xl border border-white/[.06] bg-white/[.018] p-4"
+              style="transition-delay:.05s">
+              <span
+                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/[.04] text-[10px] font-bold text-white/45">01</span>
+              <div>
+                <h3 class="text-sm font-semibold">Choose your mode</h3>
+                <p class="mt-1 text-xs leading-5 text-white/35">Seller Engine for building a business, Customer Mode for
+                  discovering one.</p>
+              </div>
+            </div>
+            <div class="reveal flex gap-4 rounded-2xl border border-white/[.06] bg-white/[.018] p-4"
+              style="transition-delay:.12s">
+              <span
+                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/[.04] text-[10px] font-bold text-white/45">02</span>
+              <div>
+                <h3 class="text-sm font-semibold">Configure the essentials</h3>
+                <p class="mt-1 text-xs leading-5 text-white/35">Capture only the information required to create a useful
+                  starting state.</p>
+              </div>
+            </div>
+            <div class="reveal flex gap-4 rounded-2xl border border-white/[.06] bg-white/[.018] p-4"
+              style="transition-delay:.19s">
+              <span
+                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/[.04] text-[10px] font-bold text-white/45">03</span>
+              <div>
+                <h3 class="text-sm font-semibold">Enter the workspace</h3>
+                <p class="mt-1 text-xs leading-5 text-white/35">The next screen becomes the product — not another
+                  marketing wall.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="mx-auto w-full max-w-7xl px-4 py-24 sm:px-6 lg:py-32">
+      <div class="reveal mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+        <div>
+          <p class="mb-3 text-[10px] font-semibold uppercase tracking-[.24em] text-purple-300/60">Core capabilities</p>
+          <h2 class="text-3xl font-bold tracking-[-.035em] sm:text-5xl">Everything starts simple.</h2>
+        </div>
+        <p class="max-w-md text-sm leading-6 text-white/35">Keep the public experience calm. Put complexity behind the
+          scenes where it belongs.</p>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <article class="feature-card glass-soft reveal rounded-[1.5rem] p-6"><i
+            class="bi bi-palette2 text-xl text-sky-300"></i>
+          <h3 class="mt-6 text-base font-bold">Brand identity</h3>
+          <p class="mt-2 text-xs leading-6 text-white/35">Logo, accent color, and a visual foundation that carries into
+            the store.</p>
+        </article>
+        <article class="feature-card glass-soft reveal rounded-[1.5rem] p-6" style="transition-delay:.06s"><i
+            class="bi bi-box-seam text-xl text-purple-300"></i>
+          <h3 class="mt-6 text-base font-bold">Product management</h3>
+          <p class="mt-2 text-xs leading-6 text-white/35">Organize the catalog around the products customers actually
+            see.</p>
+        </article>
+        <article class="feature-card glass-soft reveal rounded-[1.5rem] p-6" style="transition-delay:.12s"><i
+            class="bi bi-cart3 text-xl text-teal-300"></i>
+          <h3 class="mt-6 text-base font-bold">Commerce flow</h3>
+          <p class="mt-2 text-xs leading-6 text-white/35">Reduce friction between discovery, selection, checkout, and
+            repeat visits.</p>
+        </article>
+        <article class="feature-card glass-soft reveal rounded-[1.5rem] p-6" style="transition-delay:.18s"><i
+            class="bi bi-bar-chart-line text-xl text-indigo-300"></i>
+          <h3 class="mt-6 text-base font-bold">Growth foundation</h3>
+          <p class="mt-2 text-xs leading-6 text-white/35">Build on a structure ready for analytics, marketing, and
+            operational expansion.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="mx-auto w-full max-w-5xl px-4 py-24 sm:px-6 lg:py-36">
+      <div class="glass reveal relative overflow-hidden rounded-[2rem] p-8 text-center sm:p-14">
+        <div
+          class="absolute left-1/2 top-0 h-56 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/15 blur-[100px]"
+          aria-hidden="true"></div>
+        <p class="relative text-[10px] font-semibold uppercase tracking-[.24em] text-white/30">Ready when you are</p>
+        <h2 class="relative mx-auto mt-4 max-w-2xl text-3xl font-bold tracking-[-.04em] sm:text-5xl">Make the next step
+          the easiest one.</h2>
+        <p class="relative mx-auto mt-4 max-w-xl text-sm leading-7 text-white/40">Start with your role, configure the
+          essentials, and let Matager take you into the workspace.</p>
+        <div class="relative mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <a href="#start"
+            class="shine rounded-2xl bg-white px-7 py-3.5 text-xs font-bold text-black transition hover:bg-slate-100 active:scale-[.98]">Get
+            started</a>
+          <button id="learnBtn" type="button"
+            class="rounded-2xl border border-white/10 bg-white/[.025] px-7 py-3.5 text-xs font-semibold text-white/55 transition hover:border-white/20 hover:text-white">Learn
+            about Matager</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/[.06] bg-black/10 px-4 py-12 sm:px-6">
+    <div class="mx-auto flex max-w-7xl flex-col gap-8 md:flex-row md:items-center md:justify-between">
+      <div>
+        <img src="./assets/img/Logo.png" alt="Matager" class="h-7 w-auto opacity-45">
+        <p class="mt-3 text-xs text-white/20">Commerce infrastructure designed to stay simple.</p>
+      </div>
+      <div class="flex flex-wrap gap-5 text-xs text-white/30">
+        <a href="#platform" class="transition hover:text-white">Platform</a>
+        <a href="#features" class="transition hover:text-white">Features</a>
+        <a href="./signing.html" class="transition hover:text-white">Sign in</a>
+        <a href="#top" class="transition hover:text-white">Back to top <i class="bi bi-arrow-up"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Informational modal: intentionally presentation-only. Product actions can be wired later. -->
+  <div id="learnModal"
+    class="modal fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-4 backdrop-blur-md" role="dialog"
+    aria-modal="true" aria-labelledby="learnTitle">
+    <div class="modal-panel glass w-full max-w-2xl rounded-[2rem] p-7 sm:p-9">
+      <div class="flex items-start justify-between gap-6">
+        <div>
+          <p class="text-[10px] font-semibold uppercase tracking-[.24em] text-sky-300/60">About the platform</p>
+          <h2 id="learnTitle" class="mt-2 text-2xl font-bold">Matager connects the two sides.</h2>
+        </div>
+        <button id="closeLearn"
+          class="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[.03] text-white/45 transition hover:text-white"
+          aria-label="Close"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="mt-7 grid gap-3 sm:grid-cols-2">
+        <div class="rounded-2xl border border-white/[.06] bg-white/[.018] p-5"><i class="bi bi-shop text-sky-300"></i>
+          <h3 class="mt-4 text-sm font-bold">Seller Engine</h3>
+          <p class="mt-2 text-xs leading-6 text-white/35">A focused entry point for building and operating a commerce
+            presence.</p>
+        </div>
+        <div class="rounded-2xl border border-white/[.06] bg-white/[.018] p-5"><i
+            class="bi bi-bag-heart text-teal-300"></i>
+          <h3 class="mt-4 text-sm font-bold">Customer Mode</h3>
+          <p class="mt-2 text-xs leading-6 text-white/35">A cleaner discovery layer for finding products and stores.</p>
+        </div>
+      </div>
+      <p class="mt-6 text-[11px] leading-6 text-white/25">This page intentionally avoids invented customer counts,
+        revenue claims, testimonials, or feature promises that are not yet backed by your product. Wire the real actions
+        into the buttons when the feature layer is ready.</p>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+      // Hero word reveal: same visual language as the rest of the page.
+      const heroTitle = $('#heroTitle');
+      if (heroTitle) {
+        const fragment = document.createDocumentFragment();
+        const nodes = heroTitle.childNodes;
+        let wordIndex = 0;
+        nodes.forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            node.textContent.split(/(\s+)/).forEach(part => {
+              if (/^\s+$/.test(part)) fragment.appendChild(document.createTextNode(part));
+              else if (part) {
+                const span = document.createElement('span');
+                span.className = 'word';
+                span.textContent = part;
+                span.style.animationDelay = `${180 + wordIndex * 85}ms`;
+                fragment.appendChild(span);
+                wordIndex++;
+              }
+            });
+          } else {
+            const clone = node.cloneNode(true);
+            const text = clone.textContent;
+            clone.textContent = '';
+            text.split(/(\s+)/).forEach(part => {
+              if (/^\s+$/.test(part)) clone.appendChild(document.createTextNode(part));
+              else if (part) {
+                const span = document.createElement('span');
+                span.className = 'word';
+                span.textContent = part;
+                span.style.animationDelay = `${180 + wordIndex * 85}ms`;
+                clone.appendChild(span);
+                wordIndex++;
+              }
+            });
+            fragment.appendChild(clone);
+          }
+        });
+        heroTitle.replaceChildren(fragment);
+      }
+
+      // Scroll reveals.
+      const revealObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .12, rootMargin: '0px 0px -40px' });
+      $$('.reveal').forEach(el => revealObserver.observe(el));
+
+      // Header glass state.
+      const nav = $('#nav');
+      const updateNav = () => nav?.classList.toggle('scrolled', window.scrollY > 24);
+      updateNav();
+      window.addEventListener('scroll', updateNav, { passive: true });
+
+      // Role selection. This only changes presentation/state for now.
+      const roleCards = $$('.role-card');
+      const roleHint = $('#roleHint');
+      const roleState = $('#roleState');
+      const microcopy = $('#microcopy');
+      const primaryAction = $('#primaryAction');
+
+      const roleContent = {
+        seller: {
+          hint: 'Seller Engine gives you the shortest route into store setup and operations.',
+          micro: 'Seller Engine is the fastest route from idea to a working store.',
+          action: 'Build my store',
+          state: 'SELLER',
+          icon: 'bi-arrow-up-right'
+        },
+        customer: {
+          hint: 'Customer Mode is built for discovery, product browsing, and shopping.',
+          micro: 'Customer Mode keeps discovery focused on stores and products.',
+          action: 'Explore stores',
+          state: 'CUSTOMER',
+          icon: 'bi-arrow-right'
+        }
+      };
+
+      function selectRole(role) {
+        roleCards.forEach(card => {
+          const selected = card.dataset.role === role;
+          card.classList.toggle('selected', selected);
+          const check = $('.role-check', card);
+          if (check) {
+            check.classList.toggle('text-white/0', !selected);
+            check.classList.toggle('text-sky-300', selected && role === 'seller');
+            check.classList.toggle('text-teal-300', selected && role === 'customer');
+            check.classList.toggle('border-sky-300/25', selected && role === 'seller');
+            check.classList.toggle('border-teal-300/25', selected && role === 'customer');
+            check.classList.toggle('bg-sky-300/10', selected && role === 'seller');
+            check.classList.toggle('bg-teal-300/10', selected && role === 'customer');
+          }
+        });
+        const data = roleContent[role];
+        roleHint.textContent = data.hint;
+        microcopy.textContent = data.micro;
+        roleState.textContent = data.state;
+        primaryAction.innerHTML = `${data.action} <i class="bi ${data.icon}"></i>`;
+        primaryAction.dataset.role = role;
+        sessionStorage.setItem('matager_role', role);
+      }
+
+      roleCards.forEach(card => card.addEventListener('click', () => selectRole(card.dataset.role)));
+      const savedRole = sessionStorage.getItem('matager_role');
+      if (savedRole === 'seller' || savedRole === 'customer') selectRole(savedRole);
+
+      // Launch action remains intentionally simple until the feature/backend route is supplied.
+      primaryAction.addEventListener('click', event => {
+        const role = primaryAction.dataset.role || 'seller';
+        if (primaryAction.getAttribute('href') === './signing.html') {
+          sessionStorage.setItem('matager_role', role);
+        }
+      });
+
+      // Info modal.
+      const modal = $('#learnModal');
+      const openModal = () => modal?.classList.add('open');
+      const closeModal = () => modal?.classList.remove('open');
+      $('#learnBtn')?.addEventListener('click', openModal);
+      $('#closeLearn')?.addEventListener('click', closeModal);
+      modal?.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    })();
+  </script>
+</body>
+
+</html>
