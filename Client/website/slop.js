@@ -1,184 +1,551 @@
-/**
-slop - select options ---
-*/
+// /* =========================================================
+//                                REUSABLE FILTER SYSTEM
+//                                ========================================================= */
 
-/**
- * Creates a filter dropdown button with custom options.
- * @param {Object} config
- * @param {string|Element} config.target - CSS selector or DOM element where the dropdown will be appended.
- * @param {Array<{label: string, value: string, dotColor?: string}>} config.options - List of options.
- * @param {string} [config.defaultValue] - Value to preselect (must match one of the options).
- * @param {string} [config.placeholder='All'] - Text shown when nothing is selected.
- * @param {function} [config.onSelect] - Callback fired on selection (receives {value, label}).
- * @param {string} [config.buttonWidth='110px'] - Min-width of the trigger button.
- * @param {string} [config.dropdownWidth='140px'] - Width of the dropdown menu.
- * @returns {Object} { trigger, dropdown, setValue, destroy } for programmatic control.
- */
-function createFilterDropdown(config) {
-  const {
-    target,
-    options = [],
-    defaultValue = "",
-    placeholder = "All",
-    onSelect = null,
-    buttonWidth = "110px",
-    dropdownWidth = "140px",
-  } = config;
+// function initFilters(root = document) {
+//   const filters = root.querySelectorAll("[data-filter]");
 
-  // Resolve target element
-  const container =
-    typeof target === "string" ? document.querySelector(target) : target;
-  if (!container) throw new Error("Target element not found");
+//   if (!filters.length) return;
 
-  // Generate a unique ID for this instance
-  const uid = "fd-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6);
+//   /* -----------------------------------------------------
+//                                    Close one filter
+//                                    ----------------------------------------------------- */
 
-  // Find default label
-  const defaultOption = options.find((opt) => opt.value === defaultValue);
-  const defaultLabel = defaultOption ? defaultOption.label : placeholder;
+//   function closeFilter(filter) {
+//     filter.classList.remove("is-open");
 
-  // Build the HTML
-  const html = `
-    <div class="relative flex-shrink-0" style="min-width:${buttonWidth}">
-      <button id="trigger-${uid}"
-        class="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center justify-between gap-2 hover:scale-105 border-blue-500/20"
-        style="min-width:80px;border:none;letter-spacing:.5px;width:100%">
-        <span id="selectedText-${uid}" style="font-size:11px;font-weight:700">${defaultLabel}</span>
-        <i class="bi bi-chevron-down" style="font-size:.75rem;transition:transform .3s ease"></i>
-      </button>
-      <div id="dropdown-${uid}"
-        class="rounded-xl border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 flex flex-col gap-2 hover:scale-105"
-        style="background: #272726;margin-top:5px;position:fixed;right:0;width:${dropdownWidth};max-height:0;opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);transform:translateY(-10px);pointer-events:none;z-index:50">
-        <div id="optionsContainer-${uid}"
-          class="px-4 py-2 rounded-xl text-xs font-medium text-slate-300 transition-all duration-300 flex flex-col gap-2"
-          style="overflow:auto;max-height:105px;padding:6px 8px">
-          ${options
-            .map(
-              (opt) => `
-            <div class="dropdown-option px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105"
-              data-value="${opt.value}"
-              style="${opt.value === defaultValue ? "border:1px solid rgba(59,130,246,0.2);background:rgba(59,130,246,0.1);" : "border:medium none currentcolor;"}"
-            >
-              ${opt.dotColor ? `<span class="status-dot" style="background:${opt.dotColor}"></span>` : ""}
-              ${opt.label}
-            </div>
-          `,
-            )
-            .join("")}
-        </div>
-      </div>
-    </div>
-  `;
+//     const trigger = filter.querySelector(".filter-trigger");
 
-  // Insert into container
-  container.insertAdjacentHTML("beforeend", html);
+//     if (trigger) {
+//       trigger.setAttribute("aria-expanded", "false");
+//     }
+//   }
 
-  // Get references
-  const trigger = document.getElementById(`trigger-${uid}`);
-  const dropdown = document.getElementById(`dropdown-${uid}`);
-  const selectedText = document.getElementById(`selectedText-${uid}`);
-  const optionsContainer = document.getElementById(`optionsContainer-${uid}`);
-  const optionElements = optionsContainer.querySelectorAll(".dropdown-option");
+//   /* -----------------------------------------------------
+//                                    Close every other filter
+//                                    ----------------------------------------------------- */
 
-  let isOpen = false;
+//   function closeOtherFilters(currentFilter) {
+//     filters.forEach((filter) => {
+//       if (filter !== currentFilter) {
+//         closeFilter(filter);
+//       }
+//     });
+//   }
 
-  // Toggle dropdown
-  trigger.addEventListener("click", (e) => {
-    e.stopPropagation();
-    isOpen = !isOpen;
-    dropdown.classList.toggle("open", isOpen);
-    trigger.classList.toggle("active", isOpen);
-  });
+//   /* -----------------------------------------------------
+//                                    Toggle filter
+//                                    ----------------------------------------------------- */
 
-  // Handle option selection
-  optionElements.forEach((el) => {
-    el.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const value = el.dataset.value;
-      const label = el.textContent.trim();
+//   function toggleFilter(filter) {
+//     const isOpen = filter.classList.contains("is-open");
 
-      // Update selected text
-      selectedText.textContent = label;
+//     if (isOpen) {
+//       closeFilter(filter);
 
-      // Remove active styles from all options
-      optionElements.forEach((opt) => {
-        opt.classList.remove(
-          "border-blue-500/20",
-          "text-blue-600",
-          "bg-blue-500/10",
-        );
-        opt.style.border = "medium none currentcolor";
-        opt.style.background = "";
-      });
+//       return;
+//     }
 
-      // Add active state to selected
-      el.classList.add("border-blue-500/20", "text-blue-600", "bg-blue-500/10");
-      el.style.border = "1px solid rgba(59,130,246,0.2)";
-      el.style.background = "rgba(59,130,246,0.1)";
+//     closeOtherFilters(filter);
 
-      // Close dropdown
-      isOpen = false;
-      dropdown.classList.remove("open");
-      trigger.classList.remove("active");
+//     filter.classList.add("is-open");
 
-      // Fire callback
-      if (onSelect) onSelect({ value, label });
+//     const trigger = filter.querySelector(".filter-trigger");
 
-      // Dispatch custom event
-      const event = new CustomEvent("filterChange", {
-        detail: { value, label, instance: uid },
-      });
-      document.dispatchEvent(event);
+//     if (trigger) {
+//       trigger.setAttribute("aria-expanded", "true");
+//     }
+//   }
+
+//   /* -----------------------------------------------------
+//                                    Setup filters
+//                                    ----------------------------------------------------- */
+
+//   filters.forEach((filter) => {
+//     const trigger = filter.querySelector(".filter-trigger");
+
+//     const options = filter.querySelectorAll(".filter-option");
+
+//     const valueElement = filter.querySelector(".filter-value");
+
+//     if (!trigger) return;
+
+//     /* ---------------------------------------------
+//                                        Trigger click
+//                                        --------------------------------------------- */
+
+//     trigger.addEventListener("click", (event) => {
+//       event.stopPropagation();
+
+//       toggleFilter(filter);
+//     });
+
+//     /* ---------------------------------------------
+//                                        Option click
+//                                        --------------------------------------------- */
+
+//     options.forEach((option) => {
+//       option.addEventListener("click", (event) => {
+//         event.stopPropagation();
+
+//         const value = option.dataset.value ?? "";
+
+//         const label = option.dataset.label ?? option.textContent.trim();
+
+//         /* Update button text */
+
+//         if (valueElement) {
+//           valueElement.textContent = label;
+//         }
+
+//         /* Update selected option */
+
+//         options.forEach((item) => {
+//           item.classList.remove("is-selected");
+//         });
+
+//         option.classList.add("is-selected");
+
+//         /* Close */
+
+//         closeFilter(filter);
+
+//         /* ---------------------------------
+//                                                    Send custom event
+//                                                    --------------------------------- */
+
+//         filter.dispatchEvent(
+//           new CustomEvent("filterChange", {
+//             bubbles: true,
+
+//             detail: {
+//               filter: filter.dataset.filter,
+
+//               value: value,
+
+//               label: label,
+
+//               element: filter,
+//             },
+//           }),
+//         );
+//       });
+//     });
+//   });
+
+//   /* -----------------------------------------------------
+//                                    Click outside
+//                                    ----------------------------------------------------- */
+
+//   document.addEventListener("click", (event) => {
+//     filters.forEach((filter) => {
+//       if (!filter.contains(event.target)) {
+//         closeFilter(filter);
+//       }
+//     });
+//   });
+
+//   /* -----------------------------------------------------
+//                                    Escape key
+//                                    ----------------------------------------------------- */
+
+//   document.addEventListener("keydown", (event) => {
+//     if (event.key !== "Escape") return;
+
+//     filters.forEach(closeFilter);
+//   });
+// }
+
+// /* =========================================================
+//                                INITIALIZE
+//                                ========================================================= */
+
+// document.addEventListener("DOMContentLoaded", () => {
+//   initFilters();
+// });
+
+// /* =========================================================
+//                                FILTER CHANGE EVENT
+//                                ========================================================= */
+
+// document.addEventListener("filterChange", (event) => {
+//   const { filter, value, label } = event.detail;
+
+//   console.log("Filter changed:", filter, value, label);
+
+//   /* -----------------------------------------------
+//                                        ORDER STATUS
+//                                        ----------------------------------------------- */
+
+//   if (filter === "order-status") {
+//     console.log("Order status:", value);
+
+//     /*
+//                                             Example:
+
+//                                             fetchOrdersByStatus(value);
+//                                         */
+//   }
+
+//   /* -----------------------------------------------
+//                                        PAYMENT
+//                                        ----------------------------------------------- */
+
+//   if (filter === "payment") {
+//     console.log("Payment:", value);
+
+//     /*
+//                                             Example:
+
+//                                             filterPayments(value);
+//                                         */
+//   }
+
+//   /* -----------------------------------------------
+//                                        DATE
+//                                        ----------------------------------------------- */
+
+//   if (filter === "date") {
+//     console.log("Date:", value);
+
+//     /*
+//                                             Example:
+
+//                                             filterOrdersByDate(value);
+//                                         */
+//   }
+// });
+
+// =========================================================
+// REUSABLE FILTER SYSTEM - COMPLETE JS
+// =========================================================
+
+function initFilters(root = document) {
+  const filters = root.querySelectorAll("[data-filter]");
+
+  if (!filters.length) return;
+
+  /* -----------------------------------------------------
+       Close one filter
+    ----------------------------------------------------- */
+
+  function closeFilter(filter) {
+    filter.classList.remove("is-open");
+
+    const trigger = filter.querySelector(".filter-trigger");
+    if (trigger) {
+      trigger.setAttribute("aria-expanded", "false");
+    }
+  }
+
+  /* -----------------------------------------------------
+       Close every other filter
+    ----------------------------------------------------- */
+
+  function closeOtherFilters(currentFilter) {
+    filters.forEach((filter) => {
+      if (filter !== currentFilter) {
+        closeFilter(filter);
+      }
     });
-  });
+  }
 
-  // Close when clicking outside
-  document.addEventListener("click", (e) => {
-    if (isOpen && !dropdown.contains(e.target) && !trigger.contains(e.target)) {
-      isOpen = false;
-      dropdown.classList.remove("open");
-      trigger.classList.remove("active");
+  /* -----------------------------------------------------
+       Toggle filter
+    ----------------------------------------------------- */
+
+  function toggleFilter(filter) {
+    const isOpen = filter.classList.contains("is-open");
+
+    if (isOpen) {
+      closeFilter(filter);
+      return;
+    }
+
+    closeOtherFilters(filter);
+
+    filter.classList.add("is-open");
+
+    const trigger = filter.querySelector(".filter-trigger");
+    if (trigger) {
+      trigger.setAttribute("aria-expanded", "true");
+    }
+  }
+
+  /* -----------------------------------------------------
+       Update trigger text with selected value
+    ----------------------------------------------------- */
+
+  function updateTriggerText(filter, label) {
+    const valueElement = filter.querySelector(".filter-value");
+    const selectedElement = filter.querySelector(".filter-selected");
+
+    if (selectedElement) {
+      selectedElement.textContent = label;
+    } else if (valueElement) {
+      // If no .filter-selected, update the whole .filter-value
+      const labelSpan = valueElement.querySelector(".filter-label");
+      if (labelSpan) {
+        // Keep label, update selected text
+        const existingSelected = valueElement.querySelector(".filter-selected");
+        if (existingSelected) {
+          existingSelected.textContent = label;
+        } else {
+          // Create selected span if it doesn't exist
+          const selectedSpan = document.createElement("span");
+          selectedSpan.className = "filter-selected";
+          selectedSpan.textContent = label;
+          valueElement.appendChild(selectedSpan);
+        }
+      } else {
+        valueElement.textContent = label;
+      }
+    }
+  }
+
+  /* -----------------------------------------------------
+       Setup filters
+    ----------------------------------------------------- */
+
+  filters.forEach((filter) => {
+    const trigger = filter.querySelector(".filter-trigger");
+    const options = filter.querySelectorAll(".filter-option");
+    const valueElement = filter.querySelector(".filter-value");
+
+    if (!trigger) return;
+
+    /* ---------------------------------------------
+           Trigger click
+        --------------------------------------------- */
+
+    trigger.addEventListener("click", (event) => {
+      event.stopPropagation();
+      toggleFilter(filter);
+    });
+
+    /* ---------------------------------------------
+           Option click
+        --------------------------------------------- */
+
+    options.forEach((option) => {
+      option.addEventListener("click", (event) => {
+        event.stopPropagation();
+
+        const value = option.dataset.value ?? "";
+        const label = option.dataset.label ?? option.textContent.trim();
+
+        // Get the clean label (remove any nested elements)
+        let cleanLabel = label;
+        const textSpan = option.querySelector(
+          "span:not(.color-swatch):not(.option-check)",
+        );
+        if (textSpan) {
+          cleanLabel = textSpan.textContent.trim();
+        }
+
+        /* Update button text */
+        updateTriggerText(filter, cleanLabel);
+
+        /* Update selected option */
+        options.forEach((item) => {
+          item.classList.remove("is-selected");
+        });
+        option.classList.add("is-selected");
+
+        /* Close */
+        closeFilter(filter);
+
+        /* ---------------------------------
+                   Send custom event
+                --------------------------------- */
+
+        filter.dispatchEvent(
+          new CustomEvent("filterChange", {
+            bubbles: true,
+            detail: {
+              filter: filter.dataset.filter,
+              value: value,
+              label: cleanLabel,
+              element: filter,
+              option: option,
+            },
+          }),
+        );
+      });
+    });
+
+    /* ---------------------------------------------
+           Set initial selected state
+        --------------------------------------------- */
+
+    const selectedOption = filter.querySelector(".filter-option.is-selected");
+    if (selectedOption) {
+      const label =
+        selectedOption.dataset.label || selectedOption.textContent.trim();
+      updateTriggerText(filter, label);
     }
   });
 
-  // Prevent dropdown closing when clicking inside it
-  dropdown.addEventListener("click", (e) => e.stopPropagation());
+  /* -----------------------------------------------------
+       Click outside
+    ----------------------------------------------------- */
 
-  // Public API
-  return {
-    trigger,
-    dropdown,
-    /**
-     * Programmatically select an option by value.
-     */
-    setValue(value) {
-      const opt = [...optionElements].find((el) => el.dataset.value === value);
-      if (opt) opt.click();
-    },
-    /**
-     * Destroy the instance and remove from DOM.
-     */
-    destroy() {
-      const wrapper = trigger.closest(".relative.flex-shrink-0");
-      if (wrapper) wrapper.remove();
-    },
-  };
+  document.addEventListener("click", (event) => {
+    filters.forEach((filter) => {
+      if (!filter.contains(event.target)) {
+        closeFilter(filter);
+      }
+    });
+  });
+
+  /* -----------------------------------------------------
+       Escape key
+    ----------------------------------------------------- */
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    filters.forEach(closeFilter);
+  });
 }
 
-// apending area
+/* =========================================================
+   INITIALIZE
+   ========================================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
-  const dropdown = createFilterDropdown({
-    target: "#filter-container",
-    options: [
-      { label: "Men", value: "Men" },
-      { label: "women", value: "women" },
-      { label: "kids", value: "kids" },
-    ],
-    defaultValue: "all", // pre‑select "All"
-    placeholder: "Filter by status",
-    onSelect: (selected) => {
-      console.log("Selected:", selected);
-      // Do something with the value, e.g., filter a list
-    },
-  });
+  initFilters();
 });
+
+/* =========================================================
+   FILTER CHANGE EVENT HANDLER
+   ========================================================= */
+
+document.addEventListener("filterChange", (event) => {
+  const { filter, value, label, element } = event.detail;
+
+  console.log(`Filter "${filter}" changed to:`, value, label);
+
+  /* -----------------------------------------------
+       COLOR FILTER
+    ----------------------------------------------- */
+  if (filter === "color") {
+    const colorSwatches = document.querySelectorAll(".color-option");
+    colorSwatches.forEach((swatch) => {
+      const isSelected = swatch.dataset.value === value;
+      swatch.classList.toggle("is-selected", isSelected);
+    });
+
+    // Update color count
+    const colorCount = document.getElementById("colorCount");
+    if (colorCount) {
+      const total = document.querySelectorAll(".color-option").length;
+      const selected = document.querySelector(".color-option.is-selected");
+      colorCount.textContent = selected
+        ? `${selected.dataset.value}`
+        : `${total}-Colors`;
+    }
+  }
+
+  /* -----------------------------------------------
+       SIZE FILTER
+    ----------------------------------------------- */
+  if (filter === "size") {
+    const sizeOptions = document.querySelectorAll(".size-option");
+    sizeOptions.forEach((opt) => {
+      opt.classList.toggle("is-selected", opt.dataset.value === value);
+    });
+
+    // Update size count display
+    const sizeCount = document.querySelector(
+      ".filter[data-filter='size'] .filter-dropdown-header span:last-child",
+    );
+    if (sizeCount) {
+      const total = document.querySelectorAll(".size-option").length;
+      sizeCount.textContent = `${total}-Sizes`;
+    }
+  }
+
+  /* -----------------------------------------------
+       ORDER STATUS
+    ----------------------------------------------- */
+  if (filter === "order-status") {
+    console.log("Order status filtered:", value);
+    // Example: filterOrdersByStatus(value);
+  }
+
+  /* -----------------------------------------------
+       PAYMENT
+    ----------------------------------------------- */
+  if (filter === "payment") {
+    console.log("Payment filtered:", value);
+    // Example: filterPayments(value);
+  }
+
+  /* -----------------------------------------------
+       DATE
+    ----------------------------------------------- */
+  if (filter === "date") {
+    console.log("Date filtered:", value);
+    // Example: filterOrdersByDate(value);
+  }
+});
+
+/* =========================================================
+   PROGRAMMATIC API
+   ========================================================= */
+
+// Set a filter value programmatically
+function setFilterValue(filterSelector, value) {
+  const filter = document.querySelector(filterSelector);
+  if (!filter) return;
+
+  const options = filter.querySelectorAll(".filter-option");
+  let found = false;
+
+  options.forEach((option) => {
+    if (option.dataset.value === value) {
+      option.click();
+      found = true;
+    }
+  });
+
+  if (!found) {
+    console.warn(
+      `Option with value "${value}" not found in filter "${filterSelector}"`,
+    );
+  }
+}
+
+// Reset a filter
+function resetFilter(filterSelector) {
+  const filter = document.querySelector(filterSelector);
+  if (!filter) return;
+
+  const options = filter.querySelectorAll(".filter-option");
+  const firstOption = options[0];
+  if (firstOption) {
+    firstOption.click();
+  }
+}
+
+// Reset all filters
+function resetAllFilters() {
+  const filters = document.querySelectorAll("[data-filter]");
+  filters.forEach((filter) => {
+    const options = filter.querySelectorAll(".filter-option");
+    const firstOption = options[0];
+    if (firstOption) {
+      firstOption.click();
+    }
+  });
+}
+
+// Expose API globally
+window.FilterSystem = {
+  init: initFilters,
+  setValue: setFilterValue,
+  reset: resetFilter,
+  resetAll: resetAllFilters,
+};
+
+console.log("✅ Filter System initialized");
