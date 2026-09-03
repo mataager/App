@@ -2572,22 +2572,148 @@
 
 
                 <!-- Account Content -->
-                <div id="content-account" class="profile-content space-y-5 hidden">
+                <div id="content-account" class="profile-content space-y-4 hidden">
 
                     <div class="space-y-2">
 
                         <div class="card rounded-2xl p-3 space-y-3">
                             <div class="flex items-center justify-between p-1">
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-blue-400 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/20">
-                                        JD
+                                <div class="flex items-center gap-4">
+                                    <!-- Authenticated State -->
+
+
+
+                                    <div class="relative">
+                                        <div
+                                            class="w-12 h-12 rounded-full bg-white/5 border-2 border-white/10 flex items-center justify-center">
+                                            <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <!-- Authenticated Actions -->
+                                        <button onclick="signOut()"
+                                            class="px-3.5 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-xs font-medium text-red-400 hover:text-red-300 transition-all duration-300 flex items-center gap-1.5 hover:scale-105">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                                                </path>
+                                            </svg>
+                                            Sign Out
+                                        </button>
+                                        <!-- Unauthenticated Actions -->
+                                        <button onclick="signIn()"
+                                            class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-emerald-500 text-white text-xs font-bold uppercase tracking-wider hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-2 hover:scale-105 active:scale-95">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                                                </path>
+                                            </svg>
+                                            Sign In
+                                        </button>
                                     </div>
                                     <div>
-                                        <p class="text-xs font-bold text-black dark:text-white">John Doe</p>
-                                        <p class="text-[10px] opacity-50 text-black dark:text-white">
-                                            john.doe@example.com</p>
+                                        <span class="text-sm font-semibold text-slate-300 dark:text-slate-300">
+                                            Guest User
+                                        </span>
+                                        <div class="flex items-center gap-1.5">
+                                            <span class="text-[10px] text-slate-400 dark:text-slate-400">Sign in for
+                                                full
+                                                access</span>
+                                            <i class="bi bi-check-circle-fill text-emerald-400 text-[10px]"></i>
+                                        </div>
                                     </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <div
+                                class="flex flex-wrap items-center gap-1.5 text-[10px] text-slate-400 dark:text-slate-400">
+                                <span
+                                    class="px-1.5 py-0.5 rounded bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300">Complete
+                                    orders <i
+                                        class="bi bi-check-circle-fill text-emerald-400 text-[10px] ml-1"></i></span>
+                                <span
+                                    class="px-1.5 py-0.5 rounded bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300">Save
+                                    products <i
+                                        class="bi bi-check-circle-fill text-emerald-400 text-[10px] ml-1"></i></span>
+
+                                <span
+                                    class="px-1.5 py-0.5 rounded bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300">Follow
+                                    stores <i
+                                        class="bi bi-check-circle-fill text-emerald-400 text-[10px] ml-1"></i></span>
+                            </div>
+                        </div>
+                        <div class="card rounded-2xl p-3 space-y-3">
+                            <div class="flex items-center justify-between p-1">
+                                <div class="flex items-center gap-4">
+                                    <!-- Authenticated State -->
+
+
+
+                                    <div class="relative">
+                                        <div
+                                            class="w-12 h-12 rounded-full bg-white/5 border-2 border-white/10 flex items-center justify-center">
+                                            <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="text-sm font-semibold text-slate-300 dark:text-slate-300">account
+                                            username</span>
+                                        <div class="flex items-center gap-1.5">
+                                            <span
+                                                class="text-[10px] text-slate-400 dark:text-slate-400">omardognewg@gmail.com</span>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <button
+                                    class="text-[10px] font-bold text-blue-600 dark:text-blue-400 px-3 py-1.5 rounded-lg bg-blue-500/10">Edit</button>
+                            </div>
+
+                        </div>
+                        <div class="card rounded-2xl p-3 space-y-3">
+                            <div class="flex items-center justify-between p-1">
+                                <div class="flex items-center gap-4">
+                                    <!-- Authenticated State -->
+
+
+
+                                    <div class="relative">
+                                        <div
+                                            class="w-12 h-12 rounded-full bg-white/5 border-2 border-white/10 flex items-center justify-center">
+                                            <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="text-sm font-semibold text-slate-300 dark:text-slate-300">account
+                                            username</span>
+                                        <div class="flex items-center gap-1.5">
+                                            <span
+                                                class="text-[10px] text-slate-400 dark:text-slate-400">omardognewg@gmail.com</span>
+
+                                        </div>
+                                    </div>
+
+
                                 </div>
                                 <button
                                     class="text-[10px] font-bold text-blue-600 dark:text-blue-400 px-3 py-1.5 rounded-lg bg-blue-500/10">Edit</button>
@@ -2906,7 +3032,7 @@
                 <div class="group relative bg-black rounded-3xl overflow-hidden transition-all duration-500 cursor-pointer border border-white/5"
                     style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);">
                     <div class="aspect-square overflow-hidden relative">
-                        <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-[2px]"
+                        <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-105 group-hover:blur-[2px]"
                             style="background-image: url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
                         </div>
                         <div
@@ -3215,10 +3341,6 @@
             window.closeNav = closeNav;
         });
     </script>
-
-
-
-
     <!-- Floating Navigation -->
     <div class="floating-nav">
 
@@ -3666,9 +3788,9 @@
                         <div class="flex items-center gap-2 flex-shrink-0 flex-wrap justify-end">
 
                             <!-- Social Links -->
-                            <div class="flex items-center gap-1.5 mr-2">
+                            <div class="flex items-center gap-1.5 mr-2 hidden">
                                 <a href="#"
-                                    class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:border-white/30 dark:hover:border-white/30 shadow-[0_4px_20px_rgba(0,0,0,0.3),0_8px_40px_rgba(0,0,0,0.15),0_2px_10px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15),inset_0_-1px_0_rgba(255,255,255,0.05)]">
+                                    class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 shadow-[0_4px_20px_rgba(0,0,0,0.3),0_8px_40px_rgba(0,0,0,0.15),0_2px_10px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15),inset_0_-1px_0_rgba(255,255,255,0.05)]">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.99h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z">
@@ -3676,7 +3798,7 @@
                                     </svg>
                                 </a>
                                 <a href="#"
-                                    class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:border-white/30 dark:hover:border-white/30 shadow-[0_4px_20px_rgba(0,0,0,0.3),0_8px_40px_rgba(0,0,0,0.15),0_2px_10px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15),inset_0_-1px_0_rgba(255,255,255,0.05)]">
+                                    class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 shadow-[0_4px_20px_rgba(0,0,0,0.3),0_8px_40px_rgba(0,0,0,0.15),0_2px_10px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15),inset_0_-1px_0_rgba(255,255,255,0.05)]">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.937 4.937 0 004.604 3.417 9.868 9.868 0 01-6.102 2.104c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63a9.936 9.936 0 002.46-2.548l-.047-.02z">
@@ -3684,7 +3806,7 @@
                                     </svg>
                                 </a>
                                 <a href="#"
-                                    class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:border-white/30 dark:hover:border-white/30 shadow-[0_4px_20px_rgba(0,0,0,0.3),0_8px_40px_rgba(0,0,0,0.15),0_2px_10px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15),inset_0_-1px_0_rgba(255,255,255,0.05)]">
+                                    class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 shadow-[0_4px_20px_rgba(0,0,0,0.3),0_8px_40px_rgba(0,0,0,0.15),0_2px_10px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15),inset_0_-1px_0_rgba(255,255,255,0.05)]">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.205 11.387.6.113.82-.26.82-.578 0-.286-.011-1.04-.016-2.04-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.468-2.381 1.235-3.221-.123-.3-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.241 2.876.118 3.176.77.84 1.233 1.911 1.233 3.221 0 4.609-2.804 5.624-5.476 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.293 0 .322.216.698.83.578C20.565 21.795 24 17.298 24 12c0-6.627-5.373-12-12-12z">
@@ -3694,34 +3816,34 @@
                             </div>
 
                             <!-- Divider -->
-                            <div class="w-px h-8 bg-white/10 dark:bg-white/10"></div>
 
                             <!-- Presentation Mode Toggle -->
+
                             <button onclick="togglePresentationMode()"
-                                class="group relative px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-500/20 to-emerald-500/20 dark:from-blue-400/20 dark:to-emerald-400/20 border border-blue-500/30 dark:border-blue-400/30 hover:border-blue-500/60 dark:hover:border-blue-400/60 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2 shadow-md shadow-blue-500/10 dark:shadow-blue-400/5">
-                                <svg class="w-4 h-4 text-blue-400 dark:text-blue-300 group-hover:text-blue-300 transition-colors"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.5 11.5l5-2-4-4-1 6z"></path>
-                                </svg>
-                                <span
-                                    class="text-[10px] md:text-xs font-bold uppercase tracking-wider text-blue-400 dark:text-blue-300 group-hover:text-blue-300 transition-colors whitespace-nowrap">Presentation</span>
-                                <span
-                                    class="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full animate-ping-slow"></span>
-                                <span class="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full"></span>
+                                class="relative py-[8px] px-[10px] text-xs rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 relative group">
+                                Cart Mode On
+                                <div
+                                    class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-black/90 dark:bg-black/90 text-white text-[10px] font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none shadow-lg">
+                                    Switch To Gallery Mode
+                                </div>
                             </button>
 
+                            <div class="w-px h-8 bg-white/10 dark:bg-white/10"></div>
                             <!-- Copy Store Link -->
                             <button onclick="copyStoreLink()"
-                                class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:border-white/30 dark:hover:border-white/30 relative group">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3">
-                                    </path>
-                                </svg>
+                                class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 relative group">
+                                <i class="bi bi-link w-4 h-4"></i>
                                 <div
                                     class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-black/90 dark:bg-black/90 text-white text-[10px] font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none shadow-lg">
                                     Copy Store Link
+                                </div>
+                            </button>
+                            <button onclick="FollowStore()"
+                                class="w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 relative group">
+                                <i class="bi bi-node-plus-fill w-4 h-4"></i>
+                                <div
+                                    class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1.5 bg-black/90 dark:bg-black/90 text-white text-[10px] font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none shadow-lg">
+                                    Follow Store
                                 </div>
                             </button>
                         </div>
@@ -3740,15 +3862,7 @@
                                 class="bi bi-chevron-down text-[0.6rem] transition-transform duration-300 group-hover:translate-y-0.5"
                                 style="transform: rotate(0deg);"></i>
                         </button>
-                        <button
-                            class="px-4 py-2 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 text-xs font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 flex items-center gap-2 hover:scale-105">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M21 8.25V6.75a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6.75v1.5M21 8.25v6m-18-6v6M21 8.25h-3.75M3 8.25h3.75M21 14.25h-3.75M3 14.25h3.75M21 14.25v1.5a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15.75v-1.5">
-                                </path>
-                            </svg>
-                            Follow Store
-                        </button>
+
                         <button
                             class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-emerald-500 text-white text-xs font-bold uppercase tracking-wider hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-2 hover:scale-105 active:scale-95 ml-auto">
                             Next Store
@@ -3759,120 +3873,10 @@
                         </button>
                     </div>
 
-                    <!-- Enhanced User Authentication Status -->
-                    <div class="mt-6 pt-6 border-t border-white/5 dark:border-white/5">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-
-                            <!-- User Info - Left Side -->
-                            <div class="flex items-center gap-4">
-                                <!-- Authenticated State -->
-                                <div class="relative">
-                                    <div
-                                        class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-emerald-500 p-[2px] shadow-lg shadow-blue-500/20">
-                                        <div
-                                            class="w-full h-full rounded-full bg-black/90 flex items-center justify-center">
-                                            <span class="text-white font-bold text-sm">
-
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-400 rounded-full border-2 border-black/90">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-sm font-semibold text-white dark:text-white">
-                                        </span>
-                                        <span
-                                            class="text-[8px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold uppercase tracking-wider">
-                                            Active
-                                        </span>
-                                    </div>
-                                    <span class="text-[11px] text-slate-400 dark:text-slate-400">
-
-                                    </span>
-                                </div>
-                                <!-- Unauthenticated State -->
-                                <div class="relative">
-                                    <div
-                                        class="w-12 h-12 rounded-full bg-white/5 border-2 border-white/10 flex items-center justify-center">
-                                        <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                            </path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div>
-                                    <span class="text-sm font-semibold text-slate-300 dark:text-slate-300">
-                                        Guest User
-                                    </span>
-                                    <div class="flex items-center gap-1.5">
-                                        <span class="text-[10px] text-slate-400 dark:text-slate-400">Sign in for full
-                                            access</span>
-                                        <i class="bi bi-check-circle-fill text-emerald-400 text-[10px]"></i>
-                                    </div>
-                                </div>
-
-                                <div
-                                    class="flex flex-wrap items-center gap-1.5 text-[10px] text-slate-400 dark:text-slate-400">
-                                    <span
-                                        class="px-1.5 py-0.5 rounded bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300">Complete
-                                        orders <i
-                                            class="bi bi-check-circle-fill text-emerald-400 text-[10px] ml-1"></i></span>
-                                    <span
-                                        class="px-1.5 py-0.5 rounded bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300">Save
-                                        products <i
-                                            class="bi bi-check-circle-fill text-emerald-400 text-[10px] ml-1"></i></span>
-
-                                    <span
-                                        class="px-1.5 py-0.5 rounded bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 font-medium text-slate-300 hover:text-white hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300">Follow
-                                        stores <i
-                                            class="bi bi-check-circle-fill text-emerald-400 text-[10px] ml-1"></i></span>
-                                </div>
-                            </div>
-
-                            <!-- Actions - Right Side -->
-                            <div class="flex items-center gap-2 flex-wrap">
-                                <!-- Authenticated Actions -->
-                                <button onclick="changeUser()"
-                                    class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-medium text-slate-400 hover:text-white transition-all duration-300 flex items-center gap-1.5 hover:scale-105">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
-                                        </path>
-                                    </svg>
-                                    Change User
-                                </button>
-                                <button onclick="signOut()"
-                                    class="px-3.5 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 text-xs font-medium text-red-400 hover:text-red-300 transition-all duration-300 flex items-center gap-1.5 hover:scale-105">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                                        </path>
-                                    </svg>
-                                    Sign Out
-                                </button>
-                                <!-- Unauthenticated Actions -->
-                                <button onclick="signIn()"
-                                    class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-emerald-500 text-white text-xs font-bold uppercase tracking-wider hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 flex items-center gap-2 hover:scale-105 active:scale-95">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
-                                        </path>
-                                    </svg>
-                                    Sign In
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
 
                 </div>
                 <a href="#"
-                    class="nav-bubble w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:border-white/30 dark:hover:border-white/30 absolute z-[100] top-2.5 right-2.5"
+                    class="nav-bubble w-9 h-9 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-white dark:text-white/40 dark:hover:text-white/80 hover:bg-white/10 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105 hover:border-white/30 dark:hover:border-white/30 absolute z-[100] top-2.5 right-2.5"
                     id="themeToggle" onclick="toggleTheme(event)">
                     <i id="theme-icon" class="bi bi-lightbulb text-base"></i>
                 </a>
@@ -3939,10 +3943,6 @@
                     if (confirm('Sign out from your account?')) {
                         alert('👋 Signed out successfully!');
                     }
-                }
-
-                function changeUser() {
-                    alert('👤 Switch to a different user account');
                 }
 
                 function copyStoreLink() {
@@ -4076,7 +4076,7 @@
                                 onclick="event.stopPropagation(); openQuickLook('PROD_001')"
                                 style="width: 200px; height: 250px;">
                                 <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
-                                    <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                    <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-105 group-hover:blur-sm"
                                         style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
                                     </div>
                                     <div
@@ -4240,7 +4240,7 @@
                             onclick="event.stopPropagation(); openQuickLook('PROD_001')"
                             style="width: 200px; height: 250px;">
                             <div class="aspect-[4/5] overflow-hidden relative w-full h-full">
-                                <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-110 group-hover:blur-sm"
+                                <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-105 group-hover:blur-sm"
                                     style="background-image:url('https://assets.adidas.com/images/w_1880,f_auto,q_auto/a4ff4a779ee34deca8cc9a6f1f411440_9366/KC6611_HM1.jpg');">
                                 </div>
                                 <div
@@ -5014,6 +5014,43 @@
 
             </div>
 
+            <!-- ====== SOCIAL & CONTACT AREA ====== -->
+            <!-- Place this at the end of your product section, 
+                 just before the closing </div> of the main glass container -->
+
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-6 mt-6 border-t border-white/10">
+
+                <!-- Left side: Follow us label + social icons -->
+                <div class="flex items-center gap-3 flex-wrap">
+                    <span class="text-xs font-medium uppercase tracking-wider text-slate-400/70">Follow us</span>
+
+                    <!-- Facebook -->
+                    <a href="#"
+                        class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/30 hover:scale-105 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.15)]">
+                        <i class="bi bi-facebook text-sm"></i>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="#"
+                        class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/30 hover:scale-105 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.15)]">
+                        <i class="bi bi-instagram text-sm"></i>
+                    </a>
+
+                    <!-- TikTok -->
+                    <a href="#"
+                        class="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/30 hover:scale-105 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.15)]">
+                        <i class="bi bi-tiktok text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- Right side: Call us button -->
+                <a href="tel:+1234567890"
+                    class="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 hover:border-white/30 hover:scale-105 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.15)]">
+                    <i class="bi bi-telephone-fill text-sm"></i>
+                    <span class="text-xs font-medium">Call Us</span>
+                    <span class="text-[10px] font-light text-slate-400/70">+1 (555) 000-0000</span>
+                </a>
+            </div>
         </section>
 
     </main>
